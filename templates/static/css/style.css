@@ -128,10 +128,10 @@ i {
 }
 /* Card */
 .card-container {
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 .card-container .main-title {
   font-size: 36px;
-  color: #121212;
+  color: #282828;
   font-family: 700;
 }
