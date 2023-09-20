@@ -13,7 +13,8 @@ body {
   background-color: #fff;
 }
 i {
-  color: #717171;
+  color: #575757;
+  font-size: 1.2rem;
 }
 /* Sidebar */
 .sidebar {
@@ -21,16 +22,17 @@ i {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 110px;
+  width: 100px;
   height: 100vh;
-  padding: 0 1.7rem;
   color: #ccc;
   overflow: hidden;
   transition: all 0.5s linear;
   background: #fff;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 11px 14px 41px -29px rgba(0, 0, 0, 0.1);
-  /* border-right: 1px solid rgb(218, 220, 224); */
+  border-right: 1px solid rgb(218, 220, 224);
+  display: flex;
+  flex-direction: column;
 }
 .sidebar:hover {
   width: 240px;
@@ -38,7 +40,8 @@ i {
 }
 .logo {
   height: 80px;
-  padding: 16px;
+  padding: 2.2rem;
+  align-self: flex-start;
 }
 .menu {
   height: 88%;
@@ -49,12 +52,18 @@ i {
 .menu li {
   padding: 1rem;
   margin: 8px 0;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   transition: all 0.5s ease-in-out;
 }
 .menu li:hover,
 .active {
   background: #e0e0e058;
+}
+.active {
+  border-right: 2px solid black;
+}
+.active i {
+  color: black;
 }
 .menu a {
   color: #717171;
@@ -63,12 +72,10 @@ i {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  padding-left: 20px;
 }
 .menu a span {
   overflow: hidden;
-}
-.menu a i {
-  font-size: 1.2rem;
 }
 .logout {
   position: absolute;
@@ -77,34 +84,34 @@ i {
   width: 100%;
 }
 /* Content*/
-.main-content {
+.main--content {
   position: relative;
   width: 100%;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
-.header-wrapper {
+.header--wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   background: transparent;
-  /* border-radius: 10px; */
+  border-radius: 10px;
   padding: 18px 2rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   /* box-shadow: 0px 24px 40px -3px rgba(0, 0, 0, 0.1); */
 }
-.header-wrapper img {
+.header--wrapper img {
   width: 40px;
   height: 40px;
   cursor: pointer;
   border-radius: 50%;
 }
-.user-info {
+.user--info {
   display: flex;
   align-items: center;
   gap: 50px;
 }
-.search-box {
+.search--box {
   /* background-color: #f7f7f7; */
   outline: 1px solid #71717150;
   border-radius: 24px;
@@ -114,24 +121,131 @@ i {
   padding: 4px 12px;
   width: 500px;
 }
-.search-box input {
+.search--box input {
   width: 450px;
   background: transparent;
   padding: 8px;
 }
-.search-box i {
+.search--box i {
   cursor: pointer;
   transition: all 0.5s ease-out;
 }
-.search-box i:hover {
+.search--box i:hover {
   transform: scale(1.2);
 }
 /* Card */
-.card-container {
+.card--container {
+  background: #fff;
   padding: 1rem 2rem;
+  border-radius: 10px;
 }
-.card-container .main-title {
-  font-size: 36px;
+.card--container .main--title {
+  font-size: 48px;
   color: #282828;
   font-family: 700;
+  margin-bottom: 20px;
+}
+.card--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.situation--card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 290px;
+  height: 150px;
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  gap: 5px;
+  /* box-shadow: 10px 10px 76px -38px rgba(168, 168, 168, 1); */
+  outline: 1px solid #71717150;
+  transition: all 0.5s ease-in-out;
+}
+.situation--card:hover {
+  transform: translateY(-5px);
+}
+.period {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+.period p {
+  font-size: 0.8rem;
+  padding: 10px;
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  color: #292828;
+  cursor: pointer;
+}
+.period p + p + p {
+  width: 60px;
+  text-align: center;
+}
+.situation--card i {
+  color: #fff;
+  padding: 1rem;
+  height: 60px;
+  width: 53px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+.positive {
+  background: rgb(203, 250, 172);
+}
+.neutral {
+  background: rgb(255, 241, 177);
+}
+.negative {
+  background: rgb(255, 177, 177);
+}
+.situation--card p {
+  font-weight: 800;
+  color: #ccc;
+}
+.situation--card p + p {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 2.8rem;
+  color: #3a3a3a;
+}
+/* tabular section */
+.tabular--wrapper {
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 2rem;
+}
+.table--container {
+  width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: #fff;
+  color: #333;
+}
+th {
+  padding: 15px;
+  text-align: left;
+}
+tbody {
+  background: #f2f2f2;
+}
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+}
+tr:nth-child(even) {
+  background: #fff;
+}
+.table--container button {
+  color: green;
+  background: none;
+  cursor: pointer;
 }
