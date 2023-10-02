@@ -1,4 +1,3 @@
-console.log("teste");
 const linksMenu = document.querySelectorAll(".menu li");
 
 function handleLink(event) {

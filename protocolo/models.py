@@ -12,10 +12,11 @@ class Perfil(models.Model):
     id_perimssao = models.ForeignKey(Permissao, on_delete=models.DO_NOTHING)
 
 
-class Usuario(models.Model):
+class Funcionario(models.Model):
     nome = models.CharField(max_length=45)
-    senha = models.CharField(max_length=30)
-    id_perfil = models.ForeignKey(Perfil, on_delete=models.DO_NOTHING)
+    documento = models.CharField(max_length=11)
+    contato = models.CharField(max_length=45)
+    email = models.CharField(max_length=45)
 
 
 class EmitenteDestinatario(models.Model):
@@ -23,6 +24,14 @@ class EmitenteDestinatario(models.Model):
     documento = models.CharField(max_length=11)
     telefone = models.CharField(max_length=11)
     email = models.CharField(max_length=45)
+
+
+class Usuario(models.Model):
+    nome = models.CharField(max_length=45)
+    senha = models.CharField(max_length=30)
+    id_perfil = models.ForeignKey(Perfil, on_delete=models.DO_NOTHING)
+    id_funcionario = models.ForeignKey(
+        Funcionario, on_delete=models.DO_NOTHING)
 
 
 class Situacao(models.Model):
