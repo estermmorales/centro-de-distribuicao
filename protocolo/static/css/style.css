@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
+:root {
+  --main-bg-color: #fff;
+  --main-icon-color: #575757;
+  --activated-menu-color: #e0e0e058;
+}
 /* Reset */
 * {
   margin: 0;
@@ -10,10 +15,10 @@
 }
 body {
   display: flex;
-  background-color: #fff;
+  background-color: var(--main-bg-color);
 }
 i {
-  color: #575757;
+  color: var(--main-icon-color);
   font-size: 1.2rem;
 }
 /* Sidebar */
@@ -27,7 +32,7 @@ i {
   color: #ccc;
   overflow: hidden;
   transition: all 0.5s linear;
-  background: #fff;
+  background: var(--main-bg-color);
   /* border-radius: 10px; */
   box-shadow: 11px 14px 41px -29px rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgb(218, 220, 224);
@@ -57,7 +62,7 @@ i {
 }
 .menu li:hover,
 .active {
-  background: #e0e0e058;
+  background: var(--activated-menu-color);
 }
 .active {
   border-right: 2px solid black;
@@ -135,7 +140,7 @@ i {
 }
 /* Card */
 .card--container {
-  background: #fff;
+  background: var(--main-bg-color);
   padding: 1rem 2rem;
   border-radius: 10px;
 }
@@ -151,7 +156,7 @@ i {
   gap: 1rem;
 }
 .situation--card {
-  background: #fff;
+  background: var(--main-bg-color);
   border-radius: 10px;
   padding: 1.2rem;
   width: 290px;
@@ -213,7 +218,7 @@ i {
 }
 /* tabular section */
 .tabular--wrapper {
-  background: #fff;
+  background: var(--main-bg-color);
   margin-top: 1rem;
   border-radius: 10px;
   padding: 2rem;
@@ -226,7 +231,7 @@ table {
   border-collapse: collapse;
 }
 thead {
-  background: #fff;
+  background: var(--main-bg-color);
   color: #333;
 }
 th {
@@ -242,7 +247,7 @@ td {
   color: #333;
 }
 tr:nth-child(even) {
-  background: #fff;
+  background: var(--main-bg-color);
 }
 .table--container button {
   color: green;

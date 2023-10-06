@@ -9,7 +9,7 @@ class Permissao(models.Model):
 
 class Perfil(models.Model):
     descricao = models.CharField(max_length=45)
-    id_perimssao = models.ForeignKey(Permissao, on_delete=models.DO_NOTHING)
+    id_permissao = models.ForeignKey(Permissao, on_delete=models.DO_NOTHING)
 
 
 class Funcionario(models.Model):
