@@ -1,9 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-:root {
-  --main-bg-color: #fff;
-  --main-icon-color: #575757;
-  --activated-menu-color: #e0e0e058;
-}
+$base-ff: 'Inter', sans serif;
+
+$white-01: #fff;
+$white-02: #f7f7f7;
+$white-03: #f2f2f2;
+
+$light-gray-01: rgb(218, 220, 224);
+$light-gray-02: #ccc;
+$light-gray-03: #e0e0e058;
+
+$gray-01: #717171;
+$gray-01-alfa: #71717150;
+$gray-02: #575757;
+
+$black-01: #000;
+$black-01-alfa: rgba(0, 0, 0, 0.1);
+$black-02: #282828;
+$black-03: #333;
+$black-04: #3a3a3a;
+
+$light-green: rgb(203, 250, 172);
+$light-yellow: rgb(255, 241, 177);
+$light-red: rgb(255, 177, 177);
+
 /* Reset */
 * {
   margin: 0;
@@ -11,16 +30,13 @@
   border: none;
   outline: none;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+  font-family: $base-ff;
 }
 body {
   display: flex;
-  background-color: var(--main-bg-color);
+  background-color: $white-01;
 }
-.sidebar i {
-  color: var(--main-icon-color);
-  font-size: 1.2rem;
-}
+
 /* Sidebar */
 .sidebar {
   position: sticky;
@@ -32,16 +48,21 @@ body {
   color: #ccc;
   overflow: hidden;
   transition: all 0.5s linear;
-  background: var(--main-bg-color);
-  /* border-radius: 10px; */
-  box-shadow: 11px 14px 41px -29px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgb(218, 220, 224);
+  background: $white-01;
+  box-shadow: 11px 14px 41px -29px $black-01-alfa;
+  border-right: 1px solid $light-gray-01;
   display: flex;
   flex-direction: column;
-}
-.sidebar:hover {
-  width: 240px;
+  
+  i {
+    color: $gray-02;
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    width: 240px;
   transition: 0.5s;
+  }
 }
 .logo {
   height: 80px;
@@ -53,46 +74,51 @@ body {
   position: relative;
   list-style: none;
   padding: 0;
+
+  li {
+    padding: 1rem;
+    margin: 8px 0;
+    transition: all 0.5s ease-in-out;
+
+    &:hover, .active {
+      background: $light-gray-03;
+    }
+  } 
+
+  .active {
+    border-right: 2px solid $black-01;
+
+    i {
+      color: black;
+    }
+  }
+
+  a {
+    color: $gray-01;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 20px;
+
+    span {
+      overflow: hidden;
+    }
+  }
+
+  .logout {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+  }
 }
-.menu li {
-  padding: 1rem;
-  margin: 8px 0;
-  /* border-radius: 8px; */
-  transition: all 0.5s ease-in-out;
-}
-.menu li:hover,
-.active {
-  background: var(--activated-menu-color);
-}
-.active {
-  border-right: 2px solid black;
-}
-.active i {
-  color: black;
-}
-.menu a {
-  color: #717171;
-  font-size: 14px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding-left: 20px;
-}
-.menu a span {
-  overflow: hidden;
-}
-.logout {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-}
+
 /* Content*/
 .main--content {
   position: relative;
   width: 100%;
-  /* padding: 1rem; */
 }
 .header--wrapper {
   display: flex;
@@ -102,8 +128,6 @@ body {
   background: transparent;
   border-radius: 10px;
   padding: 18px 2rem;
-  /* margin-bottom: 1rem; */
-  /* box-shadow: 0px 24px 40px -3px rgba(0, 0, 0, 0.1); */
 }
 .header--wrapper img {
   width: 40px;
@@ -117,8 +141,7 @@ body {
   gap: 50px;
 }
 .search--box {
-  /* background-color: #f7f7f7; */
-  outline: 1px solid #71717150;
+  outline: 1px solid $gray-01-alfa;
   border-radius: 24px;
   display: flex;
   align-items: center;
@@ -140,13 +163,13 @@ body {
 }
 /* Card */
 .card--container {
-  background: var(--main-bg-color);
+  background: $white-01;
   padding: 1rem 2rem;
   border-radius: 10px;
 }
 .card--container .main--title {
   font-size: 48px;
-  color: #282828;
+  color: $black-02;
   font-family: 700;
   margin-bottom: 20px;
 }
@@ -156,7 +179,7 @@ body {
   gap: 1rem;
 }
 .situation--card {
-  background: var(--main-bg-color);
+  background: $white-01;
   border-radius: 10px;
   padding: 1rem;
   width: 290px;
@@ -165,8 +188,7 @@ body {
   place-items: center;
   flex-direction: column;
   gap: 3px;
-  /* box-shadow: 10px 10px 76px -38px rgba(168, 168, 168, 1); */
-  outline: 1px solid #71717150;
+  outline: 1px solid $gray-01-alfa;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
 }
@@ -174,7 +196,7 @@ body {
   transform: translateY(-5px);
 }
 .situation--card i {
-  color: #fff;
+  color: $white-01;
   padding: 1rem;
   height: 60px;
   width: 53px;
@@ -190,9 +212,9 @@ body {
 .period p {
   font-size: 0.8rem;
   padding: 10px;
-  outline: 1px solid #71717150;
+  outline: 1px solid $gray-01-alfa;
   border-radius: 24px;
-  color: #292828;
+  color: $black-02;
   cursor: pointer;
 }
 .period p + p + p {
@@ -201,25 +223,25 @@ body {
 }
 
 .positive {
-  background: rgb(203, 250, 172);
+  background: $light-green;
 }
 .neutral {
-  background: rgb(255, 241, 177);
+  background: $light-yellow;
 }
 .negative {
-  background: rgb(255, 177, 177);
+  background: $light-red;
 }
 .situation--card p {
   font-weight: 800;
-  color: #ccc;
+  color: $light-gray-02;
 }
 .situation--card p + p {
   font-size: 2.8rem;
-  color: #3a3a3a;
+  color: $black-04;
 }
 /* tabular section */
 .tabular--wrapper {
-  background: var(--main-bg-color);
+  background: $white-01;
   border-radius: 10px;
   padding: 2rem;
   height: 600px;
@@ -233,26 +255,26 @@ body {
 .report-btn {
   font-size: 0.8rem;
   padding: 14px 20px;
-  outline: 1px solid #71717150;
+  outline: 1px solid $gray-01-alfa;
   border-radius: 24px;
-  color: #292828;
+  color: $black-02;
   cursor: pointer;
-  background: #f7f7f7;
+  background: $white-02;
 }
 .report-btn:hover {
-  color: #ccc;
+  color: $light-gray-02;
 }
 .new-element-btn {
   font-size: 0.8rem;
   padding: 14px 20px;
-  outline: 1px solid #71717150;
+  outline: 1px solid $gray-01-alfa;
   border-radius: 24px;
-  color: white;
+  color: $white-01;
   cursor: pointer;
-  background: #282828;
+  background: $black-02;
 }
 .new-element-btn:hover {
-  background-color: #71717150;
+  background-color: $gray-01-alfa;
 }
 .report-btn i,
 .new-element-btn i {
@@ -266,21 +288,21 @@ table {
   border-collapse: collapse;
 }
 thead {
-  background: var(--main-bg-color);
-  color: #333;
+  background: $white-01;
+  color: $black-03;
 }
 th {
   padding: 15px;
   text-align: left;
 }
 tbody {
-  background: #f2f2f2;
+  background: $white-03;
 }
 td {
   padding: 15px;
   font-size: 14px;
-  color: #333;
+  color: $black-03;
 }
 tr:nth-child(even) {
-  background: var(--main-bg-color);
+  background: $white-01;
 }
