@@ -19,11 +19,22 @@ class Funcionario(models.Model):
     email = models.CharField(max_length=45)
 
 
+class Endereco(models.Model):
+    cep = models.IntegerField()
+    estado = models.CharField(max_length=45)
+    cidade = models.CharField(max_length=45)
+    bairro = models.CharField(max_length=45)
+    rua = models.CharField(max_length=45)
+    numero = models.CharField(max_length=45)
+
+
 class EmitenteDestinatario(models.Model):
     nome = models.CharField(max_length=45)
     documento = models.CharField(max_length=11)
     telefone = models.CharField(max_length=11)
     email = models.CharField(max_length=45)
+    id_endereco = models.ForeignKey(
+        Endereco, blank=True, null=True, on_delete=models.DO_NOTHING)
 
 
 class Usuario(models.Model):

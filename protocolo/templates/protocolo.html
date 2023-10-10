@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" />
 </head>
+
 <body>
     <!-- Sidebar start -->
     {% include "sidebar.html" %}
@@ -20,6 +22,7 @@
         <!-- Header start -->
         {% include "header.html" %}
         <!-- Header end -->
+        <!-- Card start-->
         <div class="card--container">
             <h1 class="main--title">Protocolos</h1>
             <div class="period">
@@ -45,7 +48,12 @@
                 </div>
             </div>
         </div>
+        <!-- Card end -->
+        <!-- Table start -->
         <div class=" tabular--wrapper">
+            <div class="btn-container">
+                <button class="new-element-btn"><i class="fa-solid fa-plus"></i> NOVO</button>
+            </div>
             <div class="table--container">
                 <table>
                     <thead>
@@ -77,4 +85,5 @@
     <!-- Main content end -->
     <script src="{% static 'js/app.js' %}"></script>
 </body>
+
 </html>
