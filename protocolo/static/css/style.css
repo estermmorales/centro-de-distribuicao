@@ -17,7 +17,7 @@ body {
   display: flex;
   background-color: var(--main-bg-color);
 }
-i {
+.sidebar i {
   color: var(--main-icon-color);
   font-size: 1.2rem;
 }
@@ -158,19 +158,29 @@ i {
 .situation--card {
   background: var(--main-bg-color);
   border-radius: 10px;
-  padding: 1.2rem;
+  padding: 1rem;
   width: 290px;
   height: 150px;
   display: flex;
   place-items: center;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
   /* box-shadow: 10px 10px 76px -38px rgba(168, 168, 168, 1); */
   outline: 1px solid #71717150;
   transition: all 0.5s ease-in-out;
+  cursor: pointer;
 }
 .situation--card:hover {
   transform: translateY(-5px);
+}
+.situation--card i {
+  color: #fff;
+  padding: 1rem;
+  height: 60px;
+  width: 53px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
 }
 .period {
   display: flex;
@@ -189,15 +199,7 @@ i {
   width: 60px;
   text-align: center;
 }
-.situation--card i {
-  color: #fff;
-  padding: 1rem;
-  height: 60px;
-  width: 53px;
-  text-align: center;
-  border-radius: 50%;
-  font-size: 1.2rem;
-}
+
 .positive {
   background: rgb(203, 250, 172);
 }
@@ -212,36 +214,49 @@ i {
   color: #ccc;
 }
 .situation--card p + p {
-  font-family: "Courier New", Courier, monospace;
   font-size: 2.8rem;
   color: #3a3a3a;
 }
 /* tabular section */
 .tabular--wrapper {
   background: var(--main-bg-color);
-  margin-top: 1rem;
   border-radius: 10px;
   padding: 2rem;
+  height: 600px;
 }
 .btn-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.new-element-btn button {
-  background-color: #282828;
-  border: 1px solid transparent;
-  border-radius: 0.75rem;
-  box-sizing: border-box;
-  color: #ffffff;
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.5rem;
-  padding: 0.75rem 1.2rem;
-  text-align: center;
+.report-btn {
+  font-size: 0.8rem;
+  padding: 14px 20px;
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  color: #292828;
   cursor: pointer;
+  background: #f7f7f7;
 }
-.new-element-btn button:hover {
-  background-color: #374151;
+.report-btn:hover {
+  color: #ccc;
+}
+.new-element-btn {
+  font-size: 0.8rem;
+  padding: 14px 20px;
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  color: white;
+  cursor: pointer;
+  background: #282828;
+}
+.new-element-btn:hover {
+  background-color: #71717150;
+}
+.report-btn i,
+.new-element-btn i {
+  margin-right: 2px;
 }
 .table--container {
   width: 100%;
