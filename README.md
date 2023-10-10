@@ -1,4 +1,4 @@
-### Centro de distribuição
+## Centro de distribuição
 
 Sistema para gerenciamento de entrega e retirada de pacotes.
 
@@ -17,7 +17,7 @@ venv\Scripts\activate      //Windows
 source venv/bin/activate   //Linux
 ```
 
-3. Instale as depêndencias do projeto
+3. Instale as dependências do projeto
 
 ```
 pip install -r requirements.txt
