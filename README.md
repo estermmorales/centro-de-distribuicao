@@ -34,13 +34,9 @@ password = your_password
 default-character-set = utf8
 ```
 
-5. Faças as migrações
+5. Faças as migrações e rode \o/
 
 ```
-python manage.py makemigrations
 python manage.py migrate
-```
-6. Rode \o/
-```
 python manage.py runserver
 ```

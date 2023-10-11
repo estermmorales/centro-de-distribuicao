@@ -9,10 +9,3 @@ function handleLink(event) {
 linksMenu.forEach((link) => {
   link.addEventListener("click", handleLink);
 });
-
-const sidebar = document.querySelector('.sidebar');
-const bars = document.querySelector(".bars");
-console.log(bars);
-bars.addEventListener("click", () => {
-  sidebar.classList.toggle('active');
-})
