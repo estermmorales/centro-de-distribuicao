@@ -1,0 +1,308 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
+/* Colors */
+/* Reset */
+/* line 1, protocolo/static/scss/reset.scss */
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Inter", sans serif; }
+
+/* line 9, protocolo/static/scss/reset.scss */
+body {
+  display: flex;
+  background-color: #fff; }
+
+/* Sidebar */
+/* line 1, protocolo/static/scss/sidebar.scss */
+.sidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100vh;
+  color: #ccc;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background: #fff;
+  box-shadow: 11px 14px 41px -29px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #dadce0;
+  display: flex;
+  flex-direction: column; }
+  /* line 17, protocolo/static/scss/sidebar.scss */
+  .sidebar i {
+    color: #575757;
+    font-size: 1.2rem; }
+  /* line 22, protocolo/static/scss/sidebar.scss */
+  .sidebar:hover {
+    width: 240px;
+    transition: 0.5s; }
+
+/* line 27, protocolo/static/scss/sidebar.scss */
+.bars {
+  height: 80px;
+  padding: 2.2rem;
+  align-self: flex-start;
+  cursor: pointer; }
+
+/* line 33, protocolo/static/scss/sidebar.scss */
+.menu {
+  margin-top: 12px;
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0; }
+  /* line 40, protocolo/static/scss/sidebar.scss */
+  .menu li {
+    padding: 1rem;
+    margin: 8px 0;
+    transition: all 0.5s ease-in-out; }
+    /* line 45, protocolo/static/scss/sidebar.scss */
+    .menu li:hover {
+      background: #e0e0e058; }
+  /* line 50, protocolo/static/scss/sidebar.scss */
+  .menu .active {
+    background: #e0e0e058;
+    border-right: 2px solid #000; }
+    /* line 54, protocolo/static/scss/sidebar.scss */
+    .menu .active i {
+      color: black; }
+  /* line 59, protocolo/static/scss/sidebar.scss */
+  .menu a {
+    color: #717171;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 20px; }
+    /* line 68, protocolo/static/scss/sidebar.scss */
+    .menu a span {
+      overflow: hidden; }
+  /* line 73, protocolo/static/scss/sidebar.scss */
+  .menu .logout {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%; }
+
+/* Header */
+/* line 1, protocolo/static/scss/header.scss */
+.main--content {
+  position: relative;
+  width: 100%; }
+
+/* line 5, protocolo/static/scss/header.scss */
+.header--wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: transparent;
+  border-radius: 10px;
+  padding: 18px 2rem; }
+  /* line 14, protocolo/static/scss/header.scss */
+  .header--wrapper img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%; }
+
+/* line 21, protocolo/static/scss/header.scss */
+.user--info {
+  display: flex;
+  align-items: center;
+  gap: 50px; }
+
+/* line 26, protocolo/static/scss/header.scss */
+.search--box {
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  width: 500px; }
+  /* line 35, protocolo/static/scss/header.scss */
+  .search--box input {
+    width: 450px;
+    background: transparent;
+    padding: 8px; }
+  /* line 40, protocolo/static/scss/header.scss */
+  .search--box i {
+    cursor: pointer;
+    transition: all 0.5s ease-out; }
+    /* line 44, protocolo/static/scss/header.scss */
+    .search--box i:hover {
+      transform: scale(1.2); }
+
+/* Card */
+/* line 1, protocolo/static/scss/card.scss */
+.card--container {
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 10px; }
+  /* line 6, protocolo/static/scss/card.scss */
+  .card--container .main--title {
+    font-size: 48px;
+    color: #282828;
+    font-family: 700;
+    margin-bottom: 20px; }
+
+/* line 13, protocolo/static/scss/card.scss */
+.card--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; }
+
+/* line 18, protocolo/static/scss/card.scss */
+.situation--card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 290px;
+  height: 150px;
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  gap: 3px;
+  outline: 1px solid #71717150;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer; }
+  /* line 32, protocolo/static/scss/card.scss */
+  .situation--card:hover {
+    transform: translateY(-5px); }
+  /* line 36, protocolo/static/scss/card.scss */
+  .situation--card i {
+    color: #fff;
+    padding: 1rem;
+    height: 60px;
+    width: 53px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.2rem; }
+  /* line 46, protocolo/static/scss/card.scss */
+  .situation--card p {
+    font-weight: 800;
+    color: #717171; }
+  /* line 51, protocolo/static/scss/card.scss */
+  .situation--card p + p {
+    font-size: 2.8rem;
+    color: #3a3a3a; }
+
+/* line 56, protocolo/static/scss/card.scss */
+.period {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px; }
+  /* line 61, protocolo/static/scss/card.scss */
+  .period p {
+    font-size: 0.8rem;
+    padding: 10px;
+    outline: 1px solid #71717150;
+    border-radius: 24px;
+    color: #282828;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out; }
+    /* line 70, protocolo/static/scss/card.scss */
+    .period p:hover {
+      transform: translateY(-2px); }
+  /* line 74, protocolo/static/scss/card.scss */
+  .period p:last-of-type {
+    width: 60px;
+    text-align: center; }
+
+/* line 79, protocolo/static/scss/card.scss */
+.positive {
+  background: #cbfaac; }
+
+/* line 82, protocolo/static/scss/card.scss */
+.neutral {
+  background: #fff1b1; }
+
+/* line 85, protocolo/static/scss/card.scss */
+.negative {
+  background: #ffb1b1; }
+
+/* Table */
+/* line 1, protocolo/static/scss/table.scss */
+.tabular--wrapper {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem; }
+
+/* line 6, protocolo/static/scss/table.scss */
+.btn-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 10px; }
+
+/* line 12, protocolo/static/scss/table.scss */
+.report-btn {
+  font-size: 0.8rem;
+  padding: 14px 20px;
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  color: #282828;
+  cursor: pointer;
+  background: #fff; }
+
+/* line 21, protocolo/static/scss/table.scss */
+.report-btn:hover {
+  color: #ccc; }
+
+/* line 24, protocolo/static/scss/table.scss */
+.new-element-btn {
+  font-size: 0.8rem;
+  padding: 14px 20px;
+  outline: 1px solid #71717150;
+  border-radius: 24px;
+  color: #fff;
+  cursor: pointer;
+  background: #282828; }
+
+/* line 33, protocolo/static/scss/table.scss */
+.new-element-btn:hover {
+  background-color: #71717150; }
+
+/* line 36, protocolo/static/scss/table.scss */
+.report-btn i,
+.new-element-btn i {
+  margin-right: 2px; }
+
+/* line 40, protocolo/static/scss/table.scss */
+.table--container {
+  width: 100%; }
+
+/* line 43, protocolo/static/scss/table.scss */
+table {
+  width: 100%;
+  border-collapse: collapse; }
+
+/* line 47, protocolo/static/scss/table.scss */
+thead {
+  background: #fff;
+  color: #333; }
+
+/* line 51, protocolo/static/scss/table.scss */
+th {
+  padding: 15px;
+  text-align: left; }
+
+/* line 55, protocolo/static/scss/table.scss */
+tbody {
+  background: #f2f2f2; }
+
+/* line 58, protocolo/static/scss/table.scss */
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333; }
+
+/* line 63, protocolo/static/scss/table.scss */
+tr:nth-child(even) {
+  background: #fff; }
