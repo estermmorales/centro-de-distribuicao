@@ -19,17 +19,22 @@
       font-size: 1.2rem;
     }
   
-    &:hover {
+    &:hover, &.active {
       width: 240px;
-    transition: 0.5s;
+      transition: 0.5s;
     }
   }
-  .logo {
+  .bars {
     height: 80px;
     padding: 2.2rem;
     align-self: flex-start;
+
+    i {
+    cursor: pointer;
+    }
   }
   .menu {
+    margin-top: 60px;
     height: 88%;
     position: relative;
     list-style: none;
@@ -40,12 +45,13 @@
       margin: 8px 0;
       transition: all 0.5s ease-in-out;
   
-      &:hover, .active {
+      &:hover{
         background: $light-gray-03;
       }
     } 
   
     .active {
+      background: $light-gray-03;
       border-right: 2px solid $black-01;
   
       i {

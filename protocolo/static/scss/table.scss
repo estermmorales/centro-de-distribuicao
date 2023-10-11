@@ -60,6 +60,11 @@
     font-size: 14px;
     color: $black-03;
   }
-  tr:nth-child(even) {
-    background: $white-01;
+  tr {
+    &:nth-child(even) {
+        background: $white-01;
+    }
+    button {
+        cursor: pointer;
+    }
   }

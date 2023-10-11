@@ -1,6 +1,8 @@
 .main--content {
     position: relative;
     width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
   }
   .header--wrapper {
     display: flex;
@@ -10,6 +12,7 @@
     background: transparent;
     border-radius: 10px;
     padding: 18px 2rem;
+
 
     img {
         width: 40px;
