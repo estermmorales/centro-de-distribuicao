@@ -1,45 +1,51 @@
-{% load static %}
-{% block content %}
+{% load static %} {% block content %}
 <div class="sidebar">
-    <div class="bars">
-        <i class="fa-solid fa-bars"></i>
-    </div>
-    <ul class="menu">
-        <li class="active">
-            <a href="#">
-                <i class="fa-solid fa-table-list"></i>
-                <span>Protocolos</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Histórico</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-people-roof"></i>
-                <span>Funcionários</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-users-rectangle"></i>
-                <span>Usuários</span>
-            </a>
-        </li>
-        <li><a href="#">
-            <i class="fa-solid fa-house-user"></i>
-                <span>Perfil</span>
-            </a>
-        </li>
-        <li class="logout">
-            <a href="#">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Sair</span>
-            </a>
-        </li>
-    </ul>
+  <div class="bars">
+    <i class="material-icons md-24">menu</i>
+  </div>
+  <ul class="menu">
+    <li class="active">
+      <a href="#">
+        <i class="material-icons md-24">table_chart</i>
+        <span>Protocolos</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-icons md-24">history</i>
+        <span>Histórico</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-icons md-24">groups</i>
+        <span>Usuários</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-icons md-24">support_agent</i>
+        <span>Funcionários</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-icons md-24">settings</i>
+        <span>Configurações</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="material-icons md-24">account_circle</i>
+        <span>Perfil</span>
+      </a>
+    </li>
+    <li class="logout">
+      <a href="#">
+        <i class="material-icons md-24">logout</i>
+        <span>Sair</span>
+      </a>
+    </li>
+  </ul>
 </div>
-{% endblock  %}
+{% endblock %}

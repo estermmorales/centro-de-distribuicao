@@ -1,82 +1,78 @@
 .sidebar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100px;
-    height: 100vh;
-    color: #ccc;
-    overflow: hidden;
-    transition: all 0.5s linear;
-    background: $white-01;
-    box-shadow: 11px 14px 41px -29px $black-01-alfa;
-    border-right: 1px solid $light-gray-01;
-    display: flex;
-    flex-direction: column;
-    
-    i {
-      color: $gray-02;
-      font-size: 1.2rem;
-    }
-  
-    &:hover, &.active {
-      width: 240px;
-      transition: 0.5s;
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100vh;
+  color: #ccc;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background: $white-01;
+  box-shadow: 11px 14px 41px -29px $black-01-alfa;
+  border-right: 1px solid $light-gray-01;
+  display: flex;
+  flex-direction: column;
+
+  &:hover,
+  &.active {
+    width: 240px;
+    transition: 0.5s;
+  }
+}
+.bars {
+  height: 80px;
+  padding: 2.2rem;
+  align-self: flex-start;
+
+  i {
+    cursor: pointer;
+  }
+}
+.menu {
+  margin-top: 60px;
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 1rem;
+    margin: 8px 0;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      background: $light-gray-03;
     }
   }
-  .bars {
-    height: 80px;
-    padding: 2.2rem;
-    align-self: flex-start;
+
+  .active {
+    background: $light-gray-03;
+    border-right: 2px solid $black-01;
 
     i {
-    cursor: pointer;
+      color: black;
     }
   }
-  .menu {
-    margin-top: 60px;
-    height: 88%;
-    position: relative;
-    list-style: none;
-    padding: 0;
-  
-    li {
-      padding: 1rem;
-      margin: 8px 0;
-      transition: all 0.5s ease-in-out;
-  
-      &:hover{
-        background: $light-gray-03;
-      }
-    } 
-  
-    .active {
-      background: $light-gray-03;
-      border-right: 2px solid $black-01;
-  
-      i {
-        color: black;
-      }
-    }
-  
-    a {
-      color: $gray-01;
-      font-size: 14px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding-left: 20px;
-  
-      span {
-        overflow: hidden;
-      }
-    }
-  
-    .logout {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
+
+  a {
+    color: $gray-01;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 20px;
+
+    span {
+      overflow: hidden;
     }
   }
+
+  .logout {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+  }
+}
