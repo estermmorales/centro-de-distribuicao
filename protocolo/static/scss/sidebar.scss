@@ -16,7 +16,7 @@
 
   &:hover,
   &.active {
-    width: 240px;
+    width: 250px;
     transition: 0.5s;
   }
 }
@@ -24,7 +24,25 @@
   height: 80px;
   padding: 2.2rem;
   align-self: flex-start;
-
+  .bars-icon {
+    transition: transform 0.3s;
+    &.active {
+      transform: rotate(90deg);
+    }
+  }
+  .c-icon {
+    display: none;
+    opacity: 0;
+    color: #363636;
+    font-size: 42px;
+    padding-left: 32px;
+    vertical-align: sub;
+    &.active {
+      display: inline-block;
+      opacity: 1;
+      animation: show 0.3s forwards;
+    }
+  }
   i {
     cursor: pointer;
   }
@@ -48,10 +66,10 @@
 
   .active {
     background: $light-gray-03;
-    border-right: 2px solid $black-01;
+    border-right: 2px solid #363636;
 
     i {
-      color: black;
+      color: #363636;
     }
   }
 
@@ -74,5 +92,20 @@
     bottom: 20px;
     left: 0;
     width: 100%;
+  }
+}
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
   }
 }

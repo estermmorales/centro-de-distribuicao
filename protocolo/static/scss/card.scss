@@ -111,3 +111,27 @@
 .negative {
   background: $light-red;
 }
+@media (max-width: 620px) {
+  .card--wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    width: 480px;
+    .header {
+      margin: 0 auto;
+    }
+  }
+}
+@media (min-width: 621px) and (max-width: 768px) {
+  .card--container {
+    padding: 0;
+  }
+  .card {
+    width: 200px;
+    .header {
+      width: 190px;
+    }
+  }
+}

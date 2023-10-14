@@ -12,11 +12,6 @@
   background: transparent;
   border-radius: 10px;
   padding: 16px 1.8rem;
-
-  figure img {
-    width: 32px;
-    height: 32px;
-  }
 }
 .panel-block {
   width: 500px;
@@ -49,6 +44,25 @@
 
     &:hover {
       transform: scale(1.2);
+    }
+  }
+}
+@media (max-width: 768px) {
+  .main--content {
+    margin-left: 5px;
+  }
+  .header--wrapper {
+    padding: 5px;
+  }
+  i#user {
+    padding-right: 10px;
+  }
+}
+@media (max-width: 580px) {
+  .header--wrapper {
+    padding: 10px;
+    i#user {
+      display: none;
     }
   }
 }

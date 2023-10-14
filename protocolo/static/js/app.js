@@ -10,9 +10,13 @@ linksMenu.forEach((link) => {
   link.addEventListener("click", handleLink);
 });
 
-const sidebar = document.querySelector('.sidebar');
+const sidebar = document.querySelector(".sidebar");
 const bars = document.querySelector(".bars");
-console.log(bars);
+const barsIcon = bars.querySelector(".bars-icon");
+const cIcon = bars.querySelector(".c-icon");
+console.log(barsIcon);
 bars.addEventListener("click", () => {
-  sidebar.classList.toggle('active');
-})
+  sidebar.classList.toggle("active");
+  barsIcon.classList.toggle("active");
+  cIcon.classList.toggle("active");
+});
