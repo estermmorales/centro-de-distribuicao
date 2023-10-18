@@ -1,13 +1,13 @@
-{% load static %}
-{% block content %}
+{% load static %} {% block content %}
 <div class="header--wrapper">
-    <div class="user--info">
-        <div class="search--box">
-            <i class="fa-solid fa-search"></i>
-            <input type="text" placeholder="Search">
-        </div>
-    </div>
-    <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
-        alt="">
+  <div class="panel-block">
+    <p class="control has-icons-left">
+      <input class="input is-rounded" type="text" />
+      <span class="icon is-left">
+        <i class="material-symbols-outlined is-small"> search </i>
+      </span>
+    </p>
+  </div>
+  <i class="material-icons is-clickable" id="user">account_circle</i>
 </div>
 {% endblock %}

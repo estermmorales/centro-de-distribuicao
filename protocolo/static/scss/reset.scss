@@ -1,12 +1,13 @@
-* {
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-    font-family: $base-ff;
-  }
-  body {
-    display: flex;
-    background-color: $white-01;
-  }
+body {
+  display: flex;
+  background-color: #fff;
+}
+
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: $base-ff !important;
+}

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import Form, ModelForm
-from protocolo.models import Protocolo, EmitenteDestinatario, Funcionario
+from protocolo.models import Protocolo, EmitenteDestinatario, Funcionario, Endereco
 from simplecep import CEPField
 
 
@@ -10,11 +10,10 @@ class FuncionarioForm(ModelForm):
         fields = ["nome", "email", "documento", "contato"]
 
 
-class EnderecoForm(Form):
+class EnderecoForm(forms.Form):
     cep = CEPField(
-        label='Your CEP',
+        label='Seu CEP',
         autofill={
-            # key is the data-type and value is the form-field name
             "district": "bairro",
             "state": "estado",
             "city": "cidade",
@@ -39,3 +38,7 @@ class ProtocoloForm(ModelForm):
     class Meta:
         model: Protocolo
         fields = ["emitente", "destinatario", "data_entrega", "volumes"]
+
+
+class RegistraProtocolo(forms.Form):
+    pass
