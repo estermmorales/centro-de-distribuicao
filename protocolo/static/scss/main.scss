@@ -1,15 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-$base-ff: 'Inter', sans serif;
+$base-ff: "Inter", sans serif;
 
-/* Colors */
-@import './colors/colors.scss';
 /* Reset */
-@import './reset.scss';
+@import "./reset.scss";
 /* Sidebar */
-@import './sidebar.scss';
+@import "./sidebar.scss";
 /* Header */
-@import './header.scss';
+@import "./header.scss";
 /* Card */
-@import './card.scss';
+@import "./card.scss";
 /* Table */
-@import './table.scss';
+@import "./table.scss";
+/* Modals */

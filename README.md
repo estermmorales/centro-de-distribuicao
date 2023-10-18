@@ -40,7 +40,11 @@ default-character-set = utf8
 python manage.py makemigrations
 python manage.py migrate
 ```
+
 6. Rode \o/
+
 ```
 python manage.py runserver
 ```
+
+Tecnologias utilizadas: Django, MySQL, Bulma e vanilla JavaScript

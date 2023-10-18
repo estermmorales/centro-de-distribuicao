@@ -1,16 +1,11 @@
 .sidebar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  bottom: 0;
   width: 100px;
   height: 100vh;
   color: #ccc;
   overflow: hidden;
   transition: all 0.5s linear;
-  background: $white-01;
-  box-shadow: 11px 14px 41px -29px $black-01-alfa;
-  border-right: 1px solid $light-gray-01;
+  background: #fff;
+  border-right: 1px solid rgb(218, 220, 224);
   display: flex;
   flex-direction: column;
 
@@ -24,6 +19,7 @@
   height: 80px;
   padding: 2.2rem;
   align-self: flex-start;
+
   .bars-icon {
     transition: transform 0.3s;
     &.active {
@@ -34,9 +30,9 @@
     display: none;
     opacity: 0;
     color: #363636;
-    font-size: 42px;
-    padding-left: 32px;
-    vertical-align: sub;
+    font-size: 46px;
+    padding-left: 24px;
+    vertical-align: bottom;
     &.active {
       display: inline-block;
       opacity: 1;
@@ -51,21 +47,19 @@
   margin-top: 60px;
   height: 88%;
   position: relative;
-  list-style: none;
-  padding: 0;
-
+  
   li {
     padding: 1rem;
     margin: 8px 0;
     transition: all 0.5s ease-in-out;
 
     &:hover {
-      background: $light-gray-03;
+      background: #e0e0e058;
     }
   }
 
   .active {
-    background: $light-gray-03;
+    background: #e0e0e058;
     border-right: 2px solid #363636;
 
     i {
@@ -74,9 +68,8 @@
   }
 
   a {
-    color: $gray-01;
+    color: #717171;
     font-size: 14px;
-    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 1.5rem;

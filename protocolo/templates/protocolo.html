@@ -53,9 +53,13 @@
       <!-- Table start -->
       <div class="tabular--wrapper">
         <div class="btn-container ml-3">
-          <button class="button is-rounded is-small is-dark">
+          <button
+            class="button is-rounded is-small is-dark js-modal-button"
+            data-target="add-modal"
+          >
             <i class="material-icons md-24 mr-1">add</i> Novo
           </button>
+          {% include "add-modal.html" %}
           <button class="button is-rounded is-small">
             <i class="material-icons md-24">description</i>
           </button>
@@ -82,14 +86,20 @@
                 <td>Ciclano</td>
                 <td>Pendente</td>
                 <td>
-                  <i class="material-symbols-outlined is-clickable md-18"
-                    >edit_square</i
+                  <button
+                    class="js-modal-trigger button is-white is-small js-modal-button"
+                    data-target="edit-modal"
                   >
+                    <i class="material-symbols-outlined is-clickable md-18"
+                      >edit_square</i
+                    >
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        {% include "edit-modal.html" %}
         <nav
           class="pagination is-rounded is-small ml-3 is-centered"
           role="navigation"
@@ -117,6 +127,7 @@
       </div>
     </div>
     <!-- Main content end -->
+    <!-- Modal -->
     <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>
