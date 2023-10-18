@@ -49,4 +49,4 @@ python manage.py runserver
 
 <br>
 
-Tecnologias utilizadas: Django, MySQL, Bulma e vanilla JavaScript
+Tecnologias utilizadas: Django, MySQL, Bulma e JavaScript
