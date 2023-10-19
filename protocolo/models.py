@@ -25,7 +25,6 @@ class Endereco(models.Model):
     cidade = models.CharField(max_length=45)
     bairro = models.CharField(max_length=45)
     rua = models.CharField(max_length=45)
-    numero = models.CharField(max_length=45)
 
 
 class EmitenteDestinatario(models.Model):
