@@ -1,5 +1,5 @@
 .tabular--wrapper {
-  background: #fff;
+  background: $white-color;
   padding: 1.8rem;
 }
 td {
@@ -9,6 +9,6 @@ td {
   }
 }
 .is-current {
-  background: #363636 !important;
-  border-color: #363636 !important;
+  background: $dark-gray-color !important;
+  border-color: $dark-gray-color !important;
 }

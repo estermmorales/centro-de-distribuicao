@@ -1,5 +1,5 @@
 .card--container {
-  background: #fff;
+  background: $white-color;
   padding: 1rem 2rem;
 }
 .card--wrapper {
@@ -41,13 +41,13 @@
   }
 }
 .positive {
-  background: rgb(203, 250, 172);
+  background: $green-color;
 }
 .neutral {
-  background: rgb(255, 241, 177);
+  background: $yellow-color;
 }
 .negative {
-  background: rgb(255, 177, 177);
+  background: $red-color;
 }
 @media (max-width: 620px) {
   .card--wrapper {

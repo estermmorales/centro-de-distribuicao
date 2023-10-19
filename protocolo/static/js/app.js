@@ -27,7 +27,8 @@ function expandMenu() {
 expandMenu();
 
 const triggerButtons = document.querySelectorAll(".js-modal-button");
-const closeButtons = document.querySelectorAll(".modal-close");
+const closeButtons = document.querySelectorAll(".close");
+console.log(closeButtons)
 triggerButtons.forEach((button) => {
   const target = button.dataset.target;
   const modal = document.querySelector(`.${target}`);
@@ -35,6 +36,7 @@ triggerButtons.forEach((button) => {
   button.addEventListener("click", () => {
     modal.classList.add("is-active");
   });
+
   closeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       modal.classList.remove("is-active");

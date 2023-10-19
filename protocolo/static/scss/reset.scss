@@ -1,6 +1,6 @@
 body {
   display: flex;
-  background-color: #fff;
+  background-color: $white-color;
 }
 
 body,
@@ -9,5 +9,5 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: $base-ff !important;
+  font-family: $font-family !important;
 }
