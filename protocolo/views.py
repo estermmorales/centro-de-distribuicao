@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models.functions import TruncDate
-from .models import Protocolo
+from .models import Funcionario, Protocolo
+from .forms import ProtocoloForm, ProtocoloEditForm
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -24,6 +27,41 @@ def protocolo(request):
     }
 
     return render(request, 'protocolo.html', context)
+
+
+# @login_required
+def cadastrar_protocolo(request):
+    if request.method == 'POST':
+        form = ProtocoloForm(request.POST)
+        if form.is_valid():
+            # Crie o protocolo a partir do formulário, mas não o salve ainda
+            protocolo = form.save(commit=False)
+            # Associe o funcionário logado ao protocolo
+            protocolo.id_funcionario = Funcionario.objects.get(
+                user=request.user)
+            protocolo.save()  # Agora, salve o protocolo no banco de dados
+            return redirect('/')
+        else:
+            print(form.errors)
+    else:
+        return JsonResponse({'success': False, 'errors': form.errors})
+    return redirect('/')
+
+
+@login_required
+def editar_protocolo(request, protocolo_id):
+    protocolo = Protocolo.objects.get(pk=protocolo_id)
+
+    if request.method == 'POST':
+        form = ProtocoloEditForm(request.POST, instance=protocolo)
+        if form.is_valid():
+            protocolo = form.save(commit=False)
+            protocolo.id_funcionario = request.user
+            protocolo.save()
+            return redirect('lista_protocolos')
+    else:
+        form = ProtocoloEditForm(instance=protocolo)
+    return render(request, 'protocolos/editar_protocolo.html', {'form': form})
 
 
 def historico(request):

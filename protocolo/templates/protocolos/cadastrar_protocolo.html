@@ -1,18 +1,23 @@
 {% load static %} {% block content %}
-<div class="modal edit-modal">
+<div class="modal add-modal">
   <div class="modal-background is-flex is-align-items-center">
     <div class="modal-content">
       <div class="box p-5">
-        <h3 class="title is-3">Editar</h3>
-        <form id="update-form" action="">
+        <h3 class="title is-3">Novo protocolo</h3>
+        <form action="{% url 'cadastrar_protocolo' %}" method="post">
+          {% csrf_token %}
           <!-- Emitente -->
-
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
                 <label class="label">Emitente</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="text" placeholder="Nome" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nome"
+                    name="emitente_nome"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -21,13 +26,17 @@
             </div>
           </div>
           <!-- Destinatario -->
-
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
                 <label class="label">Destinatário</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="text" placeholder="Nome" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nome"
+                    name="destinatario_nome"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -40,12 +49,17 @@
             <div class="field-body">
               <div class="field">
                 <div class="control is-expanded">
-                  <input class="input" type="date" />
+                  <input class="input" type="date" name="data_entrega" />
                 </div>
               </div>
               <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input" type="number" placeholder="Volumes" />
+                  <input
+                    class="input"
+                    type="number"
+                    placeholder="Volumes"
+                    name="qtd_volumes"
+                  />
                   <span class="icon is-small is-left">
                     <i class="material-symbols-outlined"> storage </i>
                   </span>
@@ -58,10 +72,10 @@
             <label class="label">Situação</label>
             <div class="control is-expanded">
               <div class="select is-fullwidth">
-                <select>
-                  <option value="pendente">Pendente</option>
-                  <option value="retirado">Retirado</option>
-                  <option value="cancelado">Cancelado</option>
+                <select name="situacao">
+                  <option value="Pendente" selected>Pendente</option>
+                  <option value="Retirado">Retirado</option>
+                  <option value="Cancelado">Cancelado</option>
                 </select>
               </div>
             </div>

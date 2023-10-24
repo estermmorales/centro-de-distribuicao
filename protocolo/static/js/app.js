@@ -1,55 +1,50 @@
-function activeMenuLink() {
-  const linksMenu = document.querySelectorAll(".menu li");
+$(document).ready(function () {
+  // Função para ativar o link do menu
+  function activeMenuLink() {
+    const $linksMenu = $(".menu li");
 
-  function handleLink(event) {
-    linksMenu.forEach((link) => {
-      link.classList.remove("active");
-    });
-    event.currentTarget.classList.add("active");
+    function handleLink(event) {
+      $linksMenu.removeClass("active");
+      $(this).addClass("active");
+    }
+
+    $linksMenu.on("click", handleLink);
   }
-  linksMenu.forEach((link) => {
-    link.addEventListener("click", handleLink);
-  });
-}
-activeMenuLink();
 
-function expandMenu() {
-  const sidebar = document.querySelector(".sidebar");
-  const bars = document.querySelector(".bars");
-  const barsIcon = bars.querySelector(".bars-icon");
-  const cIcon = bars.querySelector(".c-icon");
-  bars.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
-    barsIcon.classList.toggle("active");
-    cIcon.classList.toggle("active");
-  });
-}
-expandMenu();
+  activeMenuLink();
 
-const triggerButtons = document.querySelectorAll(".js-modal-button");
-const closeButtons = document.querySelectorAll(".close");
-console.log(closeButtons)
-triggerButtons.forEach((button) => {
-  const target = button.dataset.target;
-  const modal = document.querySelector(`.${target}`);
-  console.log(modal);
-  button.addEventListener("click", () => {
-    modal.classList.add("is-active");
-  });
+  // Função para expandir o menu
+  function expandMenu() {
+    const $sidebar = $(".sidebar");
+    const $bars = $(".bars");
+    const $barsIcon = $bars.find(".bars-icon");
+    const $cIcon = $bars.find(".c-icon");
 
-  closeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      modal.classList.remove("is-active");
+    $bars.on("click", function () {
+      $sidebar.toggleClass("active");
+      $barsIcon.toggleClass("active");
+      $cIcon.toggleClass("active");
     });
+  }
+
+  expandMenu();
+
+  // Lidar com modais
+  const $triggerButtons = $(".js-modal-button");
+  const $closeButtons = $(".close");
+
+  $triggerButtons.each(function () {
+    const target = $(this).data("target");
+    const $modal = $(`.${target}`);
+
+    $(this).on("click", function () {
+      $modal.addClass("is-active");
+    });
+  });
+
+  $closeButtons.on("click", function () {
+    const target = $(this).data("target");
+    const $modal = $(`.${target}`);
+    $modal.removeClass("is-active");
   });
 });
-
-// const addButton = document.querySelector(".add-button-modal");
-// const addModal = document.querySelector(".add-modal");
-// const closeModalButton = document.querySelector(".modal-close");
-// addButton.addEventListener("click", () => {
-//   addModal.classList.add("is-active");
-// });
-// closeModalButton.addEventListener("click", () => {
-//   addModal.classList.remove("is-active");
-// });

@@ -59,7 +59,7 @@
           >
             <i class="material-icons md-24 mr-1">add</i> Novo
           </button>
-          {% include "add-protocolo-modal.html" %}
+          {% include "protocolos/cadastrar_protocolo.html" %}
           <button class="button is-rounded is-small">
             <i class="material-icons md-24">description</i>
           </button>
@@ -78,15 +78,15 @@
               </tr>
             </thead>
             <tbody>
+              {% for protocolo in todos_protocolos %}
               <tr>
-                {% for protocolo in todos_protocolos %}
                 <td>{{ protocolo.id }}</td>
                 <td>{{ protocolo.data_entrega }}</td>
                 <td>{{ protocolo.data_retirada }}</td>
                 <td>{{ protocolo.id_emitente.nome }}</td>
                 <td>{{ protocolo.id_destinatario.nome }}</td>
                 <td>{{ protocolo.situacao }}</td>
-                {% endfor %}
+
                 <td>
                   <button
                     class="js-modal-trigger button is-white is-small js-modal-button"
@@ -98,6 +98,7 @@
                   </button>
                 </td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -129,7 +130,13 @@
       </div>
     </div>
     <!-- Main content end -->
-    <!-- Modal -->
+
+    <!--JS Scripts-->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

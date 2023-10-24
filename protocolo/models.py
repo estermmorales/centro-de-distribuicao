@@ -1,9 +1,13 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Funcionario(models.Model):
     permissao = [("GR", "Gerente"), ("FUN", "Funcionário"),
                  ("EST", "Estagiário"), ("VIS", "Visitante")]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     nome = models.CharField("Nome", max_length=45)
     documento = models.CharField("Documento", max_length=11)
     telefone = models.CharField("Telefone", max_length=45, null=True)
@@ -26,14 +30,15 @@ class EmitenteDestinatario(models.Model):
     telefone = models.CharField("Telefone", max_length=11)
     email = models.CharField("E-mail", max_length=45)
     id_endereco = models.ForeignKey(
-        Endereco, blank=True, null=True, on_delete=models.DO_NOTHING)
+        Endereco, blank=True, null=True, on_delete=models.CASCADE)
 
 
 class Protocolo(models.Model):
     situacoes = [("Pendente", "Pendente"), ("Retirado", "Retirado"),
                  ("Cancelado", "Cancelado")]
-    data_entrega = models.DateField("Data de entrega", auto_now_add=True)
-    data_retirada = models.DateField("Data de retirada")
+    data_entrega = models.DateField(
+        "Data de entrega", default=timezone.now)
+    data_retirada = models.DateField("Data de retirada", null=True, blank=True)
     id_emitente = models.ForeignKey(
         EmitenteDestinatario, on_delete=models.DO_NOTHING, related_name="id_emitente")
     id_destinatario = models.ForeignKey(
