@@ -1,62 +1,45 @@
 from django.db import models
 
 
-class Permissao(models.Model):
-    permissoes = [("GR", "Gerente"), ("FUN", "Funcionário"),
-                  ("EST", "Estagiário"), ("VIS", "Visitante")]
-    descricao = models.CharField(max_length=45, choices=permissoes)
-
-
-class Perfil(models.Model):
-    descricao = models.CharField(max_length=45)
-    id_permissao = models.ForeignKey(Permissao, on_delete=models.DO_NOTHING)
-
-
 class Funcionario(models.Model):
-    nome = models.CharField(max_length=45)
-    documento = models.CharField(max_length=11)
-    contato = models.CharField(max_length=45)
-    email = models.CharField(max_length=45)
+    permissao = [("GR", "Gerente"), ("FUN", "Funcionário"),
+                 ("EST", "Estagiário"), ("VIS", "Visitante")]
+    nome = models.CharField("Nome", max_length=45)
+    documento = models.CharField("Documento", max_length=11)
+    telefone = models.CharField("Telefone", max_length=45, null=True)
+    email = models.CharField("E-mail", max_length=45)
+    permissao = models.CharField(
+        "Permissão", max_length=45, choices=permissao, default='Funcionário')
 
 
 class Endereco(models.Model):
-    cep = models.IntegerField()
-    estado = models.CharField(max_length=45)
-    cidade = models.CharField(max_length=45)
-    bairro = models.CharField(max_length=45)
-    rua = models.CharField(max_length=45)
+    cep = models.IntegerField("CEP")
+    estado = models.CharField("Estado", max_length=45)
+    cidade = models.CharField("Cidade", max_length=45)
+    bairro = models.CharField("Bairro", max_length=45)
+    rua = models.CharField("Rua", max_length=45)
 
 
 class EmitenteDestinatario(models.Model):
-    nome = models.CharField(max_length=45)
-    documento = models.CharField(max_length=11)
-    telefone = models.CharField(max_length=11)
-    email = models.CharField(max_length=45)
+    nome = models.CharField("Nome", max_length=45)
+    documento = models.CharField("Documento", max_length=11)
+    telefone = models.CharField("Telefone", max_length=11)
+    email = models.CharField("E-mail", max_length=45)
     id_endereco = models.ForeignKey(
         Endereco, blank=True, null=True, on_delete=models.DO_NOTHING)
 
 
-class Usuario(models.Model):
-    nome = models.CharField(max_length=45)
-    senha = models.CharField(max_length=30)
-    id_perfil = models.ForeignKey(Perfil, on_delete=models.DO_NOTHING)
-    id_funcionario = models.ForeignKey(
-        Funcionario, on_delete=models.DO_NOTHING)
-
-
-class Situacao(models.Model):
-    situacoes = [("PEN", "PENDENTE"), ("RET", "RETIRADO"),
-                 ("CAN", "CANCELADO")]
-    descricao = models.CharField(max_length=45, choices=situacoes)
-
-
 class Protocolo(models.Model):
-    data_entrega = models.DateField()
-    data_retirada = models.DateField()
+    situacoes = [("Pendente", "Pendente"), ("Retirado", "Retirado"),
+                 ("Cancelado", "Cancelado")]
+    data_entrega = models.DateField("Data de entrega", auto_now_add=True)
+    data_retirada = models.DateField("Data de retirada")
     id_emitente = models.ForeignKey(
         EmitenteDestinatario, on_delete=models.DO_NOTHING, related_name="id_emitente")
     id_destinatario = models.ForeignKey(
         EmitenteDestinatario, on_delete=models.DO_NOTHING, related_name="id_destinatario")
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
-    id_situacao = models.ForeignKey(Situacao, on_delete=models.DO_NOTHING)
-    qtd_volumes = models.IntegerField()
+    id_funcionario = models.ForeignKey(
+        Funcionario, on_delete=models.DO_NOTHING, null=True)
+    qtd_volumes = models.IntegerField("Volumes")
+    situacao = models.CharField(
+        "Situação", max_length=45, choices=situacoes, default='Pendente')

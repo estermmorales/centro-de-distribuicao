@@ -79,12 +79,14 @@
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>10/09/2023</td>
-                <td>-</td>
-                <td>Fulano</td>
-                <td>Ciclano</td>
-                <td>Pendente</td>
+                {% for protocolo in todos_protocolos %}
+                <td>{{ protocolo.id }}</td>
+                <td>{{ protocolo.data_entrega }}</td>
+                <td>{{ protocolo.data_retirada }}</td>
+                <td>{{ protocolo.id_emitente.nome }}</td>
+                <td>{{ protocolo.id_destinatario.nome }}</td>
+                <td>{{ protocolo.situacao }}</td>
+                {% endfor %}
                 <td>
                   <button
                     class="js-modal-trigger button is-white is-small js-modal-button"
