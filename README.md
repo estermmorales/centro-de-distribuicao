@@ -33,6 +33,10 @@ user = your_user
 password = your_password
 default-character-set = utf8
 ```
+4. 1. Popule seu banco de dados local (com valores aleatórios)
+```
+python generate_fake_data.py
+```
 
 5. Faças as migrações
 
@@ -49,4 +53,4 @@ python manage.py runserver
 
 <br>
 
-Tecnologias utilizadas: Django, MySQL, Bulma e JavaScript
+Tecnologias utilizadas: Django, MySQL, Bulma e JQuery

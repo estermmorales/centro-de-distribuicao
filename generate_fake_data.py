@@ -3,7 +3,6 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "central.settings")
 django.setup()
 import random
-from django.utils import timezone
 from faker import Faker
 from protocolo.models import Endereco, EmitenteDestinatario, Protocolo
 
