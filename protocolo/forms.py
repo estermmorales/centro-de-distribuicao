@@ -66,6 +66,7 @@ class ProtocoloEditForm(forms.ModelForm):
         cleaned_data = super().clean()
         emitente_nome = cleaned_data.get('emitente_nome')
         destinatario_nome = cleaned_data.get('destinatario_nome')
+        
 
         emitente = EmitenteDestinatario.objects.get(nome=emitente_nome)
         destinatario = EmitenteDestinatario.objects.get(nome=destinatario_nome)

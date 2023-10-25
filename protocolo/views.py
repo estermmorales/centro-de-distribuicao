@@ -6,27 +6,35 @@ from .models import Funcionario, Protocolo
 from .forms import ProtocoloForm, ProtocoloEditForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
-# Create your views here.
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView
 
 def protocolo(request):
     hoje = timezone.now()
     ultimos_30_dias = hoje - timedelta(days=30)
 
-    protocolos_hoje = Protocolo.objects.annotate(
+    
+
+    hoje = Protocolo.objects.annotate(
         data_trunc=TruncDate('data_entrega')).filter(data_trunc=hoje.date())
-    protocolos_ultimos_30_dias = Protocolo.objects.annotate(data_trunc=TruncDate(
+    ultimos_30_dias = Protocolo.objects.annotate(data_trunc=TruncDate(
         'data_entrega')).filter(data_trunc__gte=ultimos_30_dias.date())
-    todos_protocolos = Protocolo.objects.all()
+    todos_protocolos = Protocolo.objects.all().order_by('id')
+
+
+    paginator = Paginator(todos_protocolos, 10)
+    page = request.GET.get('page')
+    todos_protocolos = paginator.get_page(page)
 
     context = {
-        'protocolos_hoje': protocolos_hoje,
-        'protocolos_ultimos_30_dias': protocolos_ultimos_30_dias,
+        'protocolos_hoje': hoje,
+        'protocolos_ultimos_30_dias': ultimos_30_dias,
         'todos_protocolos': todos_protocolos,
     }
 
-    return render(request, 'protocolo.html', context)
+    return render(request, 'protocolo.html', {'todos_protocolos': todos_protocolos})
+
+
 
 
 # @login_required
@@ -37,8 +45,8 @@ def cadastrar_protocolo(request):
             # Crie o protocolo a partir do formulário, mas não o salve ainda
             protocolo = form.save(commit=False)
             # Associe o funcionário logado ao protocolo
-            protocolo.id_funcionario = Funcionario.objects.get(
-                user=request.user)
+            # protocolo.id_funcionario = Funcionario.objects.get(
+            #     user=request.user)
             protocolo.save()  # Agora, salve o protocolo no banco de dados
             return redirect('/')
         else:
