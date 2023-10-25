@@ -10,30 +10,39 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 
 def protocolo(request):
+    protocolos = Protocolo.objects.all().order_by('id')
+
+    situacao = request.GET.get('situacao')
+    periodo = request.GET.get('periodo')
     hoje = timezone.now()
-    ultimos_30_dias = hoje - timedelta(days=30)
+    data_inicio = None
+    data_fim = None
 
-    
+    if situacao:
+        protocolos = protocolos.filter(situacao=situacao)
 
-    hoje = Protocolo.objects.annotate(
-        data_trunc=TruncDate('data_entrega')).filter(data_trunc=hoje.date())
-    ultimos_30_dias = Protocolo.objects.annotate(data_trunc=TruncDate(
-        'data_entrega')).filter(data_trunc__gte=ultimos_30_dias.date())
-    todos_protocolos = Protocolo.objects.all().order_by('id')
+    if periodo:
+        if periodo == 'hoje':
+            data_inicio = hoje.date()
+            data_fim = hoje.date()
+            protocolos = protocolos.filter(data_entrega__range=(data_inicio, data_fim))
+        elif periodo == '30dias':
+            data_fim = hoje.date()
+            data_inicio = hoje - timedelta(days=30)
+            protocolos = protocolos.filter(data_entrega__range=(data_inicio, data_fim))
 
-
-    paginator = Paginator(todos_protocolos, 10)
+    # Paginação
+    paginator = Paginator(protocolos, 10)
     page = request.GET.get('page')
-    todos_protocolos = paginator.get_page(page)
+    protocolos = paginator.get_page(page)
 
     context = {
-        'protocolos_hoje': hoje,
-        'protocolos_ultimos_30_dias': ultimos_30_dias,
-        'todos_protocolos': todos_protocolos,
+        'protocolos': protocolos,
+        'situacao_selecionada': situacao,
+        'periodo_selecionado': periodo,
     }
 
-    return render(request, 'protocolo.html', {'todos_protocolos': todos_protocolos})
-
+    return render(request, 'protocolo.html', context)
 
 
 

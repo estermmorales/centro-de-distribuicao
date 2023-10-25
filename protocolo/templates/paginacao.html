@@ -4,37 +4,37 @@
   role="navigation"
   aria-label="pagination"
 >
-{% if todos_protocolos.number > 1 %}
-  <a href="?page={{ todos_protocolos.number|sub:1 }}" class="pagination-previous">Anterior</a>
+{% if protocolos.number > 1 %}
+  <a href="?page={{ protocolos.number|sub:1 }}" class="pagination-previous">Anterior</a>
   {% endif %} 
-  {% if todos_protocolos.number < todos_protocolos.paginator.num_pages %}
-  <a href="?page={{ todos_protocolos.number|add:1 }}" class="pagination-next">Próxima página</a>
+  {% if protocolos.number < protocolos.paginator.num_pages %}
+  <a href="?page={{ protocolos.number|add:1 }}" class="pagination-next">Próxima página</a>
   {% endif %}
   <ul class="pagination-list">
     <li>
       <a href="?page=1" class="pagination-link" aria-label="Goto page 1">1</a>
     </li>
     <li><span class="pagination-ellipsis">&hellip;</span></li>
-    {% if todos_protocolos.number > 1 %}
+    {% if protocolos.number > 1 %}
     <li>
-      <a href="?page={{ todos_protocolos.previous_page_number }}" class="pagination-link" aria-label="Goto page 45">{{ todos_protocolos.number|sub:1 }}</a>
+      <a href="?page={{ protocolos.previous_page_number }}" class="pagination-link" aria-label="Goto page 45">{{ protocolos.number|sub:1 }}</a>
     </li>
     {% endif %}
     <li>
-      <a class="pagination-link is-current" aria-label="Page {{ todos_protocolos.number }}" aria-current="page">{{ todos_protocolos.number }}</a>
+      <a class="pagination-link is-current" aria-label="Page {{ protocolos.number }}" aria-current="page">{{ protocolos.number }}</a>
     </li>
-    {% if todos_protocolos.number < todos_protocolos.paginator.num_pages %}
+    {% if protocolos.number < protocolos.paginator.num_pages %}
     <li>
-      <a href="?page={{ todos_protocolos.next_page_number }}" class="pagination-link" aria-label="Goto page 47">{{ todos_protocolos.number|add:1 }}</a>
+      <a href="?page={{ protocolos.next_page_number }}" class="pagination-link" aria-label="Goto page 47">{{ protocolos.number|add:1 }}</a>
     </li>
     {% endif %}
     <li><span class="pagination-ellipsis">&hellip;</span></li>
     <li>
       <a
-        href="?page={{todos_protocolos.paginator.num_pages}}"
+        href="?page={{protocolos.paginator.num_pages}}"
         class="pagination-link"
-        aria-label="Goto page {{todos_protocolos.paginator.num_pages}}"
-        >{{todos_protocolos.paginator.num_pages}}</a
+        aria-label="Goto page {{protocolos.paginator.num_pages}}"
+        >{{protocolos.paginator.num_pages}}</a
       >
     </li>
   </ul>

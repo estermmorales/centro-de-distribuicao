@@ -78,7 +78,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for protocolo in todos_protocolos %}
+              {% for protocolo in protocolos %}
               <tr>
                 <td>{{ protocolo.id }}</td>
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
@@ -113,6 +113,7 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
     <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

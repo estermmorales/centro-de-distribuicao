@@ -1,42 +1,46 @@
 {% load static %} {% block content %}
 <div class="card--container">
   <div class="period ml-4">
-    <button class="button is-rounded is-size-7 is-light">
+    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=">
       A qualquer momento
-    </button>
-    <button class="button is-rounded is-size-7 is-light">
+    </a>
+    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=30dias">
       Últimos 30 dias
-    </button>
-    <button class="button is-rounded is-size-7 is-light">Hoje</button>
+    </a>
+    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=hoje">Hoje</a>
   </div>
   <div class="card--wrapper ml-3">
+
     <div class="card mt-2">
-      <div class="header mt-2">
-        <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 positive"
-          >check_circle</i
-        >
-        <p>RETIRADO</p>
-        <p class="card-header-title is-size-3">5</p>
-      </div>
+      <a class="filter" data-filter="situacao=retirado">
+        <div class="header mt-2">
+          <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 positive">check_circle</i>
+          <p>RETIRADO</p>
+          <p class="card-header-title is-size-3">5</p>
+        </div>
+      </a>
     </div>
+
     <div class="card mt-2">
-      <div class="header mt-2">
-        <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 neutral"
-          >schedule</i
-        >
-        <p>PENDENTE</p>
-        <p class="card-header-title is-size-3">5</p>
-      </div>
+      <a class="filter" data-filter="situacao=pendente">
+        <div class="header mt-2">
+          <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 neutral">schedule</i>
+          <p>PENDENTE</p>
+          <p class="card-header-title is-size-3">5</p>
+        </div>
+      </a>
     </div>
+
     <div class="card mt-2">
-      <div class="header mt-2">
-        <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 negative"
-          >cancel</i
-        >
-        <p>CANCELADO</p>
-        <p class="card-header-title is-size-3">5</p>
-      </div>
+      <a class="filter" data-filter="situacao=cancelado">
+        <div class="header mt-2">
+          <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 negative">cancel</i>
+          <p>CANCELADO</p>
+          <p class="card-header-title is-size-3">5</p>
+        </div>
+      </a>
     </div>
+
   </div>
 </div>
 {% endblock %}
