@@ -28,7 +28,7 @@ class ProtocoloForm(forms.ModelForm):
 
     class Meta:
         model = Protocolo
-        fields = ['data_entrega', 'qtd_volumes', 'situacao']
+        fields = ['qtd_volumes']
 
     def save(self, commit=True):
         protocolo = super(ProtocoloForm, self).save(commit=False)

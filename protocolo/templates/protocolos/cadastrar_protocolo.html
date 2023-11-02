@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Novo protocolo</h3>
-        <form action="{% url 'cadastrar_protocolo' %}" method="post">
+        <form action="{% url 'cadastrar_protocolo' %}" method="post" class="box">
           {% csrf_token %}
           <!-- Emitente -->
           <div class="field is-horizontal">
@@ -46,13 +46,8 @@
           </div>
 
           <div class="field is-horizontal mt-5">
-            <div class="field-body">
               <div class="field">
-                <div class="control is-expanded">
-                  <input class="input" type="date" name="data_entrega" />
-                </div>
-              </div>
-              <div class="field">
+                <label class="label">Volumes</label>
                 <p class="control has-icons-left">
                   <input
                     class="input"
@@ -66,31 +61,17 @@
                 </p>
               </div>
             </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Situação</label>
-            <div class="control is-expanded">
-              <div class="select is-fullwidth">
-                <select name="situacao">
-                  <option value="Pendente" selected>Pendente</option>
-                  <option value="Retirado">Retirado</option>
-                  <option value="Cancelado">Cancelado</option>
-                </select>
-              </div>
+            <div class="field is-grouped is-grouped-centered">
+              <button
+                class="button is-dark is-rounded is-small mt-5 mr-3"
+                type="submit"
+              >
+                Salvar <i class="material-symbols-outlined"> done </i>
+              </button>
+              <button class="button close is-outlined is-rounded is-small mt-5">
+                Cancelar
+              </button>
             </div>
-          </div>
-
-          <div class="field is-grouped is-grouped-centered">
-            <button
-              class="button is-dark is-rounded is-small mt-5 mr-3"
-              type="submit"
-            >
-              Salvar <i class="material-symbols-outlined"> done </i>
-            </button>
-            <button class="button close is-outlined is-rounded is-small mt-5">
-              Cancelar
-            </button>
           </div>
         </form>
       </div>

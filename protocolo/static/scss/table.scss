@@ -2,6 +2,13 @@
   background: $white-color;
   padding: 1.8rem;
 }
+
+table {
+  margin: 1rem;
+}
+.table-container {
+  overflow: hidden !important;
+}
 td {
   font-size: 14px;
   i {

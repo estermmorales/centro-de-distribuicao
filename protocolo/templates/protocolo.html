@@ -61,20 +61,16 @@
             <i class="material-icons md-24 mr-1">add</i> Novo
           </button>
           {% include "protocolos/cadastrar_protocolo.html" %}
-          <button class="button is-rounded is-small">
-            <i class="material-icons md-24">description</i>
-          </button>
         </div>
         <div class="table-container ml-3">
-          <table class="table is-striped is-hoverable is-fullwidth">
+          <table class="table is-striped is-hoverable is-fullwidth is-narrow">
             <thead>
               <tr>
-                <th></th>
+                <th>Volumes</th>
                 <th>Data de entrega</th>
                 <th>Data de retirada</th>
                 <th>Emitente</th>
                 <th>Destinatário</th>
-                <th>Volumes</th>
                 <th>Situação</th>
                 <th></th>
               </tr>
@@ -82,12 +78,11 @@
             <tbody>
               {% for protocolo in protocolos %}
               <tr>
-                <td>{{ protocolo.id }}</td>
+                <td>{{ protocolo.qtd_volumes }}</td>
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
                 <td>{{ protocolo.id_emitente.nome }}</td>
                 <td>{{ protocolo.id_destinatario.nome }}</td>
-                <td>{{ protocolo.qtd_volumes }}</td>
                 <td>{{ protocolo.situacao }}</td>
                 <td>
                   <a href="{% url 'editar_protocolo' protocolo.id %}"
@@ -100,7 +95,7 @@
                 </a>
                 </td>
               </tr>
-              {% include "editar-protocolo.html" %}
+              {% include "protocolos/editar_protocolo.html" %}
               {% endfor %}
             </tbody>
           </table>
