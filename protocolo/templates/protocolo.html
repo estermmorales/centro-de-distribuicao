@@ -86,23 +86,26 @@
                 <td>{{ protocolo.id_emitente.nome }}</td>
                 <td>{{ protocolo.id_destinatario.nome }}</td>
                 <td>{{ protocolo.situacao }}</td>
-
                 <td>
-                  <button
+                  <a href="{% url 'editar_protocolo' protocolo.id %}"
                     class="js-modal-trigger button is-white is-small js-modal-button"
                     data-target="edit-modal"
                   >
                     <i class="material-symbols-outlined is-clickable md-18"
                       >edit_square</i
                     >
-                  </button>
+                </a>
                 </td>
               </tr>
+              {% include "editar-protocolo.html" %}
               {% endfor %}
             </tbody>
           </table>
         </div>
-        {% include "edit-protocolo-modal.html" %} {% include "paginacao.html" %}
+         {% include "paginacao.html" %}
+      </div>
+      <div>
+        
       </div>
     </div>
     <!-- Main content end -->
