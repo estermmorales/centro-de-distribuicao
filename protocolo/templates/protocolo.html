@@ -1,52 +1,6 @@
-{% load static %} {% load compress %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Central - {% block title %} Protocolos {% endblock %}</title>
-    {% compress css %}
-    <link
-      type="text/x-scss"
-      rel="stylesheet"
-      href="{% static 'scss/main.scss' %}"
-    />
-    {% endcompress %}
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    />
-  </head>
-
-  <body>
-    <!-- Sidebar start -->
-    {% include "sidebar.html" %}
-    <!-- Sidebar end -->
-    <!-- Main content start -->
-    <div class="main--content">
-      <!-- Header start -->
-      {% include "header.html" %}
-      <!-- Header end -->
+      <!-- Head start -->
+      {% include "head.html" %}
+      <!-- Head end -->
       <!-- Card start-->
       {% include "card.html" %}
       <!-- Card end -->
@@ -102,21 +56,17 @@
             </tbody>
           </table>
         </div>
+<<<<<<< HEAD
          {% include "paginacao.html" %}
       </div>
       <div>
         
+=======
+        {% include "protocolos/editar-protocolo.html" %} {% include "paginacao.html" %}
+>>>>>>> 58c7479ec6f71cbd5603a1d3c61339bd38400ac4
       </div>
     </div>
     <!-- Main content end -->
-
-    <!--JS Scripts-->
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-    <script src="{% static 'js/app.js' %}"></script>
-  </body>
-</html>
+<!--Footer start-->
+{% include 'footer.html' %}
+<!--Footer end-->

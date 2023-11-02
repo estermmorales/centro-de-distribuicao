@@ -6,7 +6,7 @@ from .models import Funcionario, Protocolo
 from .forms import ProtocoloForm, ProtocoloEditForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.views.generic import ListView
 
 def protocolo(request):
@@ -65,6 +65,10 @@ def cadastrar_protocolo(request):
     return redirect('/')
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58c7479ec6f71cbd5603a1d3c61339bd38400ac4
 #@login_required
 def editar_protocolo(request, protocolo_id):
     protocolo = Protocolo.objects.get(pk=protocolo_id)
@@ -75,11 +79,19 @@ def editar_protocolo(request, protocolo_id):
             protocolo = form.save(commit=False)
             protocolo.id_funcionario = request.user
             protocolo.save()
+<<<<<<< HEAD
             return redirect('/')
         else:
             print(form.errors)
     
     
+=======
+            return redirect('lista_protocolos')
+    else:
+        form = ProtocoloEditForm(instance=protocolo)
+
+    return render(request, '/', {'form': form, 'protocolo': protocolo})
+>>>>>>> 58c7479ec6f71cbd5603a1d3c61339bd38400ac4
 
 
 def historico(request):

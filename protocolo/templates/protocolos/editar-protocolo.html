@@ -4,18 +4,19 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Editar</h3>
-        <form id="update-form" action="">
+        <form id="update-form" action="{% url 'editar_protocolo' %}" method="POST">
+          {% csrf_token %}
           <!-- Emitente -->
-
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
                 <label class="label">Emitente</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="text" placeholder="Nome" />
+                  <input class="input" type="text" /> 
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
+                  {{ protocolo.id_emitente.nome }}
                 </p>
               </div>
             </div>
