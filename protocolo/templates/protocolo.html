@@ -68,11 +68,12 @@
           <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>Volumes</th>
+                <th></th>
                 <th>Data de entrega</th>
                 <th>Data de retirada</th>
                 <th>Emitente</th>
                 <th>Destinatário</th>
+                <th>Volumes</th>
                 <th>Situação</th>
                 <th></th>
               </tr>
@@ -85,24 +86,25 @@
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
                 <td>{{ protocolo.id_emitente.nome }}</td>
                 <td>{{ protocolo.id_destinatario.nome }}</td>
+                <td>{{ protocolo.qtd_volumes }}</td>
                 <td>{{ protocolo.situacao }}</td>
 
                 <td>
-                  <button
+                  <a href="{% url 'editar_protocolo' protocolo.id %}"
                     class="js-modal-trigger button is-white is-small js-modal-button"
                     data-target="edit-modal"
                   >
                     <i class="material-symbols-outlined is-clickable md-18"
                       >edit_square</i
                     >
-                  </button>
+                </a>
                 </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
-        {% include "edit-protocolo-modal.html" %} {% include "paginacao.html" %}
+        {% include "protocolos/editar_protocolo.html" %} {% include "paginacao.html" %}
       </div>
     </div>
     <!-- Main content end -->

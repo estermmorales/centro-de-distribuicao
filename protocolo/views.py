@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 
 def protocolo(request):
-    protocolos = Protocolo.objects.all().order_by('id')
+    protocolos = Protocolo.objects.all().order_by('-data_entrega')
 
     situacao = request.GET.get('situacao')
     periodo = request.GET.get('periodo')
@@ -65,7 +65,7 @@ def cadastrar_protocolo(request):
     return redirect('/')
 
 
-@login_required
+#@login_required
 def editar_protocolo(request, protocolo_id):
     protocolo = Protocolo.objects.get(pk=protocolo_id)
 
