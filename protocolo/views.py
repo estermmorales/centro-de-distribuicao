@@ -1,13 +1,14 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models.functions import TruncDate
-from .models import Funcionario, Protocolo
+from .models import Funcionario, Protocolo, EmitenteDestinatario
 from .forms import ProtocoloForm, ProtocoloEditForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
+
 
 def protocolo(request):
     protocolos = Protocolo.objects.all().order_by('-data_entrega')
@@ -69,17 +70,35 @@ def cadastrar_protocolo(request):
 def editar_protocolo(request, protocolo_id):
     protocolo = Protocolo.objects.get(id=protocolo_id)
 
-    if request.method == 'POST':
-        form = ProtocoloEditForm(request.POST, instance=protocolo)
-        if form.is_valid():
-            protocolo = form.save(commit=False)
-            #protocolo.id_funcionario = request.user
-            protocolo.save()
-            return redirect('/')
-        else:
-            print(form.errors)
+    id_emitente = protocolo.id_emitente_id
+    get_emitente = EmitenteDestinatario.objects.get(id=id_emitente)
+
+    id_destinatario = protocolo.id_destinatario_id
+    get_destinatario = EmitenteDestinatario.objects.get(id=id_destinatario)
     
-    
+    novo_emitente = request.POST.get('nome_emitente')
+    get_novo_emitente = EmitenteDestinatario.objects.get(nome=novo_emitente)
+    if (get_novo_emitente.nome != get_emitente.nome):
+        protocolo.id_emitente_id = get_novo_emitente.id
+
+    novo_destinatario = request.POST.get('nome_destinatario')
+    get_novo_destinatario = EmitenteDestinatario.objects.get(nome=novo_destinatario)
+    if (get_novo_destinatario.nome != get_destinatario.nome):
+        protocolo.id_destinatario_id = get_novo_destinatario.id
+
+    novo_qtd_volumes = request.POST.get('qtd_volumes')
+    if (novo_qtd_volumes != protocolo.qtd_volumes):
+        protocolo.qtd_volumes = novo_qtd_volumes
+
+    nova_situacao = request.POST.get('situacao')
+    if(nova_situacao != protocolo.situacao):
+        if (nova_situacao == 'Retirado'):
+            protocolo.data_retirada = timezone.now()
+        protocolo.situacao = nova_situacao
+
+        
+    protocolo.save()
+    return redirect('/')
 
 
 def historico(request):

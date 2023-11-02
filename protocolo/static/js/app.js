@@ -86,5 +86,22 @@ $(document).ready(function () {
       });
   });
 
+
+  const editButtons = document.querySelectorAll('tr > td .edit-btn');
+  const emitente = document.querySelector('input[name="nome_emitente"]');
+  const destinatario = document.querySelector('input[name="nome_destinatario"]');
+  const volumes = document.querySelector('input[name="qtd_volumes"]');
+  const situacao = document.querySelector('select[name="situacao"');
+
+  editButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const dados = button.closest("tr")
+      emitente.setAttribute("value", dados.cells[3].innerText);
+      destinatario.setAttribute("value", dados.cells[4].innerText);
+      volumes.setAttribute("value", parseInt(dados.cells[0].innerText));
+      situacao.value = dados.cells[5].innerText;
+    })
+  })
+
 });
 

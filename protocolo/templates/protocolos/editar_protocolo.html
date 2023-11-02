@@ -4,15 +4,17 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Editar</h3>
-        <form id="update-form" action="">
-          <!-- Emitente -->
-
+        <form action="" method="POST" id="update-form">
+          {% csrf_token %}
+          <div class="fields">
+            <!-- Emitente -->
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
-                <label class="label">Emitente</label>
+                <label class="label" for="nome_emitente">Emitente</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="text" placeholder="Nome" value="{{ protocolo.id_emitente.nome }}"/> 
+                  <input name="nome_emitente" class="input" type="text" placeholder="Nome"
+                    value="{{ protocolo.id_emitente.nome }}" />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -21,13 +23,13 @@
             </div>
           </div>
           <!-- Destinatario -->
-
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
-                <label class="label">Destinatário</label>
+                <label class="label" for="nome_destinatario">Destinatário</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="text" placeholder="Nome" />
+                  <input name="nome_destinatario" class="input" type="text" placeholder="Nome"
+                    value="{{ protocolo.id_destinatario.nome }}" />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -35,43 +37,36 @@
               </div>
             </div>
           </div>
-
+          <!--Volumes -->
           <div class="field is-horizontal mt-5">
-            <div class="field-body">
-              <div class="field">
-                <div class="control is-expanded">
-                  <input class="input" type="date" />
+            <div class="field">
+              <label for="qtd_volumes" class="label">Volumes</label>
+              <p class="control has-icons-left">
+                <input name="qtd_volumes" class="input" type="text"
+                    value="{{ protocolo.qtd_volumes }}" />
+                <span class="icon is-small is-left">
+                  <i class="material-symbols-outlined"> storage </i>
+                </span>
+              </p>
+            </div>
+            <!--Situação-->
+            <div class="field ml-4">
+              <label for="situacao" class="label">Situação</label>
+              <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                  <select name="situacao">
+                    <option value="Pendente">Pendente</option>
+                    <option value="Retirado">Retirado</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
                 </div>
               </div>
-              <div class="field">
-                <p class="control has-icons-left">
-                  <input class="input" type="number" placeholder="Volumes" />
-                  <span class="icon is-small is-left">
-                    <i class="material-symbols-outlined"> storage </i>
-                  </span>
-                </p>
-              </div>
             </div>
           </div>
-
-          <div class="field">
-            <label class="label">Situação</label>
-            <div class="control is-expanded">
-              <div class="select is-fullwidth">
-                <select>
-                  <option value="pendente">Pendente</option>
-                  <option value="retirado">Retirado</option>
-                  <option value="cancelado">Cancelado</option>
-                </select>
-              </div>
-            </div>
           </div>
-
+          <!--Botões-->
           <div class="field is-grouped is-grouped-centered">
-            <button
-              class="button is-dark is-rounded is-small mt-5 mr-3"
-              type="submit"
-            >
+            <button class="button is-dark is-rounded is-small mt-5 mr-3" type="submit">
               Salvar <i class="material-symbols-outlined"> done </i>
             </button>
             <button class="button close is-outlined is-rounded is-small mt-5">
@@ -83,5 +78,6 @@
       <button class="modal-close close"></button>
     </div>
   </div>
+  
 </div>
 {% endblock %}
