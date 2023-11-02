@@ -33,7 +33,9 @@ user = your_user
 password = your_password
 default-character-set = utf8
 ```
+
 - Caso queira, popule seu banco de dados local com valores aleatórios
+
 ```
 python generate_fake_data.py
 ```

@@ -67,18 +67,19 @@ def cadastrar_protocolo(request):
 
 #@login_required
 def editar_protocolo(request, protocolo_id):
-    protocolo = Protocolo.objects.get(pk=protocolo_id)
+    protocolo = Protocolo.objects.get(id=protocolo_id)
 
     if request.method == 'POST':
         form = ProtocoloEditForm(request.POST, instance=protocolo)
         if form.is_valid():
             protocolo = form.save(commit=False)
-            protocolo.id_funcionario = request.user
+            #protocolo.id_funcionario = request.user
             protocolo.save()
-            return redirect('lista_protocolos')
-    else:
-        form = ProtocoloEditForm(instance=protocolo)
-    return render(request, 'protocolos/editar_protocolo.html', {'form': form})
+            return redirect('/')
+        else:
+            print(form.errors)
+    
+    
 
 
 def historico(request):
