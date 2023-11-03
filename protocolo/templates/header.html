@@ -1,13 +1,15 @@
 {% load static %} {% block content %}
 <div class="header--wrapper">
+  <form action="{% url 'protocolo' %}" method='GET'>
   <div class="panel-block">
     <p class="control has-icons-left">
-      <input class="input is-rounded" type="text" />
+      <input class="input is-rounded" type="text" id="nome-usuario" name="nome-usuario"/>
       <span class="icon is-left">
         <i class="material-symbols-outlined is-small"> search </i>
       </span>
     </p>
   </div>
+</form>
   <i class="material-icons is-clickable" id="user">account_circle</i>
 </div>
 {% endblock %}

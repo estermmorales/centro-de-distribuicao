@@ -1,22 +1,25 @@
 {% load static %} {% block content %}
 <div class="card--container">
   <div class="period ml-4">
-    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=">
-      A qualquer momento
-    </a>
-    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=30dias">
-      Últimos 30 dias
-    </a>
-    <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=hoje">Hoje</a>
+    <div>
+      <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=">
+        A qualquer momento
+      </a>
+      <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=30dias">
+        Últimos 30 dias
+      </a>
+      <a class="button is-rounded is-size-7 is-light filter" data-filter="periodo=hoje">Hoje</a>
+    </div>
+    <a href="{% url 'protocolo' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtros</a>
   </div>
-  <div class="card--wrapper ml-3">
 
+  <div class="card--wrapper ml-3">
     <div class="card mt-2">
       <a class="filter" data-filter="situacao=retirado">
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 positive">check_circle</i>
           <p>RETIRADO</p>
-          <p class="card-header-title is-size-3">5</p>
+          <p class="card-header-title is-size-3">{{ total_retirado }}</p>
         </div>
       </a>
     </div>
@@ -26,7 +29,7 @@
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 neutral">schedule</i>
           <p>PENDENTE</p>
-          <p class="card-header-title is-size-3">5</p>
+          <p class="card-header-title is-size-3">{{ total_pendente }}</p>
         </div>
       </a>
     </div>
@@ -36,7 +39,7 @@
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 negative">cancel</i>
           <p>CANCELADO</p>
-          <p class="card-header-title is-size-3">5</p>
+          <p class="card-header-title is-size-3">{{ total_cancelado }}</p>
         </div>
       </a>
     </div>

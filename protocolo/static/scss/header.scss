@@ -19,6 +19,23 @@
   }
 }
 
+.ui-widget {
+  font-family: "Inter", sans serif !important;
+  border-radius: 8px !important;
+  border: 1px solid $alfa-lightest-gray-color;
+
+  &:nth-child(even) {
+    background: $gray-color !important;
+  }
+  .ui-menu-item {
+    border-bottom: 1px solid $alfa-lightest-gray-color;
+  }
+  .ui-corner-all {
+    color: $medium-gray-color !important;
+  }
+  
+}
+
 @media (max-width: 768px) {
   .main--content {
     margin-left: 5px;

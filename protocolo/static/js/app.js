@@ -50,6 +50,7 @@ $(document).ready(function () {
   const filterButtons = $('.filter');
   filterButtons.each(function () {
       $(this).on('click', function () {
+        
           const filter = $(this).data('filter');
           const currentUrl = window.location.href;
 
@@ -87,25 +88,29 @@ $(document).ready(function () {
   });
 
 
-  const editButtons = document.querySelectorAll('tr > td .edit-btn');
-  const protocolo = document.querySelector('input[name="protocolo_id"]')
-  const emitente = document.querySelector('input[name="nome_emitente"]');
-  const destinatario = document.querySelector('input[name="nome_destinatario"]');
-  const volumes = document.querySelector('input[name="qtd_volumes_editar"]');
-  const situacao = document.querySelector('select[name="situacao"');
+const protocolo = $('input[name="protocolo_id"]');
+const emitente = $('input[name="nome_emitente_editar"]');
+const destinatario = $('input[name="nome_destinatario_editar"]');
+const volumes = $('input[name="qtd_volumes_editar"]');
+const situacao = $('select[name="situacao_editar"]');
 
-  console.log(volumes);
+$('tr > td .edit-btn').each(function() {
+  $(this).on('click', function() {
+    const dados = $(this).closest("tr");
+    protocolo.attr("value", dados[0].cells[0].innerText);
+    emitente.attr("value", dados[0].cells[1].innerText);
+    destinatario.attr("value", dados[0].cells[2].innerText);
+    volumes.attr("value", dados[0].cells[3].innerText);
+    situacao.val(dados[0].cells[6].innerText);
+  });
+});
 
-  editButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const dados = button.closest("tr")
-      protocolo.setAttribute("value", dados.cells[0].innerText);
-      emitente.setAttribute("value", dados.cells[1].innerText);
-      destinatario.setAttribute("value", dados.cells[2].innerText);
-      volumes.setAttribute("value", dados.cells[3].innerText);
-      situacao.value = dados.cells[6].innerText;
-    })
-  })
+$("#nome-usuario").autocomplete({
+  source: "/autocomplete_usuarios/", 
+  messages: {
+    noResults: '',
+  }
+});
 
 });
 
