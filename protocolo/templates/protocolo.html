@@ -66,11 +66,12 @@
           <table class="table is-striped is-hoverable is-fullwidth is-narrow">
             <thead>
               <tr>
+                <th></th>
+                <th>Emitente</th>
+                <th>Destinatário</th>
                 <th>Volumes</th>
                 <th>Data de entrega</th>
                 <th>Data de retirada</th>
-                <th>Emitente</th>
-                <th>Destinatário</th>
                 <th>Situação</th>
                 <th></th>
               </tr>
@@ -78,11 +79,12 @@
             <tbody>
               {% for protocolo in protocolos %}
               <tr>
+                <td>{{ protocolo.id }}</td>
+                <td>{{ protocolo.id_emitente.nome }}</td>
+                <td>{{ protocolo.id_destinatario.nome }}</td>
                 <td>{{ protocolo.qtd_volumes }}</td>
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
-                <td>{{ protocolo.id_emitente.nome }}</td>
-                <td>{{ protocolo.id_destinatario.nome }}</td>
                 <td>{{ protocolo.situacao }}</td>
                 <td>
                   <button

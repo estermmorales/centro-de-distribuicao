@@ -88,18 +88,22 @@ $(document).ready(function () {
 
 
   const editButtons = document.querySelectorAll('tr > td .edit-btn');
+  const protocolo = document.querySelector('input[name="protocolo_id"]')
   const emitente = document.querySelector('input[name="nome_emitente"]');
   const destinatario = document.querySelector('input[name="nome_destinatario"]');
-  const volumes = document.querySelector('input[name="qtd_volumes"]');
+  const volumes = document.querySelector('input[name="qtd_volumes_editar"]');
   const situacao = document.querySelector('select[name="situacao"');
+
+  console.log(volumes);
 
   editButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const dados = button.closest("tr")
-      emitente.setAttribute("value", dados.cells[3].innerText);
-      destinatario.setAttribute("value", dados.cells[4].innerText);
-      volumes.setAttribute("value", parseInt(dados.cells[0].innerText));
-      situacao.value = dados.cells[5].innerText;
+      protocolo.setAttribute("value", dados.cells[0].innerText);
+      emitente.setAttribute("value", dados.cells[1].innerText);
+      destinatario.setAttribute("value", dados.cells[2].innerText);
+      volumes.setAttribute("value", dados.cells[3].innerText);
+      situacao.value = dados.cells[6].innerText;
     })
   })
 

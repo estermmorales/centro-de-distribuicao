@@ -4,9 +4,10 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Editar</h3>
-        <form action="" method="POST" id="update-form">
+        <form action="{% url 'editar_protocolo' %}" method="POST" id="update-form">
           {% csrf_token %}
           <div class="fields">
+            <input type="hidden" name="protocolo_id" >
             <!-- Emitente -->
           <div class="field is-horizontal">
             <div class="field-body">
@@ -14,7 +15,7 @@
                 <label class="label" for="nome_emitente">Emitente</label>
                 <p class="control has-icons-left">
                   <input name="nome_emitente" class="input" type="text" placeholder="Nome"
-                    value="{{ protocolo.id_emitente.nome }}" />
+                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -29,7 +30,7 @@
                 <label class="label" for="nome_destinatario">Destinatário</label>
                 <p class="control has-icons-left">
                   <input name="nome_destinatario" class="input" type="text" placeholder="Nome"
-                    value="{{ protocolo.id_destinatario.nome }}" />
+                     />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -42,8 +43,8 @@
             <div class="field">
               <label for="qtd_volumes" class="label">Volumes</label>
               <p class="control has-icons-left">
-                <input name="qtd_volumes" class="input" type="text"
-                    value="{{ protocolo.qtd_volumes }}" />
+                <input name="qtd_volumes_editar" class="input" type="text"
+                     />
                 <span class="icon is-small is-left">
                   <i class="material-symbols-outlined"> storage </i>
                 </span>

@@ -11,7 +11,7 @@ from django.views.generic import ListView
 
 
 def protocolo(request):
-    protocolos = Protocolo.objects.all().order_by('-data_entrega')
+    protocolos = Protocolo.objects.all().order_by('-id')
 
     situacao = request.GET.get('situacao')
     periodo = request.GET.get('periodo')
@@ -67,8 +67,8 @@ def cadastrar_protocolo(request):
 
 
 #@login_required
-def editar_protocolo(request, protocolo_id):
-    protocolo = Protocolo.objects.get(id=protocolo_id)
+def editar_protocolo(request):
+    protocolo = Protocolo.objects.get(id=request.POST.get('protocolo_id'))
 
     id_emitente = protocolo.id_emitente_id
     get_emitente = EmitenteDestinatario.objects.get(id=id_emitente)
@@ -86,9 +86,9 @@ def editar_protocolo(request, protocolo_id):
     if (get_novo_destinatario.nome != get_destinatario.nome):
         protocolo.id_destinatario_id = get_novo_destinatario.id
 
-    novo_qtd_volumes = request.POST.get('qtd_volumes')
+    novo_qtd_volumes = request.POST.get('qtd_volumes_editar')
     if (novo_qtd_volumes != protocolo.qtd_volumes):
-        protocolo.qtd_volumes = novo_qtd_volumes
+        protocolo.qtd_volumes = int(str(novo_qtd_volumes))
 
     nova_situacao = request.POST.get('situacao')
     if(nova_situacao != protocolo.situacao):
