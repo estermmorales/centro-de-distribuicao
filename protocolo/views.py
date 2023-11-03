@@ -25,6 +25,7 @@ def protocolo(request):
     data_inicio = None
     data_fim = None
 
+
     if situacao:
         protocolos = protocolos.filter(situacao=situacao)
 
@@ -44,9 +45,14 @@ def protocolo(request):
             total_pendente = protocolos.filter(situacao='pendente', data_entrega__range=(data_inicio, data_fim)).count()
             total_cancelado = protocolos.filter(situacao='cancelado', data_entrega__range=(data_inicio, data_fim)).count()
 
+
     if nome_pesquisado:
         usuario = EmitenteDestinatario.objects.get(nome=nome_pesquisado)
         protocolos = protocolos.filter(Q(id_emitente_id=usuario.id) | Q(id_destinatario_id=usuario.id))
+        total_retirado = protocolos.filter(situacao='retirado').count()
+        total_pendente = protocolos.filter(situacao='pendente').count()
+        total_cancelado = protocolos.filter(situacao='cancelado').count()
+
 
     # Paginação
     paginator = Paginator(protocolos, 10)
