@@ -1,7 +1,13 @@
 $(document).ready(function () {
+  
+  //Animação ao carregar a página
+  window.addEventListener("load", function() {
+    document.querySelector(".fade-in").classList.add("active");
+});
+
   // Função para ativar o link do menu
+  const linksMenu = $(".menu li");
   function activeMenuLink() {
-    const linksMenu = $(".menu li");
 
     function handleLink(event) {
       linksMenu.removeClass("active");
@@ -11,6 +17,15 @@ $(document).ready(function () {
     linksMenu.on("click", handleLink);
   }
   activeMenuLink();
+
+  $('li#protocolos').addClass('active');
+  const links = ['historico', 'usuarios', 'funcionarios', 'configuracoes'];
+  links.forEach((link) => {
+    if (window.location.href.includes(link)) {
+      $('li#protocolos').removeClass('active');
+      $(`li#${link}`).addClass('active');
+    }
+  });
 
   // Função para expandir o menu
   function expandMenu() {
