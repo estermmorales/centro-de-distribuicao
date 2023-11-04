@@ -81,3 +81,15 @@ class ProtocoloEditForm(forms.ModelForm):
         if commit:
             protocolo.save()
         return protocolo
+
+
+class EmitenteDestinatarioEnderecoForm(forms.Form):
+    nome = forms.CharField(max_length=100)
+    documento = forms.CharField(max_length=11)
+    telefone = forms.CharField(max_length=11)
+    email = forms.EmailField()
+    cep = forms.CharField(max_length=10)
+    rua = forms.CharField(max_length=100)
+    bairro = forms.CharField( max_length=100)
+    cidade = forms.CharField(max_length=100)
+    estado = forms.CharField(max_length=100)

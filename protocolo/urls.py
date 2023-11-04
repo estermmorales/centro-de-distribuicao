@@ -9,5 +9,7 @@ urlpatterns = [
     path('protocolos/editar/', views.editar_protocolo, name='editar_protocolo'),
     path('autocomplete_usuarios/', views.autocomplete_usuarios, name='autocomplete_usuarios'),
     path('usuarios', views.usuarios, name='usuarios'),
+    path('cadastrar_usuario/', views.cadastrar_usuarios, name='cadastrar_usuario'),
+    path('usuarios/editar/', views.editar_usuario, name='editar_usuario'),
     path('usuarios/autocomplete_usuarios/', views.autocomplete_usuarios, name='autocomplete_usuarios'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

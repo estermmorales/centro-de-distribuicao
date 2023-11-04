@@ -40,15 +40,15 @@
 
   <body class="fade-in">
     <!-- Sidebar start -->
-    {% include "sidebar.html" %}
+    {% include "componentes/sidebar.html" %}
     <!-- Sidebar end -->
     <!-- Main content start -->
     <div class="main--content">
       <!-- Header start -->
-      {% include "header.html" %}
+      {% include "componentes/header.html" %}
       <!-- Header end -->
       <div class="main-title-users">
-        <h1 class="title is-2 ml-6">Usuários</h1>
+        <h1 class="title is-2 ml-6 mt-3 mb-5">Usuários</h1>
         <a href="{% url 'usuarios' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtro</a>
       </div>
       <!-- Table start -->

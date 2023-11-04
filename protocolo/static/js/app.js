@@ -146,6 +146,9 @@ const email = $('input[name="email_editar"]');
 const telefone = $('input[name="telefone_editar"]');
 const documento = $('input[name="documento_editar"]');
 
+const cep = $('input[name="cep_editar"]');
+const rua = $('input[name="rua_editar"]');
+const bairro = $('input[name="bairro_editar"]');
 const cidade = $('input[name="cidade_editar"]');
 const estado = $('input[name="estado_editar"]');
 
@@ -156,12 +159,67 @@ $('tr > td .edit-btn').each(function() {
     nome.attr("value", dados[0].cells[1].innerText);
     email.attr("value", dados[0].cells[2].innerText);
     telefone.attr("value", dados[0].cells[3].innerText);
-    documento.attr("value", dados[0].cells[3].innerText);
-    cidade.attr("value", dados[0].cells[3].innerText);
-    estado.attr("value", dados[0].cells[3].innerText);
+    documento.attr("value", dados[0].cells[4].innerText);
+    cep.attr("value", dados[0].cells[5].innerText);
+    rua.attr("value", dados[0].cells[6].innerText);
+    bairro.attr("value", dados[0].cells[7].innerText);
+    cidade.attr("value", dados[0].cells[8].innerText);
+    estado.attr("value", dados[0].cells[9].innerText);
   });
 });
 
+//Valida o CEP
+const cepInput = $('input[name="cep"]');
+const ruaInput = $('input[name="rua"]');
+const bairroInput = $('input[name="bairro"]');
+const cidadeInput = $('input[name="cidade"]');
+const estadoInput = $('input[name="estado"]');
+
+cepInput.on('change', (event) => {
+  event.preventDefault();
+  let cep = cepInput.val();
+  try {
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+  .then(response => response.json())
+  .then(body => {
+    ruaInput.val(body.logradouro);
+    bairroInput.val(body.bairro);
+    cidadeInput.val(body.localidade);
+    estadoInput.val(body.uf);
+  });
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+const numerosTotais = document.querySelectorAll('.numero-total');
+numerosTotais.forEach(numeroTotal => {
+  const valorFinal = parseInt(numeroTotal.getAttribute('data-numero'));
+  const duracao = 1000; // Duração da animação em milissegundos
+  const intervalo = 10; // Intervalo de atualização em milissegundos
+  
+  const incremento = valorFinal / (duracao / intervalo);
+  let valorAtual = 0;
+  
+  function animarNumero() {
+    if (valorAtual < valorFinal) {
+      valorAtual += incremento;
+      numeroTotal.textContent = Math.round(valorAtual);
+      requestAnimationFrame(animarNumero);
+    } else {
+      numeroTotal.textContent = valorFinal;
+    }
+  }
+  animarNumero();
+});
 
 });
+
+function buscaCep(cep) {
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+  .then(response => response.text())
+  .then(body => {
+      resultadoCep.innerText = body;
+  });
+}
 

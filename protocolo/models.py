@@ -20,12 +20,12 @@ class Endereco(models.Model):
     cep = models.IntegerField("CEP")
     estado = models.CharField("Estado", max_length=45)
     cidade = models.CharField("Cidade", max_length=45)
-    bairro = models.CharField("Bairro", max_length=45)
-    rua = models.CharField("Rua", max_length=45)
+    bairro = models.CharField("Bairro", max_length=100)
+    rua = models.CharField("Rua", max_length=100)
 
 
 class EmitenteDestinatario(models.Model):
-    nome = models.CharField("Nome", max_length=45)
+    nome = models.CharField("Nome", max_length=100)
     documento = models.CharField("Documento", max_length=11)
     telefone = models.CharField("Telefone", max_length=11)
     email = models.CharField("E-mail", max_length=45)

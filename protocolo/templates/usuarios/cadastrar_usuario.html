@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Novo usuário</h3>
-        <form action="" method="post" class="box">
+        <form action="{% url 'cadastrar_usuario' %}" method="POST" class="box">
           {% csrf_token %}
           <!-- Emitente -->
           <div class="field is-horizontal">
