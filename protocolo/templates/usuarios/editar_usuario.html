@@ -1,0 +1,160 @@
+{% load static %} {% block content %}
+<div class="modal edit-modal">
+  <div class="modal-background is-flex is-align-items-center">
+    <div class="modal-content">
+      <div class="box p-5">
+        <h3 class="title is-3">Editar usuário</h3>
+        <form action="" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="usuario_id" >
+          <!-- Nome -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Nome</label>
+                <p class="control ">
+                  <input
+                    class="input"
+                    type="text"
+                    name="nome_editar"
+                  />  
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">E-mail</label>
+                <p class="control ">
+                  <input
+                    class="input"
+                    type="text"
+                    name="email_editar"
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!--Telefone -->
+          <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Telefone</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="telefone_editar"
+                    />
+                  </p>
+                </div>
+                <div class="field">
+                  <label class="label">CPF</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="documento_editar"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <!--CEP-->
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">CEP</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="cep_editar"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!--Rua -->
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="rua_editar"
+                    />
+                  </p>
+                </div>
+
+                <!--Bairro-->
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="bairro_editar"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!--Cidade-->
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Cidade</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="cidade_editar"
+                    />
+                  </p>
+                </div>
+                
+                <!--Estado-->
+                <div class="field">
+                  <label class="label">Estado</label>
+                  <p class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="estado_editar"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-grouped is-grouped-centered">
+              <button
+                class="button is-dark is-rounded is-small mt-5 mr-3"
+                type="submit"
+              >
+                Salvar <i class="material-symbols-outlined"> done </i>
+              </button>
+              <button class="button close is-outlined is-rounded is-small mt-5">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <button class="modal-close close"></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

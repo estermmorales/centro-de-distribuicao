@@ -139,7 +139,20 @@ def historico(request):
 
 
 def usuarios(request):
-    return render(request, 'usuarios.html')
+    usuarios = EmitenteDestinatario.objects.all().order_by('nome')
+    nome_pesquisado = request.GET.get('nome-usuario') 
+    if nome_pesquisado:
+        usuarios = usuarios.filter(nome=nome_pesquisado)
+
+    # Paginação
+    paginator = Paginator(usuarios, 10)
+    page = request.GET.get('page')
+    usuarios = paginator.get_page(page)
+
+    context = {
+        "usuarios": usuarios,
+    }
+    return render(request, 'usuarios.html', context)
 
 
 def funcionarios(request):
