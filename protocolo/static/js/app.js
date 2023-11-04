@@ -120,7 +120,7 @@ $('tr > td .edit-btn').each(function() {
   });
 });
 
-$("#nome-usuario").autocomplete({
+$(".nome-usuario").autocomplete({
   source: "/autocomplete_usuarios/", 
   messages: {
     noResults: '',
