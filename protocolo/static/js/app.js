@@ -87,7 +87,7 @@ $(document).ready(function () {
       });
   });
 
-
+// Protocolo
 const protocolo = $('input[name="protocolo_id"]');
 const emitente = $('input[name="nome_emitente_editar"]');
 const destinatario = $('input[name="nome_destinatario_editar"]');
@@ -111,6 +111,42 @@ $("#nome-usuario").autocomplete({
     noResults: '',
   }
 });
+
+$('#search-form').on('submit', function(event) {
+  event.preventDefault();
+
+  if (window.location.href.includes('usuarios')) {
+    this.action = "/usuarios";
+  } else {
+    this.action = "/";
+  }
+
+  this.submit();
+});
+
+//Usuário
+const id = $('input[name="usuario_id"]');
+const nome = $('input[name="nome_editar"]');
+const email = $('input[name="email_editar"]');
+const telefone = $('input[name="telefone_editar"]');
+const documento = $('input[name="documento_editar"]');
+
+const cidade = $('input[name="cidade_editar"]');
+const estado = $('input[name="estado_editar"]');
+
+$('tr > td .edit-btn').each(function() {
+  $(this).on('click', function() {
+    const dados = $(this).closest("tr");
+    id.attr("value", dados[0].cells[0].innerText);
+    nome.attr("value", dados[0].cells[1].innerText);
+    email.attr("value", dados[0].cells[2].innerText);
+    telefone.attr("value", dados[0].cells[3].innerText);
+    documento.attr("value", dados[0].cells[3].innerText);
+    cidade.attr("value", dados[0].cells[3].innerText);
+    estado.attr("value", dados[0].cells[3].innerText);
+  });
+});
+
 
 });
 

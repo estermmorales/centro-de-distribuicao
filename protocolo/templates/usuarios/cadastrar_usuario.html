@@ -1,0 +1,153 @@
+{% load static %} {% block content %}
+<div class="modal add-modal">
+  <div class="modal-background is-flex is-align-items-center">
+    <div class="modal-content">
+      <div class="box p-5">
+        <h3 class="title is-3">Novo usuário</h3>
+        <form action="" method="post" class="box">
+          {% csrf_token %}
+          <!-- Emitente -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Nome</label>
+                <p class="control ">
+                  <input
+                    class="input"
+                    type="text"
+                    name="nome"
+                  />
+                  
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Destinatario -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">E-mail</label>
+                <p class="control ">
+                  <input
+                    class="input"
+                    type="email"
+                    name="email"
+                  />
+                  
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Telefone</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="telefone"
+                    />
+                  </p>
+                </div>
+                <div class="field">
+                  <label class="label">CPF</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="documento"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            <hr>
+
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">CEP</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="cep"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="rua"
+                    />
+                  </p>
+                </div>
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="bairro"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal mt-5">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label">Cidade</label>
+                  <p class="control ">
+                    <input
+                      class="input"
+                      type="text"
+                      name="cidade"
+                    />
+                  </p>
+                </div>
+                <div class="field">
+                  <label class="label">Estado</label>
+                  <p class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="estado"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-grouped is-grouped-centered">
+              <button
+                class="button is-dark is-rounded is-small mt-5 mr-3"
+                type="submit"
+              >
+                Salvar <i class="material-symbols-outlined"> done </i>
+              </button>
+              <button class="button close is-outlined is-rounded is-small mt-5">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <button class="modal-close close"></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

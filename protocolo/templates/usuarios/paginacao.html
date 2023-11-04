@@ -1,0 +1,42 @@
+{% load static %} {% load mathfilters %} {% block content %}
+<nav
+  class="pagination is-rounded is-small ml-3 is-centered p-3"
+  role="navigation"
+  aria-label="pagination"
+>
+{% if usuarios.number > 1 %}
+  <a href="?page={{ usuarios.number|sub:1 }}" class="pagination-previous">Anterior</a>
+  {% endif %} 
+  {% if usuarios.number < usuarios.paginator.num_pages %}
+  <a href="?page={{ usuarios.number|add:1 }}" class="pagination-next">Próxima página</a>
+  {% endif %}
+  <ul class="pagination-list">
+    <li>
+      <a href="?page=1" class="pagination-link" aria-label="Goto page 1">1</a>
+    </li>
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    {% if usuarios.number > 1 %}
+    <li>
+      <a href="?page={{ usuarios.previous_page_number }}" class="pagination-link" aria-label="Goto page 45">{{ usuarios.number|sub:1 }}</a>
+    </li>
+    {% endif %}
+    <li>
+      <a class="pagination-link is-current" aria-label="Page {{ usuarios.number }}" aria-current="page">{{ usuarios.number }}</a>
+    </li>
+    {% if usuarios.number < usuarios.paginator.num_pages %}
+    <li>
+      <a href="?page={{ usuarios.next_page_number }}" class="pagination-link" aria-label="Goto page 47">{{ usuarios.number|add:1 }}</a>
+    </li>
+    {% endif %}
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    <li>
+      <a
+        href="?page={{usuarios.paginator.num_pages}}"
+        class="pagination-link"
+        aria-label="Goto page {{usuarios.paginator.num_pages}}"
+        >{{usuarios.paginator.num_pages}}</a
+      >
+    </li>
+  </ul>
+</nav>
+{% endblock %}
