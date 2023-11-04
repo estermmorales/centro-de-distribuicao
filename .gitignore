@@ -138,8 +138,8 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-#MySQL
-*.cnf
+# MySQL
+mysql.cnf
 
-#staticfiles 
+# staticfiles 
 staticfiles
