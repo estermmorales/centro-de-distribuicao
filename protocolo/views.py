@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models.functions import TruncDate
-from .models import Funcionario, Protocolo, EmitenteDestinatario
-from .forms import ProtocoloForm, ProtocoloEditForm
+from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco
+from .forms import ProtocoloForm, EnderecoForm, EmitenteDestinatarioForm, EmitenteDestinatarioEnderecoForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -125,21 +125,9 @@ def editar_protocolo(request):
     protocolo.save()
     return redirect('/')
 
-def autocomplete_usuarios(request):
-    termo_pesquisa = request.GET.get('term', '')  # Obtenha o termo de pesquisa da solicitação
-    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  # Realize a pesquisa no banco de dados
-    
-    # Crie uma lista de nomes de usuários correspondentes
-    resultados = [usuario.nome for usuario in usuarios]
-    
-    return JsonResponse(resultados, safe=False)
-
-def historico(request):
-    return render(request, 'historico.html')
-
 
 def usuarios(request):
-    usuarios = EmitenteDestinatario.objects.all().order_by('nome')
+    usuarios = EmitenteDestinatario.objects.all().order_by('-id')
     nome_pesquisado = request.GET.get('nome-usuario') 
     if nome_pesquisado:
         usuarios = usuarios.filter(nome=nome_pesquisado)
@@ -155,5 +143,86 @@ def usuarios(request):
     return render(request, 'usuarios.html', context)
 
 
+def cadastrar_usuarios(request):
+    if request.method == 'POST':
+        form = EmitenteDestinatarioEnderecoForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            email = form.cleaned_data['email']
+            documento = form.cleaned_data['documento']
+            telefone = form.cleaned_data['telefone']
+            cep = form.cleaned_data['cep']
+            rua = form.cleaned_data['rua']
+            bairro = form.cleaned_data['bairro']
+            cidade = form.cleaned_data['cidade']
+            estado = form.cleaned_data['estado']
+
+            endereco = Endereco(cep=cep, rua=rua, bairro=bairro, cidade=cidade, estado=estado)
+            endereco.save()
+            endereco_object = Endereco.objects.get(cep=cep)
+
+            usuario = EmitenteDestinatario(nome=nome, email=email, documento=documento, telefone=telefone, id_endereco_id=endereco_object.id)
+            usuario.save()
+
+            return redirect('usuarios')
+        else:
+            print(form.errors)
+
+    else:
+        return JsonResponse({'success': False, 'errors': form.errors})
+
+    return redirect('usuarios')
+
+def editar_usuario(request):
+    usuario = EmitenteDestinatario.objects.get(id=request.POST.get('usuario_id'))
+    nome = request.POST.get('nome_editar')
+    email = request.POST.get('email_editar')
+    telefone = request.POST.get('telefone_editar')
+    documento = request.POST.get('documento_editar')
+
+    cep = request.POST.get('cep_editar')
+    rua = request.POST.get('rua_editar')
+    bairro = request.POST.get('bairro_editar')
+    cidade = request.POST.get('cidade_editar')
+    estado = request.POST.get('estado_editar')
+
+    if(nome != usuario.nome):
+        usuario.nome = nome
+    if(email != usuario.email):
+        usuario.email = email
+    if(telefone != usuario.telefone):
+        usuario.telefone = telefone
+    if (documento != usuario.documento):
+        usuario.documento = documento
+    
+    if(cep != usuario.id_endereco.cep):
+        usuario.id_endereco.cep = cep
+    if (rua != usuario.id_endereco.rua):
+        usuario.id_endereco.rua = rua
+    if (bairro != usuario.id_endereco.bairro):
+        usuario.id_endereco.bairro = bairro
+    if (cidade != usuario.id_endereco.cidade):
+        usuario.id_endereco.cidade = cidade
+    if (estado != usuario.id_endereco.estado):
+        usuario.id_endereco.estado = estado
+
+    usuario.save()
+    return redirect('usuarios')
+    
+
+
 def funcionarios(request):
     return render(request, 'funcionarios.html')
+
+
+def autocomplete_usuarios(request):
+    termo_pesquisa = request.GET.get('term', '')  # Obtenha o termo de pesquisa da solicitação
+    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  # Realize a pesquisa no banco de dados
+    
+    # Crie uma lista de nomes de usuários correspondentes
+    resultados = [usuario.nome for usuario in usuarios]
+    
+    return JsonResponse(resultados, safe=False)
+
+def historico(request):
+    return render(request, 'historico.html')

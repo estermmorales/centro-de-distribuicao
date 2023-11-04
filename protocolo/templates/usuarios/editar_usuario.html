@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="box p-5">
         <h3 class="title is-3">Editar usuário</h3>
-        <form action="" method="post">
+        <form action="{% url 'editar_usuario' %}" method="post">
           {% csrf_token %}
           <input type="hidden" name="usuario_id" >
           <!-- Nome -->
@@ -82,6 +82,7 @@
                 </div>
               </div>
             </div>
+
 
             <!--Rua -->
             <div class="field is-horizontal mt-5">

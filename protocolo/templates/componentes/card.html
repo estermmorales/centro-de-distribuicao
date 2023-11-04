@@ -19,7 +19,7 @@
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 positive">check_circle</i>
           <p>RETIRADO</p>
-          <p class="card-header-title is-size-3">{{ total_retirado }}</p>
+          <p class="card-header-title is-size-3 numero-total" data-numero="{{ total_retirado }}">{{ total_retirado }}</p>
         </div>
       </a>
     </div>
@@ -29,7 +29,7 @@
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 neutral">schedule</i>
           <p>PENDENTE</p>
-          <p class="card-header-title is-size-3">{{ total_pendente }}</p>
+          <p class="card-header-title is-size-3 numero-total" data-numero="{{ total_pendente }}">{{ total_pendente }}</p>
         </div>
       </a>
     </div>
@@ -39,7 +39,7 @@
         <div class="header mt-2">
           <i class="material-icons-outlined md-48 is-centered mt-2 mb-1 negative">cancel</i>
           <p>CANCELADO</p>
-          <p class="card-header-title is-size-3">{{ total_cancelado }}</p>
+          <p class="card-header-title is-size-3 numero-total" data-numero="{{ total_cancelado }}">{{ total_cancelado }}</p>
         </div>
       </a>
     </div>
