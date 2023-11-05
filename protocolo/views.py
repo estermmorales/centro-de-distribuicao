@@ -216,13 +216,19 @@ def funcionarios(request):
 
 
 def autocomplete_usuarios(request):
-    termo_pesquisa = request.GET.get('term', '')  # Obtenha o termo de pesquisa da solicitação
-    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  # Realize a pesquisa no banco de dados
+    termo_pesquisa = request.GET.get('term', '')  
+    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  
     
-    # Crie uma lista de nomes de usuários correspondentes
     resultados = [usuario.nome for usuario in usuarios]
     
     return JsonResponse(resultados, safe=False)
 
 def historico(request):
     return render(request, 'historico.html')
+
+
+def erro404(request):
+    return render(request, 'errors/404.html')
+
+def erro500(request):
+    return render(request, 'errors/500.html')
