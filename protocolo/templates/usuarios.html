@@ -42,76 +42,77 @@
     <!-- Sidebar start -->
     {% include "componentes/sidebar.html" %}
     <!-- Sidebar end -->
-    <!-- Main content start -->
-    <div class="main--content">
-      <!-- Header start -->
-      {% include "componentes/header.html" %}
-      <!-- Header end -->
-      <div class="main-title-users">
-        <h1 class="title is-2 ml-6 mt-3 mb-5">Usuários</h1>
-        <a href="{% url 'usuarios' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtro</a>
-      </div>
-      <!-- Table start -->
-      <div class="tabular--wrapper">
-        <div class="btn-container ml-3">
-          <button
-            class="button is-rounded is-small is-dark js-modal-button"
-            data-target="add-modal"
-          >
-            <i class="material-icons md-24 mr-1">add</i> Novo
-          </button>
-          {% include "usuarios/cadastrar_usuario.html" %}
+        <!-- Main content start -->
+        <div class="main--content">
+          <!-- Header start -->
+          {% include "componentes/header.html" %}
+          <!-- Header end -->
+          <div class="main-title-users">
+            <h1 class="title is-2 ml-6 mt-3 mb-5">Usuários</h1>
+            <a href="{% url 'usuarios' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtro</a>
+          </div>
+          <!-- Table start -->
+          <div class="tabular--wrapper">
+            <div class="btn-container ml-3">
+              <button
+                class="button is-rounded is-small is-dark js-modal-button"
+                data-target="add-modal"
+              >
+                <i class="material-icons md-24 mr-1">add</i> Novo
+              </button>
+              {% include "usuarios/cadastrar_usuario.html" %}
+            </div>
+            <div class="table-container ml-3">
+              <table class="table is-striped is-hoverable is-fullwidth is-narrow">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Documento</th>
+                    <th>CEP</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for usuario in usuarios %}
+                  <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.telefone }}</td>
+                    <td>{{ usuario.documento }}</td>    
+                    <td>{{ usuario.id_endereco.cep }}</td>
+                    <td>{{ usuario.id_endereco.rua }}</td>
+                    <td>{{ usuario.id_endereco.bairro }}</td>
+                    <td>{{ usuario.id_endereco.cidade }}</td>
+                    <td>{{ usuario.id_endereco.estado }}</td>
+                    <td>
+                      <button
+                        class="js-modal-trigger button is-white is-small js-modal-button edit-btn"
+                        data-target="edit-modal" data-id="{{ usuario.id }}"
+                      >
+                        <i class="material-symbols-outlined is-clickable md-18"
+                          >edit_square</i
+                        >
+                    </button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% include "usuarios/editar_usuario.html" %}
+                </tbody>
+              </table>
+            </div>
+            {% include "usuarios/paginacao.html" %}
+          </div>
+          <!-- Table end -->
         </div>
-        <div class="table-container ml-3">
-          <table class="table is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Telefone</th>
-                <th>Documento</th>
-                <th>CEP</th>
-                <th>Rua</th>
-                <th>Bairro</th>
-                <th>Cidade</th>
-                <th>Estado</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for usuario in usuarios %}
-              <tr>
-                <td>{{ usuario.id }}</td>
-                <td>{{ usuario.nome }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.telefone }}</td>
-                <td>{{ usuario.documento }}</td>    
-                <td>{{ usuario.id_endereco.cep }}</td>
-                <td>{{ usuario.id_endereco.rua }}</td>
-                <td>{{ usuario.id_endereco.bairro }}</td>
-                <td>{{ usuario.id_endereco.cidade }}</td>
-                <td>{{ usuario.id_endereco.estado }}</td>
-                <td>
-                  <button
-                    class="js-modal-trigger button is-white is-small js-modal-button edit-btn"
-                    data-target="edit-modal" data-id="{{ usuario.id }}"
-                  >
-                    <i class="material-symbols-outlined is-clickable md-18"
-                      >edit_square</i
-                    >
-                </button>
-                </td>
-              </tr>
-              {% endfor %}
-              {% include "usuarios/editar_usuario.html" %}
-            </tbody>
-          </table>
-        </div>
-        {% include "usuarios/paginacao.html" %}
-      </div>
-    </div>
-    <!-- Main content end -->
+        <!-- Main content end -->
 
  <!--JS Scripts-->
  <script

@@ -126,6 +126,12 @@ def editar_protocolo(request):
     protocolo.save()
     return redirect('/')
 
+def excluir_protocolo(request):
+    protocolo_id = request.POST.get('protocolo_id')
+    protocolo = Protocolo.objects.get(id=protocolo_id)
+    protocolo.delete()
+    return redirect('/')
+
 
 def usuarios(request):
     usuarios = EmitenteDestinatario.objects.all().order_by('-id')
@@ -211,6 +217,11 @@ def editar_usuario(request):
     return redirect('usuarios')
     
 
+def excluir_usuario(request):
+    usuario_id = request.POST.get('usuario_id')
+    usuario = EmitenteDestinatario.objects.get(id=usuario_id)
+    usuario.delete()
+    return redirect('/usuarios')
 
 def funcionarios(request):
     return render(request, 'funcionarios.html')
