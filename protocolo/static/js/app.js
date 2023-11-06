@@ -55,11 +55,15 @@ $(document).ready(function () {
     });
   });
 
-  closeButtons.on("click", function () {
+  closeButtons.each(function () {
     const target = $(this).data("target");
     const modal = $(`.${target}`);
-    modal.removeClass("is-active");
+    $(this).on("click", function (event) {
+      modal.removeClass("is-active");
+    });
   });
+
+
 
   // Configurando filtros
   const filterButtons = $('.filter');
@@ -108,6 +112,7 @@ const emitente = $('input[name="nome_emitente_editar"]');
 const destinatario = $('input[name="nome_destinatario_editar"]');
 const volumes = $('input[name="qtd_volumes_editar"]');
 const situacao = $('select[name="situacao_editar"]');
+let confirmProtocolo = document.getElementById('confirm-protocolo');
 
 $('tr > td .edit-btn').each(function() {
   $(this).on('click', function() {
@@ -117,6 +122,8 @@ $('tr > td .edit-btn').each(function() {
     destinatario.attr("value", dados[0].cells[2].innerText);
     volumes.attr("value", dados[0].cells[3].innerText);
     situacao.val(dados[0].cells[6].innerText);
+    if (confirmProtocolo)
+      confirmProtocolo.innerHTML = `<strong>Protocolo#${dados[0].cells[0].innerText}</strong>`;
   });
 });
 
@@ -139,6 +146,7 @@ $('#search-form').on('submit', function(event) {
   this.submit();
 });
 
+
 //Usuário
 const id = $('input[name="usuario_id"]');
 const nome = $('input[name="nome_editar"]');
@@ -151,22 +159,28 @@ const rua = $('input[name="rua_editar"]');
 const bairro = $('input[name="bairro_editar"]');
 const cidade = $('input[name="cidade_editar"]');
 const estado = $('input[name="estado_editar"]');
+let confirmUsuario = document.getElementById('confirm-usuario');
 
-$('tr > td .edit-btn').each(function() {
-  $(this).on('click', function() {
-    const dados = $(this).closest("tr");
-    id.attr("value", dados[0].cells[0].innerText);
-    nome.attr("value", dados[0].cells[1].innerText);
-    email.attr("value", dados[0].cells[2].innerText);
-    telefone.attr("value", dados[0].cells[3].innerText);
-    documento.attr("value", dados[0].cells[4].innerText);
-    cep.attr("value", dados[0].cells[5].innerText);
-    rua.attr("value", dados[0].cells[6].innerText);
-    bairro.attr("value", dados[0].cells[7].innerText);
-    cidade.attr("value", dados[0].cells[8].innerText);
-    estado.attr("value", dados[0].cells[9].innerText);
+
+if (window.location.href.includes('usuarios')) {
+  $('tr > td .edit-btn').each(function() {
+    $(this).on('click', function() {
+      const dados = $(this).closest("tr");
+      id.attr("value", dados[0].cells[0].innerText);
+      nome.attr("value", dados[0].cells[1].innerText);
+      email.attr("value", dados[0].cells[2].innerText);
+      telefone.attr("value", dados[0].cells[3].innerText);
+      documento.attr("value", dados[0].cells[4].innerText);
+      cep.attr("value", dados[0].cells[5].innerText);
+      rua.attr("value", dados[0].cells[6].innerText);
+      bairro.attr("value", dados[0].cells[7].innerText);
+      cidade.attr("value", dados[0].cells[8].innerText);
+      estado.attr("value", dados[0].cells[9].innerText);
+      if (confirmUsuario)
+        confirmUsuario.innerHTML = `<strong>${dados[0].cells[1].innerText}</strong>`;
+    });
   });
-});
+}
 
 //Valida o CEP
 const cepInput = $('input[name="cep"]');

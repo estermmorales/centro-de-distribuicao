@@ -15,8 +15,11 @@ $font-family: "Inter", sans serif;
 @import "./table.scss";
 /* Users */
 @import "./users.scss";
+/* Scrollbar */
+@import "./scrollbar.scss";
 /* Errors */
 @import "./errors.scss";
+
 
 //Animação ao carregar página
 .fade-in {
