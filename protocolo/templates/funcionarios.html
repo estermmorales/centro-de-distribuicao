@@ -49,7 +49,7 @@
           <!-- Header end -->
           <div class="main-title-users">
             <h1 class="title is-2 ml-6 mt-3 mb-5">Funcionários</h1>
-            <a href="{% url 'usuarios' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtro</a>
+            <a href="{% url 'funcionarios' %}" class="button is-rounded is-size-7 is-outlined remove-filters">Remover filtro</a>
           </div>
           <!-- Table start -->
           <div class="tabular--wrapper">
@@ -60,7 +60,7 @@
               >
                 <i class="material-icons md-24 mr-1">add</i> Novo
               </button>
-              {% include "usuarios/cadastrar_usuario.html" %}
+              {% include "funcionarios/cadastrar_funcionario.html" %}
             </div>
             <div class="table-container ml-3">
               <table class="table is-striped is-hoverable is-fullwidth">
@@ -71,27 +71,23 @@
                     <th>E-mail</th>
                     <th>Telefone</th>
                     <th>Documento</th>
-                    <th>CEP</th>
-                    <th>Cidade</th>
-                    <th>Estado</th>
+                    <th>Permissão</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for usuario in usuarios %}
+                  {% for funcionario in funcionarios %}
                   <tr>
-                    <td>{{ usuario.id }}</td>
-                    <td>{{ usuario.nome }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.telefone }}</td>
-                    <td>{{ usuario.documento }}</td>    
-                    <td>{{ usuario.id_endereco.cep }}</td>
-                    <td>{{ usuario.id_endereco.cidade }}</td>
-                    <td>{{ usuario.id_endereco.estado }}</td>
+                    <td>{{ funcionario.id }}</td>
+                    <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.email }}</td>
+                    <td>{{ funcionario.telefone }}</td>
+                    <td>{{ funcionario.documento }}</td>
+                    <td>{{ funcionario.permissao }}</td>
                     <td>
                       <button
                         class="js-modal-trigger button is-white is-small js-modal-button edit-btn"
-                        data-target="edit-modal" data-id="{{ usuario.id }}"
+                        data-target="edit-modal" data-id="{{ funcionario.id }}"
                       >
                         <i class="material-symbols-outlined is-clickable md-18"
                           >edit_square</i
@@ -100,11 +96,11 @@
                     </td>
                   </tr>
                   {% endfor %}
-                  {% include "usuarios/editar_usuario.html" %}
+                  {% include "funcionarios/editar_funcionario.html" %}
                 </tbody>
               </table>
             </div>
-            {% include "usuarios/paginacao.html" %}
+            {% include "funcionarios/paginacao.html" %}
           </div>
           <!-- Table end -->
         </div>

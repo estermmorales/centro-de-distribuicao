@@ -1,0 +1,118 @@
+{% load static %} {% block content %}
+<div class="modal edit-modal">
+  <div class="modal-background is-flex is-align-items-center">
+    <div class="modal-content">
+      <div class="box p-5">
+        <div class="is-flex is-justify-content-space-between">
+          <h3 class="title is-3">Editar</h3>
+          <button class="button is-danger is-outlined is-rounded is-small js-modal-button"
+            data-target="confirm-modal"><i class="material-symbols-outlined">
+              close
+            </i>Excluir</button>
+        </div>
+        <form action="{% url 'editar_funcionario' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="funcionario_id">
+
+          <!-- Nome -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Nome</label>
+                <p class="control ">
+                  <input class="input" type="text" name="nome_editar" />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">E-mail</label>
+                <p class="control ">
+                  <input class="input" type="text" name="email_editar" />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!--Telefone -->
+          <div class="field is-horizontal mt-5">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Telefone</label>
+                <p class="control ">
+                  <input class="input" type="text" name="telefone_editar" />
+                </p>
+              </div>
+              <div class="field">
+                <label class="label">CPF</label>
+                <p class="control ">
+                  <input class="input" type="text" name="documento_editar" />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <!-- Permissão -->
+          <div class="field is-horizontal mt-5">
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Permissão</label>
+                <div class="select">
+                  <select name="permissao_editar">
+                    <option></option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Funcionário">Funcionário</option>
+                    <option value="Estagiário">Estagiário</option>
+                    <option value="Visitante">Visitante</option>
+                  </select>
+                </div>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-grouped is-grouped-centered">
+            <button class="button is-dark is-rounded is-small mt-5 mr-3" type="submit">
+              Salvar <i class="material-symbols-outlined"> done </i>
+            </button>
+            <button class="button close is-outlined is-rounded is-small mt-5" data-target="edit-modal" type="button">
+              Cancelar
+            </button>
+          </div>
+      </div>
+      </form>
+    </div>
+    <button class="modal-close close"></button>
+  </div>
+</div>
+</div>
+
+<!--Formulário de confirmação de exclusão-->
+<div class="modal confirm-modal">
+  <div class="modal-background is-flex is-align-items-center">
+    <div class="modal-content">
+      <div class="box is-small">
+        <form action="{% url 'excluir_funcionario' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="funcionario_id">
+          <h1 class="title">Confirmar</h1>
+          <p>Deseja realmente excluir o funcionário <span id="confirm-funcionario">funcionário#</span>?</p>
+          <div class="field is-grouped is-grouped-centered">
+            <button class="button is-dark is-rounded is-small mt-5 mr-3" type="submit">
+              Sim
+            </button>
+            <button class="button is-outlined is-rounded is-small mt-5 close" data-target="confirm-modal" type="button">
+              Não
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

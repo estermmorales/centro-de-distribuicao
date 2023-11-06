@@ -3,13 +3,13 @@ from django.utils import timezone
 from datetime import timedelta
 from django.db.models.functions import TruncDate
 from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco
-from .forms import ProtocoloForm, EnderecoForm, EmitenteDestinatarioForm, EmitenteDestinatarioEnderecoForm
+from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, FuncionarioForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
 from django.db.models import Q
-from django.template import RequestContext
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 
 def protocolo(request):
@@ -78,12 +78,11 @@ def cadastrar_protocolo(request):
     if request.method == 'POST':
         form = ProtocoloForm(request.POST)
         if form.is_valid():
-            # Crie o protocolo a partir do formulário, mas não o salve ainda
             protocolo = form.save(commit=False)
             # Associe o funcionário logado ao protocolo
             # protocolo.id_funcionario = Funcionario.objects.get(
             #     user=request.user)
-            protocolo.save()  # Agora, salve o protocolo no banco de dados
+            protocolo.save() 
             return redirect('/')
         else:
             print(form.errors)
@@ -224,12 +223,71 @@ def excluir_usuario(request):
     return redirect('/usuarios')
 
 def funcionarios(request):
-    return render(request, 'funcionarios.html')
+    funcionarios = Funcionario.objects.all().order_by('-id')
+    nome_pesquisado = request.GET.get('nome-usuario') 
+    if nome_pesquisado:
+        funcionarios = funcionarios.filter(nome=nome_pesquisado)
 
+    # Paginação
+    paginator = Paginator(funcionarios, 10)
+    page = request.GET.get('page')
+    funcionarios = paginator.get_page(page)
+
+    context = {
+        "funcionarios": funcionarios,
+    }
+    return render(request, 'funcionarios.html', context)
+
+def cadastrar_funcionario(request):
+    if request.method == 'POST':
+        form = FuncionarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('funcionarios')
+        else:
+            print(form.errors)
+    else:
+        return JsonResponse({'success': False, 'errors': form.errors})
+    return redirect('funcionarios')
+
+def editar_funcionario(request):
+    funcionario = Funcionario.objects.get(id=request.POST.get('funcionario_id'))
+    nome = request.POST.get('nome_editar')
+    email = request.POST.get('email_editar')
+    telefone = request.POST.get('telefone_editar')
+    documento = request.POST.get('documento_editar')
+    permissao = request.POST.get('permissao_editar')
+
+    if(nome != funcionario.nome):
+        funcionario.nome = nome
+    if(email != funcionario.email):
+        funcionario.email = email
+    if(telefone != funcionario.telefone):
+        funcionario.telefone = telefone
+    if (documento != funcionario.documento):
+        funcionario.documento = documento
+    if (permissao != funcionario.permissao):
+        funcionario.permissao = permissao
+
+    funcionario.save()
+    return redirect('funcionarios')
+
+def excluir_funcionario(request):
+    funcionario_id = request.POST.get('funcionario_id')
+    funcionario = Funcionario.objects.get(id=funcionario_id)
+    user = User.objects.get(username=funcionario.email)
+    funcionario.delete()
+    user.delete()
+    return redirect('funcionarios')
 
 def autocomplete_usuarios(request):
-    termo_pesquisa = request.GET.get('term', '')  # Obtenha o termo de pesquisa da solicitação
-    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  # Realize a pesquisa no banco de dados
+    termo_pesquisa = request.GET.get('term', '')
+    tabela_pesquisa = request.GET.get('tabela', '')
+
+    if tabela_pesquisa == 'funcionario':
+        usuarios = Funcionario.objects.filter(nome__icontains=termo_pesquisa)
+    else:
+        usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  
     
     # Crie uma lista de nomes de usuários correspondentes
     resultados = [usuario.nome for usuario in usuarios]
@@ -254,3 +312,17 @@ def handler500(request):
     response = render(request, "errors/500.html", context=context)
     response.status_code = 500
     return response
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('protocolos')
+        else:
+            error_message = "Nome de usuário ou senha incorretos."
+        return render(request, 'login.html', {'error_message': error_message})
+    
+    return render(request, 'login.html')

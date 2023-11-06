@@ -64,7 +64,6 @@ $(document).ready(function () {
   });
 
 
-
   // Configurando filtros
   const filterButtons = $('.filter');
   filterButtons.each(function () {
@@ -106,126 +105,163 @@ $(document).ready(function () {
       });
   });
 
-// Protocolo
-const protocolo = $('input[name="protocolo_id"]');
-const emitente = $('input[name="nome_emitente_editar"]');
-const destinatario = $('input[name="nome_destinatario_editar"]');
-const volumes = $('input[name="qtd_volumes_editar"]');
-const situacao = $('select[name="situacao_editar"]');
-let confirmProtocolo = document.getElementById('confirm-protocolo');
+let tabela_pesquisa
+if (window.location.href.includes('funcionarios')) {
+  tabela_pesquisa = 'funcionario'
+} else  {
+  tabela_pesquisa = 'usuario'
+}
 
-$('tr > td .edit-btn').each(function() {
-  $(this).on('click', function() {
-    const dados = $(this).closest("tr");
-    protocolo.attr("value", dados[0].cells[0].innerText);
-    emitente.attr("value", dados[0].cells[1].innerText);
-    destinatario.attr("value", dados[0].cells[2].innerText);
-    volumes.attr("value", dados[0].cells[3].innerText);
-    situacao.val(dados[0].cells[6].innerText);
-    if (confirmProtocolo)
-      confirmProtocolo.innerHTML = `<strong>Protocolo#${dados[0].cells[0].innerText}</strong>`;
+// Autocomplete do campo de pesquisa
+  $(".nome-usuario").autocomplete({
+    source: "/autocomplete_usuarios/", 
+    data: {
+      tabela: `${tabela_pesquisa}`
+    },
+    messages: {
+      noResults: '',
+    }
   });
-});
+  
+  $('#search-form').on('submit', function(event) {
+    event.preventDefault();
+  
+    if (window.location.href.includes('usuarios')) {
+      this.action = "/usuarios";
+    } else if (window.location.href.includes('funcionarios')) {
+      this.action = "/funcionarios";
+    }
+    else {
+      this.action = "/";
+    }
+  
+    this.submit();
+  });
 
-$(".nome-usuario").autocomplete({
-  source: "/autocomplete_usuarios/", 
-  messages: {
-    noResults: '',
-  }
-});
+  // Protocolo
+  const protocolo = $('input[name="protocolo_id"]');
+  const emitente = $('input[name="nome_emitente_editar"]');
+  const destinatario = $('input[name="nome_destinatario_editar"]');
+  const volumes = $('input[name="qtd_volumes_editar"]');
+  const situacao = $('select[name="situacao_editar"]');
+  let confirmProtocolo = document.getElementById('confirm-protocolo');
 
-$('#search-form').on('submit', function(event) {
-  event.preventDefault();
-
-  if (window.location.href.includes('usuarios')) {
-    this.action = "/usuarios";
-  } else {
-    this.action = "/";
-  }
-
-  this.submit();
-});
-
-
-//Usuário
-const id = $('input[name="usuario_id"]');
-const nome = $('input[name="nome_editar"]');
-const email = $('input[name="email_editar"]');
-const telefone = $('input[name="telefone_editar"]');
-const documento = $('input[name="documento_editar"]');
-
-const cep = $('input[name="cep_editar"]');
-const rua = $('input[name="rua_editar"]');
-const bairro = $('input[name="bairro_editar"]');
-const cidade = $('input[name="cidade_editar"]');
-const estado = $('input[name="estado_editar"]');
-let confirmUsuario = document.getElementById('confirm-usuario');
-
-
-if (window.location.href.includes('usuarios')) {
   $('tr > td .edit-btn').each(function() {
     $(this).on('click', function() {
       const dados = $(this).closest("tr");
-      id.attr("value", dados[0].cells[0].innerText);
-      nome.attr("value", dados[0].cells[1].innerText);
-      email.attr("value", dados[0].cells[2].innerText);
-      telefone.attr("value", dados[0].cells[3].innerText);
-      documento.attr("value", dados[0].cells[4].innerText);
-      cep.attr("value", dados[0].cells[5].innerText);
-      rua.attr("value", dados[0].cells[6].innerText);
-      bairro.attr("value", dados[0].cells[7].innerText);
-      cidade.attr("value", dados[0].cells[8].innerText);
-      estado.attr("value", dados[0].cells[9].innerText);
-      if (confirmUsuario)
-        confirmUsuario.innerHTML = `<strong>${dados[0].cells[1].innerText}</strong>`;
+      protocolo.attr("value", dados[0].cells[0].innerText);
+      emitente.attr("value", dados[0].cells[1].innerText);
+      destinatario.attr("value", dados[0].cells[2].innerText);
+      volumes.attr("value", dados[0].cells[3].innerText);
+      situacao.val(dados[0].cells[6].innerText);
+      if (confirmProtocolo)
+        confirmProtocolo.innerHTML = `<strong>Protocolo#${dados[0].cells[0].innerText}</strong>`;
     });
   });
-}
 
-//Valida o CEP
-const cepInput = $('input[name="cep"]');
-const ruaInput = $('input[name="rua"]');
-const bairroInput = $('input[name="bairro"]');
-const cidadeInput = $('input[name="cidade"]');
-const estadoInput = $('input[name="estado"]');
 
-cepInput.on('change', (event) => {
-  event.preventDefault();
-  let cep = cepInput.val();
-  try {
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-  .then(response => response.json())
-  .then(body => {
-    ruaInput.val(body.logradouro);
-    bairroInput.val(body.bairro);
-    cidadeInput.val(body.localidade);
-    estadoInput.val(body.uf);
-  });
-  } catch (error) {
-    console.log(error);
+  //Usuário
+  const id = $('input[name="usuario_id"]');
+  const nome = $('input[name="nome_editar"]');
+  const email = $('input[name="email_editar"]');
+  const telefone = $('input[name="telefone_editar"]');
+  const documento = $('input[name="documento_editar"]');
+
+  const cep = $('input[name="cep_editar"]');
+  const rua = $('input[name="rua_editar"]');
+  const bairro = $('input[name="bairro_editar"]');
+  const cidade = $('input[name="cidade_editar"]');
+  const estado = $('input[name="estado_editar"]');
+  let confirmUsuario = document.getElementById('confirm-usuario');
+
+
+  if (window.location.href.includes('usuarios')) {
+    $('tr > td .edit-btn').each(function() {
+      $(this).on('click', function() {
+        const dados = $(this).closest("tr");
+        id.attr("value", dados[0].cells[0].innerText);
+        nome.attr("value", dados[0].cells[1].innerText);
+        email.attr("value", dados[0].cells[2].innerText);
+        telefone.attr("value", dados[0].cells[3].innerText);
+        documento.attr("value", dados[0].cells[4].innerText);
+        cep.attr("value", dados[0].cells[5].innerText);
+        rua.attr("value", dados[0].cells[6].innerText);
+        bairro.attr("value", dados[0].cells[7].innerText);
+        cidade.attr("value", dados[0].cells[8].innerText);
+        estado.attr("value", dados[0].cells[9].innerText);
+        if (confirmUsuario)
+          confirmUsuario.innerHTML = `<strong>${dados[0].cells[1].innerText}</strong>`;
+      });
+    });
   }
-})
 
-const numerosTotais = document.querySelectorAll('.numero-total');
-numerosTotais.forEach(numeroTotal => {
-  const valorFinal = parseInt(numeroTotal.getAttribute('data-numero'));
-  const duracao = 1000; // Duração da animação em milissegundos
-  const intervalo = 10; // Intervalo de atualização em milissegundos
-  
-  const incremento = valorFinal / (duracao / intervalo);
-  let valorAtual = 0;
-  
-  function animarNumero() {
-    if (valorAtual < valorFinal) {
-      valorAtual += incremento;
-      numeroTotal.textContent = Math.round(valorAtual);
-      requestAnimationFrame(animarNumero);
-    } else {
-      numeroTotal.textContent = valorFinal;
+  //Valida o CEP do usuário
+  const cepInput = $('input[name="cep"]');
+  const ruaInput = $('input[name="rua"]');
+  const bairroInput = $('input[name="bairro"]');
+  const cidadeInput = $('input[name="cidade"]');
+  const estadoInput = $('input[name="estado"]');
+
+  cepInput.on('change', (event) => {
+    event.preventDefault();
+    let cep = cepInput.val();
+    try {
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(response => response.json())
+    .then(body => {
+      ruaInput.val(body.logradouro);
+      bairroInput.val(body.bairro);
+      cidadeInput.val(body.localidade);
+      estadoInput.val(body.uf);
+    });
+    } catch (error) {
+      console.log(error);
     }
+  });
+
+  //Funcionário
+  id_funcionario = $('input[name="funcionario_id"]');
+  permissao = $('select[name="permissao_editar"]');
+  let confirmFuncionario = document.getElementById('confirm-funcionario');
+
+  if (window.location.href.includes('funcionarios')) {
+    $('tr > td .edit-btn').each(function() {
+      $(this).on('click', function() {
+        const dados = $(this).closest("tr");
+        id_funcionario.attr("value", dados[0].cells[0].innerText);
+        nome.attr("value", dados[0].cells[1].innerText);
+        email.attr("value", dados[0].cells[2].innerText);
+        telefone.attr("value", dados[0].cells[3].innerText);
+        documento.attr("value", dados[0].cells[4].innerText);
+        permissao.val(dados[0].cells[5].innerText);
+        if (confirmFuncionario)
+          confirmFuncionario.innerHTML = `<strong>${dados[0].cells[1].innerText}</strong>`;
+      });
+    });
   }
-  animarNumero();
-});
+
+
+  // Animação dos cards dos números dos protocolos
+  const numerosTotais = document.querySelectorAll('.numero-total');
+  numerosTotais.forEach(numeroTotal => {
+    const valorFinal = parseInt(numeroTotal.getAttribute('data-numero'));
+    const duracao = 1000; // Duração da animação em milissegundos
+    const intervalo = 10; // Intervalo de atualização em milissegundos
+    
+    const incremento = valorFinal / (duracao / intervalo);
+    let valorAtual = 0;
+    
+    function animarNumero() {
+      if (valorAtual < valorFinal) {
+        valorAtual += incremento;
+        numeroTotal.textContent = Math.round(valorAtual);
+        requestAnimationFrame(animarNumero);
+      } else {
+        numeroTotal.textContent = valorFinal;
+      }
+    }
+    animarNumero();
+  });
 
 });
 

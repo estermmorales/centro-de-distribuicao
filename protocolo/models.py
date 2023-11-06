@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 
 class Funcionario(models.Model):
-    permissao = [("GR", "Gerente"), ("FUN", "Funcionário"),
-                 ("EST", "Estagiário"), ("VIS", "Visitante")]
+    permissao = [("Gerente", "Gerente"), ("Funcionário", "Funcionário"),
+                 ("Estagiário", "Estagiário"), ("Visitante", "Visitante")]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     nome = models.CharField("Nome", max_length=45)
@@ -14,6 +14,7 @@ class Funcionario(models.Model):
     email = models.CharField("E-mail", max_length=45)
     permissao = models.CharField(
         "Permissão", max_length=45, choices=permissao, default='Funcionário')
+    
 
 
 class Endereco(models.Model):

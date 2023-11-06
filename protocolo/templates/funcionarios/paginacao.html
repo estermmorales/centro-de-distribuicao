@@ -1,0 +1,42 @@
+{% load static %} {% load mathfilters %} {% block content %}
+<nav
+  class="pagination is-rounded is-small ml-3 is-centered p-3"
+  role="navigation"
+  aria-label="pagination"
+>
+{% if funcionarios.number > 1 %}
+  <a href="?page={{ funcionarios.number|sub:1 }}" class="pagination-previous">Anterior</a>
+  {% endif %} 
+  {% if funcionarios.number < funcionarios.paginator.num_pages %}
+  <a href="?page={{ funcionarios.number|add:1 }}" class="pagination-next">Próxima página</a>
+  {% endif %}
+  <ul class="pagination-list">
+    <li>
+      <a href="?page=1" class="pagination-link" aria-label="Goto page 1">1</a>
+    </li>
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    {% if funcionarios.number > 1 %}
+    <li>
+      <a href="?page={{ funcionarios.previous_page_number }}" class="pagination-link" aria-label="Goto page 45">{{ funcionarios.number|sub:1 }}</a>
+    </li>
+    {% endif %}
+    <li>
+      <a class="pagination-link is-current" aria-label="Page {{ funcionarios.number }}" aria-current="page">{{ funcionarios.number }}</a>
+    </li>
+    {% if funcionarios.number < funcionarios.paginator.num_pages %}
+    <li>
+      <a href="?page={{ funcionarios.next_page_number }}" class="pagination-link" aria-label="Goto page 47">{{ funcionarios.number|add:1 }}</a>
+    </li>
+    {% endif %}
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    <li>
+      <a
+        href="?page={{funcionarios.paginator.num_pages}}"
+        class="pagination-link"
+        aria-label="Goto page {{funcionarios.paginator.num_pages}}"
+        >{{funcionarios.paginator.num_pages}}</a
+      >
+    </li>
+  </ul>
+</nav>
+{% endblock %}

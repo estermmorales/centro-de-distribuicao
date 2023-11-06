@@ -2,12 +2,24 @@ from django import forms
 from django.forms import Form, ModelForm
 from protocolo.models import Protocolo, EmitenteDestinatario, Funcionario, Endereco
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class FuncionarioForm(ModelForm):
     class Meta:
         model = Funcionario
-        fields = ["nome", "email", "documento", "telefone", 'permissao']
+        fields = ["nome", "email", "documento", "telefone", "permissao"]
+
+    senha = forms.CharField(widget=forms.PasswordInput)
+    def save(self, commit=True):
+        funcionario = super(FuncionarioForm, self).save(commit=False)
+        funcionario.senha = self.cleaned_data['senha']
+
+        if commit:
+            user = User.objects.create_user(username=funcionario.email, password=funcionario.senha)
+            funcionario.user = user
+            funcionario.save()
+        return funcionario
 
 
 class EnderecoForm(ModelForm):

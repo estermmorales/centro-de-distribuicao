@@ -1,6 +1,6 @@
 .sidebar {
   width: 100px;
-  height: 100vh;
+  min-height: 100vh;
   color: $gray-color;
   overflow: hidden;
   transition: all 0.5s linear;
@@ -100,11 +100,5 @@
 @media (max-width: 768px) {
   .sidebar {
     display: none;
-  }
-}
-
-@media (max-width: 1500px) {
-  .sidebar {
-    height: auto;
   }
 }
