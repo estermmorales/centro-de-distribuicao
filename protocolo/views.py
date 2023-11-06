@@ -9,6 +9,8 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.db.models import Q
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 def protocolo(request):
@@ -216,9 +218,10 @@ def funcionarios(request):
 
 
 def autocomplete_usuarios(request):
-    termo_pesquisa = request.GET.get('term', '')  
-    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  
+    termo_pesquisa = request.GET.get('term', '')  # Obtenha o termo de pesquisa da solicitação
+    usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  # Realize a pesquisa no banco de dados
     
+    # Crie uma lista de nomes de usuários correspondentes
     resultados = [usuario.nome for usuario in usuarios]
     
     return JsonResponse(resultados, safe=False)
@@ -227,8 +230,15 @@ def historico(request):
     return render(request, 'historico.html')
 
 
-def erro404(request):
-    return render(request, 'errors/404.html')
+def handler404(request, *args, **argv):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
-def erro500(request):
-    return render(request, 'errors/500.html')
+
+def handler500(request, *args, **argv):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
