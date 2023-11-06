@@ -239,6 +239,9 @@ def autocomplete_usuarios(request):
 def historico(request):
     return render(request, 'historico.html')
 
+def configuracoes(request):
+    return render(request, 'configuracoes.html')
+
 def handler404(request, exception):
     context = {}
     response = render(request, "errors/404.html", context=context)

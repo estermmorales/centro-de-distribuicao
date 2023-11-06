@@ -15,5 +15,6 @@ urlpatterns = [
     path('usuarios/excluir/', views.excluir_usuario, name='excluir_usuario'),
     path('usuarios/autocomplete_usuarios/', views.autocomplete_usuarios, name='autocomplete_usuarios'),
     path('historico', views.historico, name='historico'),
-    path('funcionarios', views.funcionarios, name='funcionarios')
+    path('funcionarios', views.funcionarios, name='funcionarios'),
+    path('configuracoes', views.configuracoes, name='configuracoes'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

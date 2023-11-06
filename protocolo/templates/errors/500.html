@@ -40,15 +40,19 @@
 
 <body class="fade-in">
 
-  <div class="container500">
-    <div class="contents500">
-      <h2 class="head-title500">500<br>Internal Server Error</h2>
-      <p>Infelizmente houve um problema interno no servidor, <br> vamos descobrir o que houve em breve estara disponível novamente.</p>
-      <div class="header-button500">
-        <a href="{% url 'protocolo' %}" class="btn btn-common">Volte para a página principal</i></a>
+  <div class="container is-flex">
+    <div class="content mx-auto is-flex">
+      <img src="{% static 'img/3394854.jpg' %}" alt="" width="500" height="500">
+      <div class="is-align-self-center">
+        <h2 class="title">500<br>Erro interno do servidor</h2>
+        <p>Infelizmente houve um problema interno no servidor, <br> vamos descobrir o que houve em breve estara disponível novamente.</p>
+        <div>
+        <a href="{% url 'protocolo' %}" class="button is-link is-outlined is-rounded">Volte para a página principal</i></a>
+      </div>
       </div>
     </div>
   </div>
+
     <!--JS Scripts-->
   <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
