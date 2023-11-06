@@ -3,7 +3,7 @@
 O Centro de Distribuição é um programa web para controle de entrada e saída de pacotes.
 Cadastre usuários, remetentes e destinatarios, e faça o controle dos pacotes entregues e retirados da sua loja, distribuidora ou setor.
 
-![Centro de Distribuição](protocolo/static/assets/centro-distribuicao.png)
+![Centro de Distribuição](protocolo/static/img/centro-distribuicao.png)
 
 Atravez do CD você poderá:
 
