@@ -38,31 +38,28 @@
     />
   </head>
 
-<body class="fade-in">
-
-  <div class="container is-flex">
-    <div class="content mx-auto is-flex">
-      <img src="{% static 'img/3394854.jpg' %}" alt="" width="500" height="500">
-      <div class="is-align-self-center">
-        <h2 class="title">500<br>Erro interno do servidor</h2>
-        <p>Infelizmente houve um problema interno no servidor, <br> vamos descobrir o que houve em breve estara disponível novamente.</p>
-        <div>
-        <a href="{% url 'protocolo' %}" class="button is-link is-outlined is-rounded">Volte para a página principal</i></a>
-      </div>
-      </div>
-    </div>
-  </div>
-
-    <!--JS Scripts-->
-  <script
-  src="https://code.jquery.com/jquery-3.7.1.min.js"
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-  crossorigin="anonymous"
-  ></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="{% static 'js/app.js' %}"></script>
+        <div class="container">
+              <div class="contents">
+                <img src="{% static 'img/3394854.jpg'%}" alt="">
+                <div class="main-content">
+                  <h2 class="head-title">500<br>Internal Server Error</h2>
+                  <p>Infelizmente houve um problema interno no servidor, <br> vamos descobrir o que houve em breve estara disponível novamente.</p>
+                  <div class="header-button">
+                    <a href="{% url 'protocolo' %}" class="btn btn-common">Volte para a página principal</i></a>
+                  </div>
+                </div>
+              </div>
+        </div>
+  <!--JS Scripts-->
+ <script
+ src="https://code.jquery.com/jquery-3.7.1.min.js"
+ integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+ crossorigin="anonymous"
+></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>

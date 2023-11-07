@@ -23,20 +23,18 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-<body class="fade-in">
-
-  <div class="container is-flex">
-    <div class="content mx-auto is-flex">
-      <img src="{% static 'img/3793096.jpg' %}" alt="" width="500" height="500">
-      <div class="is-align-self-center">
-        <h2 class="title">404<br>Página não encontrada</h2>
-        <p>Infelizmente a página que você procura não está disponível.</p>
-        <div>
-        <a href="{% url 'protocolo' %}" class="button is-link is-outlined is-rounded">Volte para a página principal</i></a>
-      </div>
-      </div>
-    </div>
-  </div>
+        <div class="container">
+              <div class="contents">
+                <img src="{% static 'img/3793096.jpg'%}" alt="">
+                <div class="main-content">
+                  <h2 class="head-title">404<br>Página não encontrada</h2>
+                  <p>Infelizmente a página que você procura não está disponível.</p>
+                  <div class="header-button">
+                    <a href="{% url 'protocolo' %}" class="btn btn-common">Volte para a página principal</i></a>
+                  </div>
+                </div>
+              </div>
+        </div>
   <!--JS Scripts-->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
