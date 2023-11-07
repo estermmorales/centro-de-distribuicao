@@ -6,14 +6,15 @@ import random
 from faker import Faker
 from protocolo.models import Endereco, EmitenteDestinatario, Protocolo
 
-fake = Faker()
+fake = Faker('pt_BR')
+faker = Faker()
 # Populando a tabela Endereco
 for _ in range(50):
     endereco = Endereco.objects.create(
-        cep=fake.zipcode(),
-        estado=fake.state(),
-        cidade=fake.city(),
-        bairro=fake.word(),
+        cep=faker.zipcode(),
+        estado=fake.estado_sigla(),
+        cidade=fake.administrative_unit(),
+        bairro=fake.bairro(),
         rua=fake.street_name()
     )
 
@@ -21,7 +22,7 @@ for _ in range(50):
 for _ in range(50):
     emitente = EmitenteDestinatario.objects.create(
         nome=fake.name(),
-        documento=fake.ssn(),
+        documento=fake.cpf(),
         telefone=fake.phone_number(),
         email=fake.email(),
         id_endereco=Endereco.objects.get(pk=random.randint(1, 50))
@@ -29,7 +30,7 @@ for _ in range(50):
 
     destinatario = EmitenteDestinatario.objects.create(
         nome=fake.name(),
-        documento=fake.ssn(),
+        documento=fake.cpf(),
         telefone=fake.phone_number(),
         email=fake.email(),
         id_endereco=Endereco.objects.get(pk=random.randint(1, 50))
