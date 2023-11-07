@@ -19,7 +19,7 @@ $(document).ready(function () {
   activeMenuLink();
 
   $('li#protocolos').addClass('active');
-  const links = ['historico', 'usuarios', 'funcionarios', 'configuracoes'];
+  const links = ['dashboard', 'usuarios', 'funcionarios', 'configuracoes'];
   links.forEach((link) => {
     if (window.location.href.includes(link)) {
       $('li#protocolos').removeClass('active');
