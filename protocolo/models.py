@@ -31,7 +31,7 @@ class EmitenteDestinatario(models.Model):
     telefone = models.CharField("Telefone", max_length=11)
     email = models.CharField("E-mail", max_length=45)
     id_endereco = models.ForeignKey(
-        Endereco, blank=True, null=True, on_delete=models.CASCADE)
+        Endereco, blank=True, null=True, on_delete=models.CASCADE, unique=False)
 
 
 class Protocolo(models.Model):

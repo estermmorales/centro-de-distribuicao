@@ -165,9 +165,9 @@ def cadastrar_usuarios(request):
 
             endereco = Endereco(cep=cep, rua=rua, bairro=bairro, cidade=cidade, estado=estado)
             endereco.save()
-            endereco_object = Endereco.objects.get(cep=cep)
+            endereco_object = Endereco.objects.filter(cep=cep)
 
-            usuario = EmitenteDestinatario(nome=nome, email=email, documento=documento, telefone=telefone, id_endereco_id=endereco_object.id)
+            usuario = EmitenteDestinatario(nome=nome, email=email, documento=documento, telefone=telefone, id_endereco_id=endereco_object[0].id)
             usuario.save()
 
             return redirect('usuarios')

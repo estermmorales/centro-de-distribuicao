@@ -8,12 +8,14 @@ from protocolo.models import Endereco, EmitenteDestinatario, Protocolo
 
 fake = Faker('pt_BR')
 faker = Faker()
+
+
 # Populando a tabela Endereco
 for _ in range(50):
     endereco = Endereco.objects.create(
         cep=faker.zipcode(),
         estado=fake.estado_sigla(),
-        cidade=fake.administrative_unit(),
+        cidade=fake.city(),
         bairro=fake.bairro(),
         rua=fake.street_name()
     )
@@ -36,11 +38,13 @@ for _ in range(50):
         id_endereco=Endereco.objects.get(pk=random.randint(1, 50))
     )
 
-    data_entrega = fake.date_time_this_decade(before_now=True, after_now=False)
-    data_retirada = fake.date_time_this_decade(
-        before_now=True, after_now=False)
+    data_entrega = fake.date_time_between(start_date='-60d', end_date='now')
+    data_retirada = None
     qtd_volumes = random.randint(1, 10)
     situacao = random.choice(['Pendente', 'Retirado', 'Cancelado'])
+
+    if situacao == 'Retirado':
+        data_retirada = fake.date_time_between(start_date=data_entrega, end_date='now')
 
     protocolo = Protocolo.objects.create(
         data_entrega=data_entrega,
