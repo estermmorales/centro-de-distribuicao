@@ -72,6 +72,7 @@
                 <th>Data de entrega</th>
                 <th>Data de retirada</th>
                 <th>Situação</th>
+                <th>Funcionario</th>
                 <th></th>
               </tr>
             </thead>
@@ -85,6 +86,7 @@
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
                 <td>{{ protocolo.situacao }}</td>
+                <td>{{ protocolo.id_funcionario.nome }}</td>
                 <td>
                   <button
                     class="js-modal-trigger button is-white is-small js-modal-button edit-btn"

@@ -22,5 +22,5 @@ handler500 = 'protocolo.views.handler500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('protocolo.urls'))
+    path('', include('protocolo.urls')),
 ]

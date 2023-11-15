@@ -10,6 +10,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.shortcuts import render
+from protocolo.models import Protocolo
+from django.core import serializers
 
 
 def protocolo(request):
@@ -95,11 +99,19 @@ def cadastrar_protocolo(request):
 def editar_protocolo(request):
     protocolo = Protocolo.objects.get(id=request.POST.get('protocolo_id'))
 
+    id_funcionario = protocolo.id_funcionario_id
+    get_funcionario = Funcionario.objects.get(id=id_funcionario)
+
     id_emitente = protocolo.id_emitente_id
     get_emitente = EmitenteDestinatario.objects.get(id=id_emitente)
 
     id_destinatario = protocolo.id_destinatario_id
     get_destinatario = EmitenteDestinatario.objects.get(id=id_destinatario)
+
+    novo_funcionario = request.POST.get('nome_funcionario_editar')
+    get_novo_funcionario = Funcionario.objects.get(nome=novo_funcionario)
+    if (get_novo_funcionario.nome != get_funcionario.nome):
+        protocolo.id_funcionario_id = get_novo_funcionario.id
     
     novo_emitente = request.POST.get('nome_emitente_editar')
     get_novo_emitente = EmitenteDestinatario.objects.get(nome=novo_emitente)
@@ -326,3 +338,11 @@ def login(request):
         return render(request, 'login.html', {'error_message': error_message})
     
     return render(request, 'login.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def dash_data(request):
+    dataset = Protocolo.objects.all()
+    data = serializers.serialize('json', dataset)
+    return JsonResponse(data, safe=False)

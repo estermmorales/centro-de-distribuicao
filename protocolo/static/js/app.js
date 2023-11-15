@@ -140,6 +140,7 @@ if (window.location.href.includes('funcionarios')) {
 
   // Protocolo
   const protocolo = $('input[name="protocolo_id"]');
+  const funcionario = $('input[name="nome_funcionario_editar"]');
   const emitente = $('input[name="nome_emitente_editar"]');
   const destinatario = $('input[name="nome_destinatario_editar"]');
   const volumes = $('input[name="qtd_volumes_editar"]');
@@ -154,6 +155,7 @@ if (window.location.href.includes('funcionarios')) {
       destinatario.attr("value", dados[0].cells[2].innerText);
       volumes.attr("value", dados[0].cells[3].innerText);
       situacao.val(dados[0].cells[6].innerText);
+      funcionario.attr("value", dados[0].cells[8].innerText);
       if (confirmProtocolo)
         confirmProtocolo.innerHTML = `<strong>Protocolo#${dados[0].cells[0].innerText}</strong>`;
     });

@@ -49,3 +49,5 @@ class Protocolo(models.Model):
     qtd_volumes = models.IntegerField("Volumes")
     situacao = models.CharField(
         "Situação", max_length=45, choices=situacoes, default='Pendente')
+    nome_funcionario = models.CharField("Funcionario", max_length=45, default='Funcionário')
+

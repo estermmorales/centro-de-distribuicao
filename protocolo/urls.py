@@ -21,4 +21,6 @@ urlpatterns = [
     path('funcionarios/editar_funcionario', views.editar_funcionario, name='editar_funcionario'),
     path('funcionarios/excluir_funcionario', views.excluir_funcionario, name='excluir_funcionario'),
     path('configuracoes/', views.configuracoes, name='configuracoes'),
+    path('dashboard', views.dashboard, name='dashboard'),
+    path('data', views.dash_data, name='dash_data'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
