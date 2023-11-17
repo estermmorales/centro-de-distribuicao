@@ -17,23 +17,26 @@ $font-family: "Inter", sans serif;
 @import "./users.scss";
 /* Scrollbar */
 @import "./scrollbar.scss";
-
+/* Erros */
+@import "./errors.scss";
+/* Login */
+@import "./login.scss";
 
 //Animação ao carregar página
 .fade-in {
-    opacity: 0;
-    animation: fadeIn 0.8s ease;
+  opacity: 0;
+  animation: fadeIn 0.8s ease;
 }
 
 .fade-in.active {
-    opacity: 1;
+  opacity: 1;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

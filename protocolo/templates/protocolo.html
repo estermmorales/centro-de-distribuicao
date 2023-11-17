@@ -85,19 +85,20 @@
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
                 <td>{{ protocolo.situacao }}</td>
+                <td style="display: none">{{ protocolo.id_funcionario.nome }}</td>
                 <td>
                   <button
                     class="js-modal-trigger button is-white is-small js-modal-button edit-btn"
-                    data-target="edit-modal" data-id="{{ protocolo.id }}"
+                    data-target="edit-modal"
+                    data-id="{{ protocolo.id }}"
                   >
                     <i class="material-symbols-outlined is-clickable md-18"
                       >edit_square</i
                     >
-                </button>
+                  </button>
                 </td>
               </tr>
-              {% endfor %}
-              {% include "protocolos/editar_protocolo.html" %}
+              {% endfor %} {% include "protocolos/editar_protocolo.html" %}
             </tbody>
           </table>
         </div>
@@ -106,16 +107,23 @@
     </div>
     <!-- Main content end -->
 
- <!--JS Scripts-->
- <script
- src="https://code.jquery.com/jquery-3.7.1.min.js"
- integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
- crossorigin="anonymous"
-></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="{% static 'js/app.js' %}"></script>
-</body>
+    <!--JS Scripts-->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+      integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+    />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
 </html>

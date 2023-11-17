@@ -3,15 +3,15 @@ from django.utils import timezone
 from datetime import timedelta
 from django.db.models.functions import TruncDate
 from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco
-from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, FuncionarioForm
+from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, LoginForm, FuncionarioForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import HttpResponseServerError, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-
+@login_required(login_url='/login')
 def protocolo(request):
     protocolos = Protocolo.objects.all().order_by('-id')
 
@@ -73,15 +73,17 @@ def protocolo(request):
 
 
 
-# @login_required
+@login_required(login_url='/login')
 def cadastrar_protocolo(request):
     if request.method == 'POST':
         form = ProtocoloForm(request.POST)
         if form.is_valid():
             protocolo = form.save(commit=False)
-            # Associe o funcionário logado ao protocolo
-            # protocolo.id_funcionario = Funcionario.objects.get(
-            #     user=request.user)
+
+            print(request.user)  # Deve imprimir o usuário logado
+            print(request.user.nome)
+
+            protocolo.id_funcionario = request.user
             protocolo.save() 
             return redirect('/')
         else:
@@ -91,7 +93,7 @@ def cadastrar_protocolo(request):
     return redirect('/')
 
 
-#@login_required
+@login_required(login_url='/login')
 def editar_protocolo(request):
     protocolo = Protocolo.objects.get(id=request.POST.get('protocolo_id'))
 
@@ -125,13 +127,14 @@ def editar_protocolo(request):
     protocolo.save()
     return redirect('/')
 
+@login_required(login_url='/login')
 def excluir_protocolo(request):
     protocolo_id = request.POST.get('protocolo_id')
     protocolo = Protocolo.objects.get(id=protocolo_id)
     protocolo.delete()
     return redirect('/')
 
-
+@login_required(login_url='/login')
 def usuarios(request):
     usuarios = EmitenteDestinatario.objects.all().order_by('-id')
     nome_pesquisado = request.GET.get('nome-usuario') 
@@ -148,7 +151,7 @@ def usuarios(request):
     }
     return render(request, 'usuarios.html', context)
 
-
+@login_required(login_url='/login')
 def cadastrar_usuarios(request):
     if request.method == 'POST':
         form = EmitenteDestinatarioEnderecoForm(request.POST)
@@ -179,6 +182,7 @@ def cadastrar_usuarios(request):
 
     return redirect('usuarios')
 
+@login_required(login_url='/login')
 def editar_usuario(request):
     usuario = EmitenteDestinatario.objects.get(id=request.POST.get('usuario_id'))
     nome = request.POST.get('nome_editar')
@@ -215,13 +219,14 @@ def editar_usuario(request):
     usuario.save()
     return redirect('usuarios')
     
-
+@login_required(login_url='/login')
 def excluir_usuario(request):
     usuario_id = request.POST.get('usuario_id')
     usuario = EmitenteDestinatario.objects.get(id=usuario_id)
     usuario.delete()
     return redirect('/usuarios')
 
+@login_required(login_url='/login')
 def funcionarios(request):
     funcionarios = Funcionario.objects.all().order_by('-id')
     nome_pesquisado = request.GET.get('nome-usuario') 
@@ -238,18 +243,22 @@ def funcionarios(request):
     }
     return render(request, 'funcionarios.html', context)
 
+@login_required(login_url='/login')
 def cadastrar_funcionario(request):
     if request.method == 'POST':
         form = FuncionarioForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('funcionarios')
-        else:
-            print(form.errors)
+            user = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect('funcionarios')  
     else:
-        return JsonResponse({'success': False, 'errors': form.errors})
+        form = FuncionarioForm()
     return redirect('funcionarios')
 
+@login_required(login_url='/login')
 def editar_funcionario(request):
     funcionario = Funcionario.objects.get(id=request.POST.get('funcionario_id'))
     nome = request.POST.get('nome_editar')
@@ -272,6 +281,7 @@ def editar_funcionario(request):
     funcionario.save()
     return redirect('funcionarios')
 
+@login_required(login_url='/login')
 def excluir_funcionario(request):
     funcionario_id = request.POST.get('funcionario_id')
     funcionario = Funcionario.objects.get(id=funcionario_id)
@@ -279,6 +289,7 @@ def excluir_funcionario(request):
     funcionario.delete()
     user.delete()
     return redirect('funcionarios')
+
 
 def autocomplete_usuarios(request):
     termo_pesquisa = request.GET.get('term', '')
@@ -294,9 +305,8 @@ def autocomplete_usuarios(request):
     
     return JsonResponse(resultados, safe=False)
 
-def historico(request):
-    return render(request, 'historico.html')
 
+@login_required(login_url='/login')
 def configuracoes(request):
     return render(request, 'configuracoes.html')
 
@@ -313,16 +323,27 @@ def handler500(request):
     response.status_code = 500
     return response
 
-def login(request):
+
+def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('protocolos')
-        else:
-            error_message = "Nome de usuário ou senha incorretos."
-        return render(request, 'login.html', {'error_message': error_message})
-    
-    return render(request, 'login.html')
+        try:
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = authenticate(request, email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('protocolo') 
+        except Exception as e:
+            print(f"Erro durante o login: {e}")
+            return HttpResponseServerError("Erro interno do servidor")
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

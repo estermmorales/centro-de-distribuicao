@@ -5,7 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.protocolo, name='protocolo'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
     path('cadastrar_protocolo/', views.cadastrar_protocolo, name='cadastrar_protocolo'),
     path('protocolos/editar/', views.editar_protocolo, name='editar_protocolo'),
     path('protocolos/excluir/', views.excluir_protocolo, name='excluir_protocolo'),
@@ -15,7 +16,6 @@ urlpatterns = [
     path('usuarios/editar/', views.editar_usuario, name='editar_usuario'),
     path('usuarios/excluir/', views.excluir_usuario, name='excluir_usuario'),
     path('usuarios/autocomplete_usuarios/', views.autocomplete_usuarios, name='autocomplete_usuarios'),
-    path('historico/', views.historico, name='historico'),
     path('funcionarios/', views.funcionarios, name='funcionarios'),
     path('funcionarios/cadastrar_funcionario', views.cadastrar_funcionario, name='cadastrar_funcionario'),
     path('funcionarios/editar_funcionario', views.editar_funcionario, name='editar_funcionario'),
