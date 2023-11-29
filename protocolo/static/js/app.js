@@ -17,7 +17,7 @@ $(document).ready(function () {
   activeMenuLink();
 
   $("li#protocolos").addClass("active");
-  const links = ["dashboard", "usuarios", "funcionarios", "configuracoes"];
+  const links = ["historico", "usuarios", "funcionarios", "configuracoes"];
   links.forEach((link) => {
     if (window.location.href.includes(link)) {
       $("li#protocolos").removeClass("active");
@@ -111,6 +111,7 @@ $(document).ready(function () {
   // Autocomplete do campo de pesquisa
   $(".nome-usuario").autocomplete({
     source: "/autocomplete_usuarios/",
+    minLength: 2,
     data: {
       tabela: `${tabela_pesquisa}`,
     },

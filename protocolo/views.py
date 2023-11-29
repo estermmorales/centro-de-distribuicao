@@ -1,12 +1,11 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from datetime import timedelta
-from django.db.models.functions import TruncDate
-from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco
+from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco, Historico
 from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, LoginForm, FuncionarioForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseServerError, JsonResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -85,6 +84,8 @@ def cadastrar_protocolo(request):
 
             protocolo.id_funcionario = request.user
             protocolo.save() 
+
+            Historico.objects.create(protocolo=protocolo, operacao='Pendente', funcionario=protocolo.id_funcionario)
             return redirect('/')
         else:
             print(form.errors)
@@ -121,6 +122,9 @@ def editar_protocolo(request):
     if(nova_situacao != protocolo.situacao):
         if (nova_situacao == 'Retirado'):
             protocolo.data_retirada = timezone.now()
+            Historico.objects.create(protocolo=protocolo, operacao='Retirado', funcionario=request.user)
+        if (nova_situacao == 'Cancelado'):
+            Historico.objects.create(protocolo=protocolo, operacao='Cancelado', funcionario=request.user)
         protocolo.situacao = nova_situacao
 
         
@@ -285,9 +289,7 @@ def editar_funcionario(request):
 def excluir_funcionario(request):
     funcionario_id = request.POST.get('funcionario_id')
     funcionario = Funcionario.objects.get(id=funcionario_id)
-    user = User.objects.get(username=funcionario.email)
     funcionario.delete()
-    user.delete()
     return redirect('funcionarios')
 
 
@@ -305,10 +307,16 @@ def autocomplete_usuarios(request):
     
     return JsonResponse(resultados, safe=False)
 
-
 @login_required(login_url='/login')
-def configuracoes(request):
-    return render(request, 'configuracoes.html')
+def historico(request):
+    historico = Historico.objects.all().order_by('-id')
+
+    # Paginação
+    paginator = Paginator(historico, 10)
+    page = request.GET.get('page')
+    historico = paginator.get_page(page)
+
+    return render(request, 'historico.html', {'historico': historico})
 
 def handler404(request, exception):
     context = {}

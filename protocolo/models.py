@@ -73,3 +73,12 @@ class Protocolo(models.Model):
     qtd_volumes = models.IntegerField("Volumes")
     situacao = models.CharField(
         "Situação", max_length=45, choices=situacoes, default='Pendente')
+
+
+class Historico(models.Model):
+    operacoes = [("Pendente", "Pendente"), ("Retirado", "Retirado"),
+                 ("Cancelado", "Cancelado")]
+    protocolo = models.ForeignKey(Protocolo, on_delete=models.CASCADE)
+    operacao = models.CharField(max_length=45, choices=operacoes, default='Pendente')  
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)

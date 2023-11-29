@@ -20,5 +20,5 @@ urlpatterns = [
     path('funcionarios/cadastrar_funcionario', views.cadastrar_funcionario, name='cadastrar_funcionario'),
     path('funcionarios/editar_funcionario', views.editar_funcionario, name='editar_funcionario'),
     path('funcionarios/excluir_funcionario', views.excluir_funcionario, name='excluir_funcionario'),
-    path('configuracoes/', views.configuracoes, name='configuracoes'),
+    path('historico/', views.historico, name='historico'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
