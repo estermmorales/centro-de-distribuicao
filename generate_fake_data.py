@@ -11,7 +11,7 @@ faker = Faker()
 
 
 # Populando a tabela Endereco
-for _ in range(50):
+for _ in range(10):
     endereco = Endereco.objects.create(
         cep=faker.zipcode(),
         estado=fake.estado_sigla(),
@@ -21,7 +21,7 @@ for _ in range(50):
     )
 
 # Populando a tabela EmitenteDestinatario e Protocolo
-for _ in range(50):
+for _ in range(10):
     emitente = EmitenteDestinatario.objects.create(
         nome=fake.name(),
         documento=fake.cpf(),
