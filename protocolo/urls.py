@@ -21,4 +21,5 @@ urlpatterns = [
     path('funcionarios/editar_funcionario', views.editar_funcionario, name='editar_funcionario'),
     path('funcionarios/excluir_funcionario', views.excluir_funcionario, name='excluir_funcionario'),
     path('historico/', views.historico, name='historico'),
+    path('relatorio/', views.RelatorioPDF.as_view(), name='relatorio'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,14 +1,17 @@
+import datetime
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco, Historico
 from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, LoginForm, FuncionarioForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseServerError, JsonResponse
+from django.http import HttpResponseServerError, JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.template.loader import get_template
+from django.views import View
+from xhtml2pdf import pisa
 
 @login_required(login_url='/login')
 def protocolo(request):
@@ -317,6 +320,33 @@ def historico(request):
     historico = paginator.get_page(page)
 
     return render(request, 'historico.html', {'historico': historico})
+
+class RelatorioPDF(View):
+    def get(self, request, *args, **kwargs):
+        # Obtém os últimos 10 protocolos
+        protocolos = Protocolo.objects.all().order_by('-id')[:10]
+
+        template_path = 'relatorio.html'
+        context = {'protocolos': protocolos}
+
+        # Renderiza o template HTML
+        template = get_template(template_path)
+        html = template.render(context)
+
+        # Criação do PDF usando xhtml2pdf
+        response = HttpResponse(content_type='application/pdf')
+        
+        # Define o nome do arquivo com "Protocolos" + data atual
+        nome_arquivo = f"Protocolos_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{nome_arquivo}"'
+
+        pisa_status = pisa.CreatePDF(
+            html, dest=response, encoding='utf-8')
+
+        if pisa_status.err:
+            return HttpResponse('Erro ao gerar o PDF', status=500)
+
+        return response
 
 def handler404(request, exception):
     context = {}

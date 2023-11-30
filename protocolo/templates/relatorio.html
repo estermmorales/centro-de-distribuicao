@@ -1,0 +1,80 @@
+{% load static %} {% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+
+    .title {
+      margin-top: 12px;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    table {
+      margin: 0px;
+      border: 1px solid #777;
+      border-collapse: collapse;
+      border-radius: 3px;
+    }
+
+    tr {
+      padding: 2px;
+    }
+
+    p {
+      align-self: end;
+      font-size: 10px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container is-flex is-flex-direction-column p-2">
+    <div class="title">
+      <h1>Protocolos</h1>
+    </div>
+    <p>{% now "l, d F Y H:i:s" %}</p>
+    <table style="margin:0" class="table is-bordered is-narrow">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Emitente</th>
+          <th>Destinatário</th>
+          <th>Volumes</th>
+          <th>Data de entrega</th>
+          <th>Data de retirada</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for protocolo in protocolos %}
+        <tr>
+          <td>{{ protocolo.id }}</td>
+          <td>{{ protocolo.id_emitente.nome }}</td>
+          <td>{{ protocolo.id_destinatario.nome }}</td>
+          <td>{{ protocolo.qtd_volumes }}</td>
+          <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
+          <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
+          <td>{{ protocolo.situacao }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+  </div>
+</body>
+
+</html>
