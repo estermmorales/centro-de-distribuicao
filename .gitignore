@@ -4,6 +4,12 @@
 *.pot
 *.pyc
 __pycache__
+*.*~
+*.pyc
+.env
+.idea
+templates/*
+htmlcov/*
 db.sqlite3
 media
 
