@@ -1,21 +1,19 @@
-from django.shortcuts import get_object_or_404, redirect, render
+import datetime
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from datetime import timedelta
-from django.db.models.functions import TruncDate
-from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco
-from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, FuncionarioForm
+from .models import Funcionario, Protocolo, EmitenteDestinatario, Endereco, Historico
+from .forms import ProtocoloForm, EmitenteDestinatarioEnderecoForm, LoginForm, FuncionarioForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseServerError, JsonResponse, HttpResponse
+from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.shortcuts import render
-from protocolo.models import Protocolo
-from django.core import serializers
+from django.contrib.auth import authenticate, login, logout
+from django.template.loader import get_template
+from django.views import View
+from xhtml2pdf import pisa
 
-
+@login_required(login_url='/login')
 def protocolo(request):
     protocolos = Protocolo.objects.all().order_by('-id')
 
@@ -77,16 +75,20 @@ def protocolo(request):
 
 
 
-# @login_required
+@login_required(login_url='/login')
 def cadastrar_protocolo(request):
     if request.method == 'POST':
         form = ProtocoloForm(request.POST)
         if form.is_valid():
             protocolo = form.save(commit=False)
-            # Associe o funcionário logado ao protocolo
-            # protocolo.id_funcionario = Funcionario.objects.get(
-            #     user=request.user)
+
+            print(request.user)  # Deve imprimir o usuário logado
+            print(request.user.nome)
+
+            protocolo.id_funcionario = request.user
             protocolo.save() 
+
+            Historico.objects.create(protocolo=protocolo, operacao='Pendente', funcionario=protocolo.id_funcionario)
             return redirect('/')
         else:
             print(form.errors)
@@ -95,7 +97,7 @@ def cadastrar_protocolo(request):
     return redirect('/')
 
 
-#@login_required
+@login_required(login_url='/login')
 def editar_protocolo(request):
     protocolo = Protocolo.objects.get(id=request.POST.get('protocolo_id'))
 
@@ -131,12 +133,16 @@ def editar_protocolo(request):
     if(nova_situacao != protocolo.situacao):
         if (nova_situacao == 'Retirado'):
             protocolo.data_retirada = timezone.now()
+            Historico.objects.create(protocolo=protocolo, operacao='Retirado', funcionario=request.user)
+        if (nova_situacao == 'Cancelado'):
+            Historico.objects.create(protocolo=protocolo, operacao='Cancelado', funcionario=request.user)
         protocolo.situacao = nova_situacao
 
         
     protocolo.save()
     return redirect('/')
 
+@login_required(login_url='/login')
 def excluir_protocolo(request):
     protocolo_id = request.POST.get('protocolo_id')
     protocolo = Protocolo.objects.get(id=protocolo_id)
@@ -144,6 +150,29 @@ def excluir_protocolo(request):
     return redirect('/')
 
 
+@login_required(login_url='/login')
+def pegar_protocolo_por_id(request, protocolo_id):
+    protocolo = Protocolo.objects.filter(id=protocolo_id)
+
+    total_retirado = protocolo.filter(situacao='retirado').count()
+    total_pendente = protocolo.filter(situacao='pendente').count()
+    total_cancelado = protocolo.filter(situacao='cancelado').count()
+
+    paginator = Paginator(protocolo, 1)
+    page = request.GET.get('page')
+    protocolo = paginator.get_page(page)
+
+    context = {
+        'protocolos': protocolo,
+        'total_retirado': total_retirado,
+        'total_pendente': total_pendente,
+        'total_cancelado': total_cancelado,
+    }
+
+    return render(request, 'protocolo.html', context)
+
+
+@login_required(login_url='/login')
 def usuarios(request):
     usuarios = EmitenteDestinatario.objects.all().order_by('-id')
     nome_pesquisado = request.GET.get('nome-usuario') 
@@ -160,7 +189,7 @@ def usuarios(request):
     }
     return render(request, 'usuarios.html', context)
 
-
+@login_required(login_url='/login')
 def cadastrar_usuarios(request):
     if request.method == 'POST':
         form = EmitenteDestinatarioEnderecoForm(request.POST)
@@ -191,6 +220,7 @@ def cadastrar_usuarios(request):
 
     return redirect('usuarios')
 
+@login_required(login_url='/login')
 def editar_usuario(request):
     usuario = EmitenteDestinatario.objects.get(id=request.POST.get('usuario_id'))
     nome = request.POST.get('nome_editar')
@@ -227,13 +257,14 @@ def editar_usuario(request):
     usuario.save()
     return redirect('usuarios')
     
-
+@login_required(login_url='/login')
 def excluir_usuario(request):
     usuario_id = request.POST.get('usuario_id')
     usuario = EmitenteDestinatario.objects.get(id=usuario_id)
     usuario.delete()
     return redirect('/usuarios')
 
+@login_required(login_url='/login')
 def funcionarios(request):
     funcionarios = Funcionario.objects.all().order_by('-id')
     nome_pesquisado = request.GET.get('nome-usuario') 
@@ -250,18 +281,22 @@ def funcionarios(request):
     }
     return render(request, 'funcionarios.html', context)
 
+@login_required(login_url='/login')
 def cadastrar_funcionario(request):
     if request.method == 'POST':
         form = FuncionarioForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('funcionarios')
-        else:
-            print(form.errors)
+            user = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect('funcionarios')  
     else:
-        return JsonResponse({'success': False, 'errors': form.errors})
+        form = FuncionarioForm()
     return redirect('funcionarios')
 
+@login_required(login_url='/login')
 def editar_funcionario(request):
     funcionario = Funcionario.objects.get(id=request.POST.get('funcionario_id'))
     nome = request.POST.get('nome_editar')
@@ -284,13 +319,13 @@ def editar_funcionario(request):
     funcionario.save()
     return redirect('funcionarios')
 
+@login_required(login_url='/login')
 def excluir_funcionario(request):
     funcionario_id = request.POST.get('funcionario_id')
     funcionario = Funcionario.objects.get(id=funcionario_id)
-    user = User.objects.get(username=funcionario.email)
     funcionario.delete()
-    user.delete()
     return redirect('funcionarios')
+
 
 def autocomplete_usuarios(request):
     termo_pesquisa = request.GET.get('term', '')
@@ -306,11 +341,43 @@ def autocomplete_usuarios(request):
     
     return JsonResponse(resultados, safe=False)
 
+@login_required(login_url='/login')
 def historico(request):
-    return render(request, 'historico.html')
+    historico = Historico.objects.all().order_by('-id')
 
-def configuracoes(request):
-    return render(request, 'configuracoes.html')
+    # Paginação
+    paginator = Paginator(historico, 10)
+    page = request.GET.get('page')
+    historico = paginator.get_page(page)
+
+    return render(request, 'historico.html', {'historico': historico})
+
+class RelatorioPDF(View):
+    def get(self, request, *args, **kwargs):
+        # Obtém os últimos 10 protocolos
+        protocolos = Protocolo.objects.all().order_by('-id')[:10]
+
+        template_path = 'relatorio.html'
+        context = {'protocolos': protocolos}
+
+        # Renderiza o template HTML
+        template = get_template(template_path)
+        html = template.render(context)
+
+        # Criação do PDF usando xhtml2pdf
+        response = HttpResponse(content_type='application/pdf')
+        
+        # Define o nome do arquivo com "Protocolos" + data atual
+        nome_arquivo = f"Protocolos_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{nome_arquivo}"'
+
+        pisa_status = pisa.CreatePDF(
+            html, dest=response, encoding='utf-8')
+
+        if pisa_status.err:
+            return HttpResponse('Erro ao gerar o PDF', status=500)
+
+        return response
 
 def handler404(request, exception):
     context = {}
@@ -325,24 +392,27 @@ def handler500(request):
     response.status_code = 500
     return response
 
-def login(request):
+
+def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('protocolos')
-        else:
-            error_message = "Nome de usuário ou senha incorretos."
-        return render(request, 'login.html', {'error_message': error_message})
-    
-    return render(request, 'login.html')
+        try:
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = authenticate(request, email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('protocolo') 
+        except Exception as e:
+            print(f"Erro durante o login: {e}")
+            return HttpResponseServerError("Erro interno do servidor")
+    else:
+        form = LoginForm()
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'login.html', {'form': form})
 
-def dash_data(request):
-    dataset = Protocolo.objects.all()
-    data = serializers.serialize('json', dataset)
-    return JsonResponse(data, safe=False)
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

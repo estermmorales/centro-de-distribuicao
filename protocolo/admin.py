@@ -6,7 +6,7 @@ from .models import Funcionario, EmitenteDestinatario, Protocolo, Endereco
 
 @admin.register(Funcionario)
 class FuncionarioAdmin(admin.ModelAdmin):
-    list_display = ('user', 'nome', 'documento',
+    list_display = ('nome', 'documento',
                     'telefone', 'email', 'permissao')
 
 

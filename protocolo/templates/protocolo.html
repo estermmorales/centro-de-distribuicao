@@ -59,6 +59,14 @@
           >
             <i class="material-icons md-24 mr-1">add</i> Novo
           </button>
+          <a href="{% url 'relatorio' %}"
+            class="button is-rounded is-small is-outlined js-modal-button"
+            
+          >
+          <i class="material-symbols-outlined md-24" style="color:#717171">
+            description
+            </i> 
+          </a>
           {% include "protocolos/cadastrar_protocolo.html" %}
         </div>
         <div class="table-container ml-3">
@@ -86,9 +94,7 @@
                 <td>{{ protocolo.data_entrega|date:"d/m/Y" }}</td>
                 <td>{{ protocolo.data_retirada|date:"d/m/Y"|default:"-"}}</td>
                 <td>{{ protocolo.situacao }}</td>
-                <td style="display: none">
-                  {{ protocolo.id_funcionario.nome }}
-                </td>
+                <td style="display: none">{{ protocolo.id_funcionario.nome }}</td>
                 <td>
                   <button
                     class="js-modal-trigger button is-white is-small js-modal-button edit-btn"

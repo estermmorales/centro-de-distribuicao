@@ -5,82 +5,108 @@
       <div class="box p-5">
         <div class="is-flex is-justify-content-space-between">
           <h3 class="title is-3">Editar</h3>
-
-          <button class="button is-danger is-outlined is-rounded is-small js-modal-button" data-target="confirm-modal"><i class="material-symbols-outlined">
-            close
-            </i>Excluir</button>
+          <button
+            class="button is-danger is-outlined is-rounded is-small js-modal-button"
+            data-target="confirm-modal"
+          >
+            <i class="material-symbols-outlined"> close </i>Excluir
+          </button>
         </div>
-        <form action="{% url 'editar_protocolo' %}" method="POST" id="update-form">
+        <form
+          action="{% url 'editar_protocolo' %}"
+          method="POST"
+          id="update-form"
+        >
           {% csrf_token %}
           <div class="fields">
-            <input type="hidden" name="protocolo_id" >
-            <!-- Funcionario -->
-            <p> Criado por: {{protocolo.id_funcionario.nome}}</p>
-
-
+            <input type="hidden" name="protocolo_id" />
             <!-- Emitente -->
-          <div class="field is-horizontal">
-            <div class="field-body">
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label" for="nome_emitente">Emitente</label>
+                  <p class="control has-icons-left">
+                    <input
+                      name="nome_emitente_editar"
+                      class="input nome-usuario"
+                      type="text"
+                      placeholder="Nome"
+                    />
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Destinatario -->
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label" for="nome_destinatario"
+                    >Destinatário</label
+                  >
+                  <p class="control has-icons-left">
+                    <input
+                      name="nome_destinatario_editar"
+                      class="input nome-usuario"
+                      type="text"
+                      placeholder="Nome"
+                    />
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!--Volumes -->
+            <div class="field is-horizontal mt-5">
               <div class="field">
-                <label class="label" for="nome_emitente">Emitente</label>
+                <label for="qtd_volumes" class="label">Volumes</label>
                 <p class="control has-icons-left">
-                  <input name="nome_emitente_editar" class="input nome-usuario" type="text" placeholder="Nome"
-                   />
+                  <input name="qtd_volumes_editar" class="input" type="text" />
                   <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
+                    <i class="material-symbols-outlined"> storage </i>
                   </span>
                 </p>
               </div>
-            </div>
-          </div>
-          <!-- Destinatario -->
-          <div class="field is-horizontal">
-            <div class="field-body">
-              <div class="field">
-                <label class="label" for="nome_destinatario">Destinatário</label>
-                <p class="control has-icons-left">
-                  <input name="nome_destinatario_editar" class="input nome-usuario" type="text" placeholder="Nome"
-                     />
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!--Volumes -->
-          <div class="field is-horizontal mt-5">
-            <div class="field">
-              <label for="qtd_volumes" class="label">Volumes</label>
-              <p class="control has-icons-left">
-                <input name="qtd_volumes_editar" class="input" type="text"
-                     />
-                <span class="icon is-small is-left">
-                  <i class="material-symbols-outlined"> storage </i>
-                </span>
-              </p>
-            </div>
-            <!--Situação-->
-            <div class="field ml-4">
-              <label for="situacao" class="label">Situação</label>
-              <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                  <select name="situacao_editar">
-                    <option value="Pendente">Pendente</option>
-                    <option value="Retirado">Retirado</option>
-                    <option value="Cancelado">Cancelado</option>
-                  </select>
+              <!--Situação-->
+              <div class="field ml-4">
+                <label for="situacao" class="label">Situação</label>
+                <div class="control is-expanded">
+                  <div class="select is-fullwidth">
+                    <select name="situacao_editar">
+                      <option value="Pendente">Pendente</option>
+                      <option value="Retirado">Retirado</option>
+                      <option value="Cancelado">Cancelado</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div>
+            <p
+              style="font-size: 12px; color: #777; margin-top: 3px"
+              id="criado-por"
+            >
+              Criado por:
+            </p>
           </div>
           <!--Botões-->
           <div class="field is-grouped is-grouped-centered">
-            <button class="button is-dark is-rounded is-small mt-5 mr-3" type="submit">
+            <button
+              class="button is-dark is-rounded is-small mt-5 mr-3"
+              type="submit"
+            >
               Salvar <i class="material-symbols-outlined"> done </i>
             </button>
-            <button class="button close is-outlined is-rounded is-small mt-5" data-target="edit-modal" type="button">
+            <button
+              class="button close is-outlined is-rounded is-small mt-5"
+              data-target="edit-modal"
+              type="button"
+            >
               Cancelar
             </button>
           </div>
@@ -96,14 +122,23 @@
       <div class="box is-small">
         <form action="{% url 'excluir_protocolo' %}" method="POST">
           {% csrf_token %}
-          <input type="hidden" name="protocolo_id" >
+          <input type="hidden" name="protocolo_id" />
           <h1 class="title">Confirmar</h1>
-          <p>Deseja realmente excluir o <span id="confirm-protocolo"></span>?</p>
+          <p>
+            Deseja realmente excluir o <span id="confirm-protocolo"></span>?
+          </p>
           <div class="field is-grouped is-grouped-centered">
-            <button class="button is-dark is-rounded is-small mt-5 mr-3" type="submit">
+            <button
+              class="button is-dark is-rounded is-small mt-5 mr-3"
+              type="submit"
+            >
               Sim
             </button>
-            <button class="button is-outlined is-rounded is-small mt-5 close" data-target="confirm-modal" type="button">
+            <button
+              class="button is-outlined is-rounded is-small mt-5 close"
+              data-target="confirm-modal"
+              type="button"
+            >
               Não
             </button>
           </div>

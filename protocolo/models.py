@@ -1,19 +1,43 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
-class Funcionario(models.Model):
+class FuncionarioManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, password, **extra_fields)
+
+class Funcionario(AbstractBaseUser, PermissionsMixin):
     permissao = [("Gerente", "Gerente"), ("Funcionário", "Funcionário"),
                  ("Estagiário", "Estagiário"), ("Visitante", "Visitante")]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     nome = models.CharField("Nome", max_length=45)
-    documento = models.CharField("Documento", max_length=11)
+    documento = models.CharField("Documento", max_length=11, unique=True)
     telefone = models.CharField("Telefone", max_length=45, null=True)
-    email = models.CharField("E-mail", max_length=45)
+    email = models.EmailField("E-mail", max_length=45, unique=True)
     permissao = models.CharField(
         "Permissão", max_length=45, choices=permissao, default='Funcionário')
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = FuncionarioManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nome', 'documento', 'telefone']
+
+    def __str__(self):
+        return self.email
     
 
 
@@ -49,5 +73,12 @@ class Protocolo(models.Model):
     qtd_volumes = models.IntegerField("Volumes")
     situacao = models.CharField(
         "Situação", max_length=45, choices=situacoes, default='Pendente')
-    nome_funcionario = models.CharField("Funcionario", max_length=45, default='Funcionário')
 
+
+class Historico(models.Model):
+    operacoes = [("Pendente", "Pendente"), ("Retirado", "Retirado"),
+                 ("Cancelado", "Cancelado")]
+    protocolo = models.ForeignKey(Protocolo, on_delete=models.CASCADE)
+    operacao = models.CharField(max_length=45, choices=operacoes, default='Pendente')  
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)

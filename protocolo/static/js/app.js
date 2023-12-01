@@ -1,14 +1,12 @@
 $(document).ready(function () {
-  
   //Animação ao carregar a página
-  window.addEventListener("load", function() {
+  window.addEventListener("load", function () {
     document.querySelector(".fade-in").classList.add("active");
-});
+  });
 
   // Função para ativar o link do menu
   const linksMenu = $(".menu li");
   function activeMenuLink() {
-
     function handleLink(event) {
       linksMenu.removeClass("active");
       $(this).addClass("active");
@@ -18,12 +16,12 @@ $(document).ready(function () {
   }
   activeMenuLink();
 
-  $('li#protocolos').addClass('active');
-  const links = ['dashboard', 'usuarios', 'funcionarios', 'configuracoes'];
+  $("li#protocolos").addClass("active");
+  const links = ["historico", "usuarios", "funcionarios", "configuracoes"];
   links.forEach((link) => {
     if (window.location.href.includes(link)) {
-      $('li#protocolos').removeClass('active');
-      $(`li#${link}`).addClass('active');
+      $("li#protocolos").removeClass("active");
+      $(`li#${link}`).addClass("active");
     }
   });
 
@@ -63,78 +61,76 @@ $(document).ready(function () {
     });
   });
 
-
   // Configurando filtros
-  const filterButtons = $('.filter');
+  const filterButtons = $(".filter");
   filterButtons.each(function () {
-      $(this).on('click', function () {
-        
-          const filter = $(this).data('filter');
-          const currentUrl = window.location.href;
+    $(this).on("click", function () {
+      const filter = $(this).data("filter");
+      const currentUrl = window.location.href;
 
-          if (currentUrl.includes('?')) {
-              // Separa a URL base dos parâmetros de consulta
-              const [baseUrl, queryString] = currentUrl.split('?');
-              const queryParams = queryString.split('&');
+      if (currentUrl.includes("?")) {
+        // Separa a URL base dos parâmetros de consulta
+        const [baseUrl, queryString] = currentUrl.split("?");
+        const queryParams = queryString.split("&");
 
-              // Verifica se o filtro específico já existe na URL
-              let filterFound = false;
+        // Verifica se o filtro específico já existe na URL
+        let filterFound = false;
 
-              queryParams.forEach((param, index) => {
-                  if (param.startsWith(filter.split('=')[0])) {
-                      // Substitua o valor do filtro na URL
-                      queryParams[index] = filter;
-                      filterFound = true;
-                  }
-              });
-
-              if (!filterFound) {
-                  // Se o filtro não foi encontrado, adiciona-o à URL
-                  queryParams.push(filter);
-              }
-
-              // Recria a string de consulta com os valores atualizados
-              const newQueryString = queryParams.join('&');
-
-              // Atualiza a URL
-              window.location.href = `${baseUrl}?${newQueryString}`;
-          } else {
-              // Se a URL não possui parâmetros de consulta, adiciona o filtro
-              window.location.href = `${currentUrl}?${filter}`;
+        queryParams.forEach((param, index) => {
+          if (param.startsWith(filter.split("=")[0])) {
+            // Substitua o valor do filtro na URL
+            queryParams[index] = filter;
+            filterFound = true;
           }
-      });
+        });
+
+        if (!filterFound) {
+          // Se o filtro não foi encontrado, adiciona-o à URL
+          queryParams.push(filter);
+        }
+
+        // Recria a string de consulta com os valores atualizados
+        const newQueryString = queryParams.join("&");
+
+        // Atualiza a URL
+        window.location.href = `${baseUrl}?${newQueryString}`;
+      } else {
+        // Se a URL não possui parâmetros de consulta, adiciona o filtro
+        window.location.href = `${currentUrl}?${filter}`;
+      }
+    });
   });
 
-let tabela_pesquisa
-if (window.location.href.includes('funcionarios')) {
-  tabela_pesquisa = 'funcionario'
-} else  {
-  tabela_pesquisa = 'usuario'
-}
+  let tabela_pesquisa;
+  if (window.location.href.includes("funcionarios")) {
+    tabela_pesquisa = "funcionario";
+  } else {
+    tabela_pesquisa = "usuario";
+  }
 
-// Autocomplete do campo de pesquisa
+  // Autocomplete do campo de pesquisa
   $(".nome-usuario").autocomplete({
-    source: "/autocomplete_usuarios/", 
+    source: "/autocomplete_usuarios/",
+    minLength: 2,
     data: {
-      tabela: `${tabela_pesquisa}`
+      tabela: `${tabela_pesquisa}`,
     },
     messages: {
-      noResults: '',
-    }
+      noResults: "",
+    },
   });
-  
-  $('#search-form').on('submit', function(event) {
+
+  $("#search-form").on("submit", function (event) {
     event.preventDefault();
-  
-    if (window.location.href.includes('usuarios')) {
+
+    if (window.location.href.includes("usuarios")) {
       this.action = "/usuarios";
-    } else if (window.location.href.includes('funcionarios')) {
+    } else if (window.location.href.includes("funcionarios")) {
       this.action = "/funcionarios";
-    }
-    else {
+    } else {
       this.action = "/";
     }
-  
+
     this.submit();
   });
 
@@ -145,22 +141,23 @@ if (window.location.href.includes('funcionarios')) {
   const destinatario = $('input[name="nome_destinatario_editar"]');
   const volumes = $('input[name="qtd_volumes_editar"]');
   const situacao = $('select[name="situacao_editar"]');
-  let confirmProtocolo = document.getElementById('confirm-protocolo');
+  const criado_por = document.getElementById("criado-por");
+  let confirmProtocolo = document.getElementById("confirm-protocolo");
 
-  $('tr > td .edit-btn').each(function() {
-    $(this).on('click', function() {
+  $("tr > td .edit-btn").each(function () {
+    $(this).on("click", function () {
       const dados = $(this).closest("tr");
       protocolo.attr("value", dados[0].cells[0].innerText);
       emitente.attr("value", dados[0].cells[1].innerText);
       destinatario.attr("value", dados[0].cells[2].innerText);
       volumes.attr("value", dados[0].cells[3].innerText);
       situacao.val(dados[0].cells[6].innerText);
-      funcionario.attr("value", dados[0].cells[8].innerText);
+      if (criado_por)
+        criado_por.innerText += ` ${dados[0].cells[7].innerText}`;
       if (confirmProtocolo)
         confirmProtocolo.innerHTML = `<strong>Protocolo#${dados[0].cells[0].innerText}</strong>`;
     });
   });
-
 
   //Usuário
   const id = $('input[name="usuario_id"]');
@@ -174,12 +171,11 @@ if (window.location.href.includes('funcionarios')) {
   const bairro = $('input[name="bairro_editar"]');
   const cidade = $('input[name="cidade_editar"]');
   const estado = $('input[name="estado_editar"]');
-  let confirmUsuario = document.getElementById('confirm-usuario');
+  let confirmUsuario = document.getElementById("confirm-usuario");
 
-
-  if (window.location.href.includes('usuarios')) {
-    $('tr > td .edit-btn').each(function() {
-      $(this).on('click', function() {
+  if (window.location.href.includes("usuarios")) {
+    $("tr > td .edit-btn").each(function () {
+      $(this).on("click", function () {
         const dados = $(this).closest("tr");
         id.attr("value", dados[0].cells[0].innerText);
         nome.attr("value", dados[0].cells[1].innerText);
@@ -204,18 +200,18 @@ if (window.location.href.includes('funcionarios')) {
   const cidadeInput = $('input[name="cidade"]');
   const estadoInput = $('input[name="estado"]');
 
-  cepInput.on('change', (event) => {
+  cepInput.on("change", (event) => {
     event.preventDefault();
     let cep = cepInput.val();
     try {
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then(response => response.json())
-    .then(body => {
-      ruaInput.val(body.logradouro);
-      bairroInput.val(body.bairro);
-      cidadeInput.val(body.localidade);
-      estadoInput.val(body.uf);
-    });
+        .then((response) => response.json())
+        .then((body) => {
+          ruaInput.val(body.logradouro);
+          bairroInput.val(body.bairro);
+          cidadeInput.val(body.localidade);
+          estadoInput.val(body.uf);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -224,11 +220,11 @@ if (window.location.href.includes('funcionarios')) {
   //Funcionário
   id_funcionario = $('input[name="funcionario_id"]');
   permissao = $('select[name="permissao_editar"]');
-  let confirmFuncionario = document.getElementById('confirm-funcionario');
+  let confirmFuncionario = document.getElementById("confirm-funcionario");
 
-  if (window.location.href.includes('funcionarios')) {
-    $('tr > td .edit-btn').each(function() {
-      $(this).on('click', function() {
+  if (window.location.href.includes("funcionarios")) {
+    $("tr > td .edit-btn").each(function () {
+      $(this).on("click", function () {
         const dados = $(this).closest("tr");
         id_funcionario.attr("value", dados[0].cells[0].innerText);
         nome.attr("value", dados[0].cells[1].innerText);
@@ -242,17 +238,16 @@ if (window.location.href.includes('funcionarios')) {
     });
   }
 
-
   // Animação dos cards dos números dos protocolos
-  const numerosTotais = document.querySelectorAll('.numero-total');
-  numerosTotais.forEach(numeroTotal => {
-    const valorFinal = parseInt(numeroTotal.getAttribute('data-numero'));
-    const duracao = 1000; // Duração da animação em milissegundos
-    const intervalo = 10; // Intervalo de atualização em milissegundos
-    
+  const numerosTotais = document.querySelectorAll(".numero-total");
+  numerosTotais.forEach((numeroTotal) => {
+    const valorFinal = parseInt(numeroTotal.getAttribute("data-numero"));
+    const duracao = 1000;
+    const intervalo = 10;
+
     const incremento = valorFinal / (duracao / intervalo);
     let valorAtual = 0;
-    
+
     function animarNumero() {
       if (valorAtual < valorFinal) {
         valorAtual += incremento;
@@ -264,14 +259,12 @@ if (window.location.href.includes('funcionarios')) {
     }
     animarNumero();
   });
-
 });
 
 function buscaCep(cep) {
   fetch(`https://viacep.com.br/ws/${cep}/json/`)
-  .then(response => response.text())
-  .then(body => {
+    .then((response) => response.text())
+    .then((body) => {
       resultadoCep.innerText = body;
-  });
+    });
 }
-
