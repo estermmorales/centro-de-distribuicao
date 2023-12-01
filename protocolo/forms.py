@@ -47,7 +47,6 @@ class ProtocoloForm(forms.ModelForm):
         emitente_nome = self.cleaned_data.get('emitente_nome')
         destinatario_nome = self.cleaned_data.get('destinatario_nome')
 
-        # Recupere os IDs do emitente e do destinatário com base nos nomes
         emitente = EmitenteDestinatario.objects.get(nome=emitente_nome)
         destinatario = EmitenteDestinatario.objects.get(nome=destinatario_nome)
 
