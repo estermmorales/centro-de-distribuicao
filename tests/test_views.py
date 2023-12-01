@@ -22,5 +22,5 @@ class ProtocoloTestCase(TestCase):
         dados = {
             'protocolos': '5',
         }
-        request = self.clientepost(reverse_lazy('protocolo'), data = dados)
+        request = self.cliente.post(reverse_lazy('protocolo'), data = dados)
         self.assertEquals(request.status_code, 200)
