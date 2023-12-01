@@ -141,6 +141,29 @@ def excluir_protocolo(request):
     protocolo.delete()
     return redirect('/')
 
+
+@login_required(login_url='/login')
+def pegar_protocolo_por_id(request, protocolo_id):
+    protocolo = Protocolo.objects.filter(id=protocolo_id)
+
+    total_retirado = protocolo.filter(situacao='retirado').count()
+    total_pendente = protocolo.filter(situacao='pendente').count()
+    total_cancelado = protocolo.filter(situacao='cancelado').count()
+
+    paginator = Paginator(protocolo, 1)
+    page = request.GET.get('page')
+    protocolo = paginator.get_page(page)
+
+    context = {
+        'protocolos': protocolo,
+        'total_retirado': total_retirado,
+        'total_pendente': total_pendente,
+        'total_cancelado': total_cancelado,
+    }
+
+    return render(request, 'protocolo.html', context)
+
+
 @login_required(login_url='/login')
 def usuarios(request):
     usuarios = EmitenteDestinatario.objects.all().order_by('-id')

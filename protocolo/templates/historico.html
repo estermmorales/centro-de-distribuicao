@@ -65,11 +65,12 @@
             {% for protocolo in historico %}
             <div class="table-container ml-5 card">
                 <ul class="card-content">
-                <li class="content">
+                <li class="content"><a href="{% url 'ver_protocolo' protocolo.protocolo.id %}">
                   {% if protocolo.operacao == "Retirado" %}
                     <span class="tag is-success is-light" style="margin:12px 12px 12px 0px">RETIRADO</span>
                     <p>{{protocolo.funcionario.nome}} alterou o status do Protocolo #{{protocolo.protocolo.id}} para Retirado</p>
                   {% elif protocolo.operacao == "Pendente" %}
+                  
                   <span class="tag is-warning is-light" style="margin:12px 12px 12px 0px">PEDENTE</span>
                   <p>{{protocolo.funcionario.nome}} adicionou um novo protocolo (Protocolo #{{protocolo.protocolo.id}})</p>
                   {% elif protocolo.operacao == "Cancelado" %}
@@ -77,7 +78,7 @@
                     <p>{{protocolo.funcionario.nome}} alterou o status do Protocolo #{{protocolo.protocolo.id}} para Cancelado</p>
                   {% endif %}
                     <span style="font-size:12px; color: #ccc;">{{protocolo.data}}</span>
-                </li>
+                  </a></li>
               </ul>
             </div>
             {% endfor %}

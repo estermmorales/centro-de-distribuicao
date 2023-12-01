@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.protocolo, name='protocolo'),
+    path("<int:protocolo_id>/", views.pegar_protocolo_por_id, name="ver_protocolo"),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('cadastrar_protocolo/', views.cadastrar_protocolo, name='cadastrar_protocolo'),
