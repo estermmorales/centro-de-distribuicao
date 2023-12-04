@@ -82,9 +82,6 @@ def cadastrar_protocolo(request):
         if form.is_valid():
             protocolo = form.save(commit=False)
 
-            print(request.user)  # Deve imprimir o usuário logado
-            print(request.user.nome)
-
             protocolo.id_funcionario = request.user
             protocolo.save() 
 
