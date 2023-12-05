@@ -325,7 +325,6 @@ def autocomplete_usuarios(request):
     else:
         usuarios = EmitenteDestinatario.objects.filter(nome__icontains=termo_pesquisa)  
     
-    # Crie uma lista de nomes de usuários correspondentes
     resultados = [usuario.nome for usuario in usuarios]
     
     return JsonResponse(resultados, safe=False)
@@ -343,7 +342,7 @@ def historico(request):
 
 class RelatorioPDF(View):
     def get(self, request, *args, **kwargs):
-        # Obtém os últimos 10 protocolos
+
         protocolos = Protocolo.objects.all().order_by('-id')[:10]
 
         template_path = 'relatorio.html'
