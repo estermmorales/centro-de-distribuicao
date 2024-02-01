@@ -74,6 +74,26 @@ def protocolo(request):
     return render(request, 'protocolo.html', context)
 
 
+@login_required(login_url='/login')
+def pegar_protocolo(request, protocolo_id):
+    protocolo = Protocolo.objects.get(id=protocolo_id)
+
+    emitente = EmitenteDestinatario.objects.get(id=protocolo.id_emitente.id)
+    destinatario = EmitenteDestinatario.objects.get(id=protocolo.id_destinatario.id)
+    funcionario = Funcionario.objects.get(id=protocolo.id_funcionario.id)
+
+    dados_protocolo = {
+        'protocolo': protocolo.id,
+        'emitente': emitente.nome,
+        'destinatario': destinatario.nome,
+        'volumes': protocolo.qtd_volumes,
+        'situacao': protocolo.situacao,
+        'criadoPor': funcionario.nome if funcionario else '',
+    }
+
+    return JsonResponse(dados_protocolo)
+
+
 
 @login_required(login_url='/login')
 def cadastrar_protocolo(request):
@@ -210,6 +230,27 @@ def cadastrar_usuarios(request):
     return redirect('usuarios')
 
 @login_required(login_url='/login')
+def pegar_usuario(request, usuario_id):
+    usuario = EmitenteDestinatario.objects.get(id=usuario_id)
+
+    endereco = Endereco.objects.get(id=usuario.id_endereco.id)
+
+    dados_usuario = {
+        'usuario': usuario.id,
+        'nome': usuario.nome,
+        'email': usuario.email,
+        'telefone': usuario.telefone,
+        'documento': usuario.documento,
+        'cep': endereco.cep,
+        'rua': endereco.rua,
+        'bairro': endereco.bairro,
+        'cidade': endereco.cidade,
+        'estado': endereco.estado
+    }
+
+    return JsonResponse(dados_usuario)
+
+@login_required(login_url='/login')
 def editar_usuario(request):
     usuario = EmitenteDestinatario.objects.get(id=request.POST.get('usuario_id'))
     nome = request.POST.get('nome_editar')
@@ -284,6 +325,21 @@ def cadastrar_funcionario(request):
     else:
         form = FuncionarioForm()
     return redirect('funcionarios')
+
+@login_required(login_url='/login')
+def pegar_funcionario(request, funcionario_id):
+    funcionario = Funcionario.objects.get(id=funcionario_id)
+
+    dados_funcionario = {
+        'usuario': funcionario.id,
+        'nome': funcionario.nome,
+        'email': funcionario.email,
+        'telefone': funcionario.telefone,
+        'documento': funcionario.documento,
+        'permissao': funcionario.permissao
+    }
+
+    return JsonResponse(dados_funcionario)
 
 @login_required(login_url='/login')
 def editar_funcionario(request):
